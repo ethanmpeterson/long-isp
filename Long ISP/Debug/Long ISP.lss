@@ -1,8 +1,10 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 21 16:05:56 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 21 16:39:09 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
+C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
+C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
                                  
                                  ;
                                  
@@ -992,6 +994,30 @@ AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\ma
                                  ;
                                  
                                  .cseg                                          ;load into Program Memory
+                                 #include "prescalers.h"
+                                 
+                                 // Prescale constants for ATmega328P Timers
+                                 #define T0Stopped 0b00000000              ; Timer0 stopped
+                                 #define T0psNone  0b00000001              ; T0:2^24/2^8  (no prescale)> 2^? ovf/s = ? Hz
+                                 #define T0ps8     0b00000010              ; T0:2^24/2^3/2^8 (prescale)> 2^? ovf/s = ? Hz
+                                 #define T0ps64    0b00000011              ; T0:2^24/2^6/2^8 (prescale)> 2^? ovf/s = ? Hz
+                                 #define T0ps256   0b00000100              ; T0:2^24/2^8/2^8 (prescale)> 2^? ovf/s = ? Hz
+                                 #define T0ps1024  0b00000101              ; T0:2^24/2^10/2^8(prescale)> 2^? ovf/s = ? Hz
+                                 #define T1Stopped 0b00000000              ; Timer1 stopped
+                                 #define T1psNone  0b00000001              ; T1:2^24/2^16  (no prescale)> 2^8 ovf/s > 128Hz
+                                 #define T1ps8     0b00000010              ; T1:2^24/2^3/2^16 (prescale)> 2^5 ovf/s > 16Hz
+                                 #define T1ps64    0b00000011              ; T1:2^24/2^6/2^16 (prescale)> 2^2 ovf/s > 2Hz
+                                 #define T1ps256   0b00000100              ; T1:2^24/2^8/2^16 (prescale)> 1 ovf/s   > 0.5Hz
+                                 #define T1ps1024  0b00000101              ; T1:2^24/2^10/2^16(prescale)> 0.25 ovf/s> 0.125Hz
+                                 #define T2Stopped 0b00000000              ; Timer2 stopped
+                                 #define T2psNone  0b00000001              ; T2:2^24/2^8  (no prescale)> 2^? ovf/s > ? Hz
+                                 #define T2ps8     0b00000010              ; T2:2^24/2^3/2^8 (prescale)> 2^? ovf/s = ? Hz
+                                 #define T2ps32    0b00000011              ; T2:2^24/2^5/2^8 (prescale)> 2^? ovf/s = ? Hz
+                                 #define T2ps64    0b00000100              ; T2:2^24/2^6/2^8 (prescale)> 2^? ovf/s = ? Hz
+                                 #define T2ps128   0b00000101              ; T2:2^24/2^7/2^8(prescale)> 2^? ovf/s = ? Hz
+                                 #define T2ps256   0b00000110              ; T2:2^24/2^8/2^8(prescale)> 2^? ovf/s = ? Hz
+                                 #define T2ps1024  0b00000111              ; T2:2^24/2^10/2^8(prescale)> 2^? ovf/s = ? Hz
+                                 
                                  .org   0x0000                          ;start of Interrupt Vector (Jump) Table
 000000 c0ff                              rjmp    reset                           ;address  of start of code
                                  startTable:    
@@ -1000,8 +1026,10 @@ AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\ma
 000002 5e20
 000003 451c
 000004 3330
-C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(13): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): warning: .cseg .db misalignment - padding zero byte
 000005 000f                      		.DB 5, 57, 32, 94, 28, 69, 48, 51, 15
+                                 .org 0x000E
+00000e c14a                      	rjmp TIM2_COMPA
                                  endTable:
                                  .org    0x100                                   ;abitrary address for start of code
                                   reset:
@@ -1013,7 +1041,7 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(13): warning
                                  
 000105 e0a2                         ldi             xl,low(startTable<<1)   ;position X and Y pointers to the
 000106 e0b0                         ldi             xh,high(startTable<<1)  ; start and end addresses of
-000107 e0cc                         ldi             yl,low(endTable<<1)     ; our data table, respectively
+000107 e1ce                         ldi             yl,low(endTable<<1)     ; our data table, respectively
 000108 e0d0                         ldi             yh,high(endTable<<1)    ;
 000109 01fd                         movw    z,x
                                  
@@ -1025,14 +1053,29 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(13): warning
                                  	.def times = r25 ; register holding the number of bit shifts the double dabble algorithm must do before being complete
                                  	.def input = r21 ; raw graycode input from rotary encoder
                                  
+                                 timers:
+00010a 94f8                      	cli
+00010b e007                      	ldi r16, T2ps1024 ; set the prescaler
+00010c 9300 00b1                 	sts TCCR2B, r16 ; store to appropriate register
+00010e e002                      	ldi r16, 0x02 ; set timer mode 2
+00010f 9300 00b0                 	sts TCCR2A, r16 ; store
+000111 e70c                      	ldi r16, 124 ; set output compare number to get 63hz freq
+000112 9300 00b3                 	sts OCR2A, r16 ; store to output compare reg
+                                 
+000114 e002                      	ldi r16, 1 << OCIE2A ; set timer interrupt enable bit
+000115 9300 0070                 	sts TIMSK2, r16 ; enable the interrupt
+                                 	; add 2.5s delay
+000117 9478                      	sei
+                                 
                                  start:
-00010a e043                      	ldi addReg, 3
-00010b e098                      	ldi times, 8
+000118 e043                      	ldi addReg, 3
+000119 e098                      	ldi times, 8
                                  	; clear registers storing double dabble output and input from rotary switch
-00010c 2711                      	clr onesTens
-00010d 2766                      	clr hundreds
-00010e 2755                      	clr input
-00010f b95a                      	out 0x0A, input ; clear DDRD register using 0 value in input register
+00011a 2711                      	clr onesTens
+00011b 2766                      	clr hundreds
+00011c 2755                      	clr input
+00011d b95a                      	out 0x0A, input ; clear DDRD register using 0 value in input register
+                                 
                                  
                                  getInput:
                                  /*	in input, 0x09 ; load PIND into input register
@@ -1044,10 +1087,10 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(13): warning
                                      movw z,x*/
                                  
                                  	// Get random byte value to be challenge val for binary challenge
-000110 e052                      	ldi input, 2
-000111 0fe5                      	add zl, input
-000112 9104                      	lpm original, z
-000113 c000                      	rjmp decideStep ; head into double dabble algorithm with the random number input
+00011e e050                      	ldi input, 0
+00011f 0fe5                      	add zl, input
+000120 9104                      	lpm original, z
+000121 c000                      	rjmp decideStep ; head into double dabble algorithm with the random number input
                                  	
                                  	
                                  
@@ -1055,78 +1098,82 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(13): warning
                                  decideStep:
                                  ; check if 3 needs to be added to any of the ones tens or hundreds nibbles
                                  checkOnes:
-000114 2f81                      	mov working, onesTens
-000115 708f                      	andi working, 0b00001111 ; analyze only the lower nibble where ones value is
-000116 3085                      	cpi working, 5
-000117 f468                      	brsh addThreeOnes
+000122 2f81                      	mov working, onesTens
+000123 708f                      	andi working, 0b00001111 ; analyze only the lower nibble where ones value is
+000124 3085                      	cpi working, 5
+000125 f468                      	brsh addThreeOnes
                                  checkTens:
-000118 2f81                      	mov working, onesTens
-000119 7f80                      	andi working, 0b11110000 ; analyze only the upper nibble where tens value is stored
-00011a 3580                      	cpi working, 80
-00011b f458                      	brsh addThreeTens
+000126 2f81                      	mov working, onesTens
+000127 7f80                      	andi working, 0b11110000 ; analyze only the upper nibble where tens value is stored
+000128 3580                      	cpi working, 80
+000129 f458                      	brsh addThreeTens
                                  checkHundreds:
-00011c 3065                      	cpi hundreds, 5
-00011d f468                      	brsh addThreeHundreds
+00012a 3065                      	cpi hundreds, 5
+00012b f468                      	brsh addThreeHundreds
                                  ; bit shift
                                  shift:
-00011e 0f00                      	lsl original
-00011f 1f11                      	rol onesTens
-000120 1f66                      	rol hundreds
-000121 959a                      	dec times
-000122 3090                      	cpi times, 0 ; if the original value has been shifted 8 times move to POV section of the code
-000123 f049                      	breq display
-000124 cfef                      	rjmp decideStep ; otherwise repeat
+00012c 0f00                      	lsl original
+00012d 1f11                      	rol onesTens
+00012e 1f66                      	rol hundreds
+00012f 959a                      	dec times
+000130 3090                      	cpi times, 0 ; if the original value has been shifted 8 times move to POV section of the code
+000131 f049                      	breq display
+000132 cfef                      	rjmp decideStep ; otherwise repeat
                                  
                                  addThreeOnes:
-000125 0f14                      	add onesTens, addReg
-000126 cff1                      	rjmp checkTens
+000133 0f14                      	add onesTens, addReg
+000134 cff1                      	rjmp checkTens
                                  
                                  addThreeTens:
-000127 9512                      	swap onesTens
-000128 0f14                      	add onesTens, addReg
-000129 9512                      	swap onesTens
-00012a cff1                      	rjmp checkHundreds
+000135 9512                      	swap onesTens
+000136 0f14                      	add onesTens, addReg
+000137 9512                      	swap onesTens
+000138 cff1                      	rjmp checkHundreds
                                  
                                  addThreeHundreds:
-00012b 0f64                      	add hundreds, addReg
-00012c cff1                      	rjmp shift
+000139 0f64                      	add hundreds, addReg
+00013a cff1                      	rjmp shift
                                  
                                  display:
-00012d e007                      	ldi r16, 1 << PB2 | 1 << PB1 | 1 << PB0
-00012e b904                      	out 0x04, r16 ; set all transistor manipulation pins to output
-00012f e004                      	ldi r16, 1 << PB2 
-000130 b905                      	out 0x05, r16 ; enable only hundreds display
-000131 ef0f                      	ldi r16, 0xFF
-000132 b907                      	out 0x07, r16 ; set 4511 outputs
-000133 2f06                      	mov r16, hundreds
-000134 b908                      	out 0x08, r16
-000135 d00f                      	rcall delay
+00013b e007                      	ldi r16, 1 << PB2 | 1 << PB1 | 1 << PB0
+00013c b904                      	out 0x04, r16 ; set all transistor manipulation pins to output
+00013d e004                      	ldi r16, 1 << PB2 
+00013e b905                      	out 0x05, r16 ; enable only hundreds display
+00013f ef0f                      	ldi r16, 0xFF
+000140 b907                      	out 0x07, r16 ; set 4511 outputs
+000141 2f06                      	mov r16, hundreds
+000142 b908                      	out 0x08, r16
+000143 d00e                      	rcall delay
                                  	; switch to tens display
-000136 e002                      	ldi r16, 1 << PB1
-000137 b905                      	out 0x05, r16
-000138 2f81                      	mov working, onesTens
-000139 7f80                      	andi working, 0b11110000
-00013a 9582                      	swap working
-00013b b988                      	out 0x08, working ; display tens
-00013c d008                      	rcall delay
+000144 e002                      	ldi r16, 1 << PB1
+000145 b905                      	out 0x05, r16
+000146 2f81                      	mov working, onesTens
+000147 7f80                      	andi working, 0b11110000
+000148 9582                      	swap working
+000149 b988                      	out 0x08, working ; display tens
+00014a d007                      	rcall delay
                                  	; switch to ones Display
-00013d e001                      	ldi r16, 1 << PB0
-00013e b905                      	out 0x05, r16
-00013f 2f81                      	mov working, onesTens
-000140 708f                      	andi working, 0b00001111
-000141 b988                      	out 0x08, working
-000142 d002                      	rcall delay ; admire
-000143 cfbc                      	rjmp reset ; restart the program to update input value and reset the required registers
-000144 cfe8                      	rjmp display
+00014b e001                      	ldi r16, 1 << PB0
+00014c b905                      	out 0x05, r16
+00014d 2f81                      	mov working, onesTens
+00014e 708f                      	andi working, 0b00001111
+00014f b988                      	out 0x08, working
+000150 d001                      	rcall delay ; admire
+                                 	//rjmp reset ; restart the program to update input value and reset the required registers
+000151 cfe9                      	rjmp display ; never reached
                                  
                                  delay: ; 1 ms delay
-000145 e02b                      ldi  r18, 11
-000146 e633                          ldi  r19, 99
-000147 953a                      L1: dec  r19
-000148 f7f1                          brne L1
-000149 952a                          dec  r18
-00014a f7e1                          brne L1
-00014b 9508                      	ret
+000152 e02b                      ldi  r18, 11
+000153 e633                          ldi  r19, 99
+000154 953a                      L1: dec  r19
+000155 f7f1                          brne L1
+000156 952a                          dec  r18
+000157 f7e1                          brne L1
+000158 9508                      	ret
+                                 
+                                 TIM2_COMPA:
+000159 9513                      	inc onesTens
+00015a 9518                      	reti
                                  
 
 
@@ -1147,7 +1194,7 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   1 y  :   0 z  :   2 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  18 r17:  10 r18:   2 r19:   2 r20:   4 
+r13:   0 r14:   0 r15:   0 r16:  26 r17:  11 r18:   2 r19:   2 r20:   4 
 r21:   4 r22:   6 r23:   0 r24:  13 r25:   3 r26:   1 r27:   1 r28:   1 
 r29:   1 r30:   1 r31:   0 
 Registers used: 16 out of 35 (45.7%)
@@ -1159,25 +1206,25 @@ brcc  :   0 brcs  :   0 break :   0 breq  :   1 brge  :   0 brhc  :   0
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   2 brpl  :   0 brsh  :   3 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   4 cls   :   0 
+clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :   4 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   4 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  16 lds   :   0 lpm   :   2 lsl   :   1 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
+ld    :   0 ldd   :   0 ldi   :  20 lds   :   0 lpm   :   2 lsl   :   1 
 lsr   :   0 mov   :   5 movw  :   1 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  11 pop   :   0 
-push  :   0 rcall :   3 ret   :   1 reti  :   0 rjmp  :   8 rol   :   2 
+push  :   0 rcall :   3 ret   :   1 reti  :   1 rjmp  :   8 rol   :   2 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
-sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
+sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   4 
 sub   :   0 subi  :   0 swap  :   3 tst   :   0 wdr   :   0 
-Instructions used: 19 out of 113 (16.8%)
+Instructions used: 24 out of 113 (21.2%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000298    154     10    164   32768   0.5%
+[.cseg] 0x000000 0x0002b6    186     10    196   32768   0.6%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

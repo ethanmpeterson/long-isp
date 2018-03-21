@@ -10,6 +10,7 @@
  <SOURCE_FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc</FILE>
+  <FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\Debug\Long ISP.obj</FILE>
@@ -22,21 +23,23 @@
   <FILE>Long ISP.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <reset><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>16</LINE></reset>
-  <startTable><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>11</LINE></startTable>
-  <endTable><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>14</LINE></endTable>
-  <start><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>37</LINE></start>
-  <getInput><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>46</LINE></getInput>
-  <decideStep><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>64</LINE></decideStep>
-  <checkOnes><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>66</LINE></checkOnes>
-  <addThreeOnes><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>89</LINE></addThreeOnes>
-  <checkTens><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>71</LINE></checkTens>
-  <addThreeTens><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>93</LINE></addThreeTens>
-  <checkHundreds><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>76</LINE></checkHundreds>
-  <addThreeHundreds><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>99</LINE></addThreeHundreds>
-  <shift><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>80</LINE></shift>
-  <display><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>103</LINE></display>
-  <delay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>131</LINE></delay>
-  <L1><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>134</LINE></L1>
+  <reset><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>19</LINE></reset>
+  <startTable><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>12</LINE></startTable>
+  <TIM2_COMPA><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>158</LINE></TIM2_COMPA>
+  <endTable><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>17</LINE></endTable>
+  <timers><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>40</LINE></timers>
+  <start><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>54</LINE></start>
+  <getInput><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>64</LINE></getInput>
+  <decideStep><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>82</LINE></decideStep>
+  <checkOnes><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>84</LINE></checkOnes>
+  <addThreeOnes><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>107</LINE></addThreeOnes>
+  <checkTens><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>89</LINE></checkTens>
+  <addThreeTens><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>111</LINE></addThreeTens>
+  <checkHundreds><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>94</LINE></checkHundreds>
+  <addThreeHundreds><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>117</LINE></addThreeHundreds>
+  <shift><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>98</LINE></shift>
+  <display><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>121</LINE></display>
+  <delay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>149</LINE></delay>
+  <L1><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>152</LINE></L1>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 21 16:05:56 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 21 16:39:09 2018
 
 
 EQU  SIGNATURE_000 0000001e
@@ -697,7 +697,8 @@ EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
 CSEG reset        00000100
 CSEG startTable   00000001
-CSEG endTable     00000006
+CSEG TIM2_COMPA   00000159
+CSEG endTable     0000000f
 DEF  original     r16
 DEF  onesTens     r17
 DEF  hundreds     r22
@@ -705,16 +706,17 @@ DEF  working      r24
 DEF  addReg       r20
 DEF  times        r25
 DEF  input        r21
-CSEG start        0000010a
-CSEG getInput     00000110
-CSEG decideStep   00000114
-CSEG checkOnes    00000114
-CSEG addThreeOnes 00000125
-CSEG checkTens    00000118
-CSEG addThreeTens 00000127
-CSEG checkHundreds 0000011c
-CSEG addThreeHundreds 0000012b
-CSEG shift        0000011e
-CSEG display      0000012d
-CSEG delay        00000145
-CSEG L1           00000147
+CSEG timers       0000010a
+CSEG start        00000118
+CSEG getInput     0000011e
+CSEG decideStep   00000122
+CSEG checkOnes    00000122
+CSEG addThreeOnes 00000133
+CSEG checkTens    00000126
+CSEG addThreeTens 00000135
+CSEG checkHundreds 0000012a
+CSEG addThreeHundreds 00000139
+CSEG shift        0000012c
+CSEG display      0000013b
+CSEG delay        00000152
+CSEG L1           00000154

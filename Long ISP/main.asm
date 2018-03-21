@@ -6,11 +6,14 @@
 ;
 
 .cseg                                          ;load into Program Memory
+#include "prescalers.h"
 .org   0x0000                          ;start of Interrupt Vector (Jump) Table
         rjmp    reset                           ;address  of start of code
 startTable:    
 		// A set of random numbers until I know how to generate them in assembly language
 		.DB 5, 57, 32, 94, 28, 69, 48, 51, 15
+.org 0x000E
+	rjmp TIM2_COMPA
 endTable:
 .org    0x100                                   ;abitrary address for start of code
  reset:
@@ -34,6 +37,20 @@ endTable:
 	.def times = r25 ; register holding the number of bit shifts the double dabble algorithm must do before being complete
 	.def input = r21 ; raw graycode input from rotary encoder
 
+timers:
+	cli
+	ldi r16, T2ps1024 ; set the prescaler
+	sts TCCR2B, r16 ; store to appropriate register
+	ldi r16, 0x02 ; set timer mode 2
+	sts TCCR2A, r16 ; store
+	ldi r16, 124 ; set output compare number to get 63hz freq
+	sts OCR2A, r16 ; store to output compare reg
+
+	ldi r16, 1 << OCIE2A ; set timer interrupt enable bit
+	sts TIMSK2, r16 ; enable the interrupt
+	; add 2.5s delay
+	sei
+
 start:
 	ldi addReg, 3
 	ldi times, 8
@@ -42,6 +59,7 @@ start:
 	clr hundreds
 	clr input
 	out 0x0A, input ; clear DDRD register using 0 value in input register
+
 
 getInput:
 /*	in input, 0x09 ; load PIND into input register
@@ -53,7 +71,7 @@ getInput:
     movw z,x*/
 
 	// Get random byte value to be challenge val for binary challenge
-	ldi input, 2
+	ldi input, 0
 	add zl, input
 	lpm original, z
 	rjmp decideStep ; head into double dabble algorithm with the random number input
@@ -125,8 +143,8 @@ display:
 	andi working, 0b00001111
 	out 0x08, working
 	rcall delay ; admire
-	rjmp reset ; restart the program to update input value and reset the required registers
-	rjmp display
+	//rjmp reset ; restart the program to update input value and reset the required registers
+	rjmp display ; never reached
 
 delay: ; 1 ms delay
 ldi  r18, 11
@@ -136,4 +154,8 @@ L1: dec  r19
     dec  r18
     brne L1
 	ret
+
+TIM2_COMPA:
+	inc onesTens
+	reti
 
