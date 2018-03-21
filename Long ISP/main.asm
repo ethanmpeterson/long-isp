@@ -11,7 +11,7 @@
         rjmp    reset                           ;address  of start of code
 startTable:    
 		// A set of random numbers until I know how to generate them in assembly language
-		.DB 5, 57, 32, 94, 28, 69, 48, 51, 15
+		.DB 2, 57, 32, 94, 28, 69, 48, 51, 15
 .org 0x000E
 	rjmp TIM2_COMPA
 endTable:
@@ -144,7 +144,7 @@ display:
 	out 0x08, working
 	rcall delay ; admire
 	//rjmp reset ; restart the program to update input value and reset the required registers
-	rjmp display ; never reached
+	rjmp display ;
 
 delay: ; 1 ms delay
 ldi  r18, 11
@@ -156,6 +156,25 @@ L1: dec  r19
 	ret
 
 TIM2_COMPA:
-	inc onesTens
+	//inc onesTens
+	rcall checkEqual
+	else:
 	reti
 
+checkEqual:
+	in input, PIND
+	cp input, original
+	breq equal
+	rjmp else
+	yes:
+	inc onesTens
+	ret
+	no:
+	ret
+
+equal:
+	rcall delay
+	in input, PIND
+	cp input, original
+	breq yes
+	rjmp no

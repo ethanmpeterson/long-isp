@@ -41,5 +41,10 @@
   <display><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>121</LINE></display>
   <delay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>149</LINE></delay>
   <L1><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>152</LINE></L1>
+  <checkEqual><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>164</LINE></checkEqual>
+  <else><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>161</LINE></else>
+  <equal><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>175</LINE></equal>
+  <yes><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>169</LINE></yes>
+  <no><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>172</LINE></no>
  </LABELS>
 </ASSEMBLER_INFO>

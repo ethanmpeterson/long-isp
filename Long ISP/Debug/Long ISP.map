@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 21 16:39:09 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 21 18:10:40 2018
 
 
 EQU  SIGNATURE_000 0000001e
@@ -720,3 +720,8 @@ CSEG shift        0000012c
 CSEG display      0000013b
 CSEG delay        00000152
 CSEG L1           00000154
+CSEG checkEqual   0000015b
+CSEG else         0000015a
+CSEG equal        00000162
+CSEG yes          0000015f
+CSEG no           00000161
