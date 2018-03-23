@@ -11,19 +11,19 @@
         rjmp    reset                           ;address  of start of code
 startTable:    
 		// A set of random numbers until I know how to generate them in assembly language
-		.DB 2, 57, 32, 94, 28, 69, 48, 51, 15
+		.DB 4, 7, 32, 94, 28, 69, 48, 51, 15
 .org 0x000E
 	rjmp TIM2_COMPA
 endTable:
 .org    0x100                                   ;abitrary address for start of code
  reset:
 	clr r22
-    ldi             r16, low(RAMEND)        ;ALL assembly code should start by
+    ldi             r16, low(RAMEND)        ; ALL assembly code should start by
     out             spl,r16                 ; setting the Stack Pointer to
     ldi             r16, high(RAMEND)       ; the end of SRAM to support
     out             sph,r16                 ; function calls, etc.
 
-   ldi             xl,low(startTable<<1)   ;position X and Y pointers to the
+   ldi             xl,low(startTable<<1)   ; position X and Y pointers to the
    ldi             xh,high(startTable<<1)  ; start and end addresses of
    ldi             yl,low(endTable<<1)     ; our data table, respectively
    ldi             yh,high(endTable<<1)    ;
@@ -36,6 +36,7 @@ endTable:
 	.def addReg = r20 ; holds a value of 3 to be added to other registers in the double dabble process
 	.def times = r25 ; register holding the number of bit shifts the double dabble algorithm must do before being complete
 	.def input = r21 ; raw graycode input from rotary encoder
+	.def score = r23 ; incrimented upon each correct binary combo
 
 timers:
 	cli
@@ -51,14 +52,21 @@ timers:
 	; add 2.5s delay
 	sei
 
+setup:
+	clr input
+	clr score
+	rjmp loop
+
 start:
+	//clr score 
 	ldi addReg, 3
 	ldi times, 8
 	; clear registers storing double dabble output and input from rotary switch
 	clr onesTens
 	clr hundreds
-	clr input
-	out 0x0A, input ; clear DDRD register using 0 value in input register
+	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
+	ret
+	//out 
 
 
 getInput:
@@ -71,13 +79,13 @@ getInput:
     movw z,x*/
 
 	// Get random byte value to be challenge val for binary challenge
-	ldi input, 0
+	inc input
 	add zl, input
 	lpm original, z
-	rjmp decideStep ; head into double dabble algorithm with the random number input
+	ret 
 	
 	
-
+doubleDabble:
 
 decideStep:
 ; check if 3 needs to be added to any of the ones tens or hundreds nibbles
@@ -101,7 +109,7 @@ shift:
 	rol hundreds
 	dec times
 	cpi times, 0 ; if the original value has been shifted 8 times move to POV section of the code
-	breq display
+	breq endDabble //display
 	rjmp decideStep ; otherwise repeat
 
 addThreeOnes:
@@ -117,6 +125,8 @@ addThreeTens:
 addThreeHundreds:
 	add hundreds, addReg
 	rjmp shift
+endDabble:
+	ret
 
 display:
 	ldi r16, 1 << PB2 | 1 << PB1 | 1 << PB0
@@ -144,7 +154,7 @@ display:
 	out 0x08, working
 	rcall delay ; admire
 	//rjmp reset ; restart the program to update input value and reset the required registers
-	rjmp display ;
+	ret ;
 
 delay: ; 1 ms delay
 ldi  r18, 11
@@ -157,24 +167,16 @@ L1: dec  r19
 
 TIM2_COMPA:
 	//inc onesTens
-	rcall checkEqual
-	else:
+	//rcall checkEqual
+	in input, PIND
+	//cp input, original
+	//breq getInput
+	//mov hundreds, input
+	rcall start
+	//rcall getInput
+	//rcall doubleDabble
 	reti
 
-checkEqual:
-	in input, PIND
-	cp input, original
-	breq equal
-	rjmp else
-	yes:
-	inc onesTens
-	ret
-	no:
-	ret
-
-equal:
-	rcall delay
-	in input, PIND
-	cp input, original
-	breq yes
-	rjmp no
+loop:
+	rcall display
+	rjmp loop

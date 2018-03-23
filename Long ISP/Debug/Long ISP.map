@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 21 18:10:40 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Fri Mar 23 14:21:51 2018
 
 
 EQU  SIGNATURE_000 0000001e
@@ -697,7 +697,7 @@ EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
 CSEG reset        00000100
 CSEG startTable   00000001
-CSEG TIM2_COMPA   00000159
+CSEG TIM2_COMPA   0000015d
 CSEG endTable     0000000f
 DEF  original     r16
 DEF  onesTens     r17
@@ -706,22 +706,22 @@ DEF  working      r24
 DEF  addReg       r20
 DEF  times        r25
 DEF  input        r21
+DEF  score        r23
 CSEG timers       0000010a
-CSEG start        00000118
-CSEG getInput     0000011e
-CSEG decideStep   00000122
-CSEG checkOnes    00000122
-CSEG addThreeOnes 00000133
-CSEG checkTens    00000126
-CSEG addThreeTens 00000135
-CSEG checkHundreds 0000012a
-CSEG addThreeHundreds 00000139
-CSEG shift        0000012c
-CSEG display      0000013b
-CSEG delay        00000152
-CSEG L1           00000154
-CSEG checkEqual   0000015b
-CSEG else         0000015a
-CSEG equal        00000162
-CSEG yes          0000015f
-CSEG no           00000161
+CSEG setup        00000118
+CSEG loop         00000160
+CSEG start        0000011b
+CSEG getInput     00000121
+CSEG doubleDabble 00000125
+CSEG decideStep   00000125
+CSEG checkOnes    00000125
+CSEG addThreeOnes 00000136
+CSEG checkTens    00000129
+CSEG addThreeTens 00000138
+CSEG checkHundreds 0000012d
+CSEG addThreeHundreds 0000013c
+CSEG shift        0000012f
+CSEG endDabble    0000013e
+CSEG display      0000013f
+CSEG delay        00000156
+CSEG L1           00000158
