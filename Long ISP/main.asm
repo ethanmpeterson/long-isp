@@ -58,7 +58,6 @@ setup:
 	rjmp loop
 
 start:
-	//clr score 
 	ldi addReg, 3
 	ldi times, 8
 	; clear registers storing double dabble output and input from rotary switch
@@ -66,7 +65,6 @@ start:
 	clr hundreds
 	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
 	ret
-	//out 
 
 
 getInput:
@@ -174,7 +172,10 @@ TIM2_COMPA:
 	//mov hundreds, input
 	rcall start
 	//rcall getInput
-	//rcall doubleDabble
+	//clr input
+	//ldi original, 255
+	in original, PIND
+	rcall doubleDabble
 	reti
 
 loop:
