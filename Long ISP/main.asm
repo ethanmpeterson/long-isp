@@ -61,11 +61,11 @@ setup:
 	rjmp loop
 
 start:
-	ldi addReg, 3
-	ldi times, 8
+	//ldi addReg, 3
+	//ldi times, 8
 	; clear registers storing double dabble output and input from rotary switch
-	clr onesTens
-	clr hundreds
+	//clr onesTens
+	//clr hundreds
 	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
 	// load original with data from table
 	//clr zl
@@ -96,7 +96,10 @@ getInput:
 	
 	
 doubleDabble:
-
+	ldi addReg, 3
+	ldi times, 8
+	clr onesTens
+	clr hundreds
 decideStep:
 ; check if 3 needs to be added to any of the ones tens or hundreds nibbles
 checkOnes:

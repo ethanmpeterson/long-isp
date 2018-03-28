@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 28 14:43:40 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 28 15:14:09 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
 C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
@@ -1076,23 +1076,23 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
 00011c c049                      	rjmp loop
                                  
                                  start:
-00011d e043                      	ldi addReg, 3
-00011e e098                      	ldi times, 8
+                                 	//ldi addReg, 3
+                                 	//ldi times, 8
                                  	; clear registers storing double dabble output and input from rotary switch
-00011f 2711                      	clr onesTens
-000120 2766                      	clr hundreds
-000121 b96a                      	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
+                                 	//clr onesTens
+                                 	//clr hundreds
+00011d b96a                      	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
                                  	// load original with data from table
                                  	//clr zl
                                  	//lpm original, z
                                  	//movw z,x
                                  	//ldi index, 64
-000122 2fe7                      	mov zl, index
-000123 9104                      	lpm original, z
-000124 90e4                      	lpm copy, z
-000125 01fd                      	movw z, x
+00011e 2fe7                      	mov zl, index
+00011f 9104                      	lpm original, z
+000120 90e4                      	lpm copy, z
+000121 01fd                      	movw z, x
                                  	//mov original, index
-000126 9508                      	ret
+000122 9508                      	ret
                                  
                                  
                                  getInput:
@@ -1107,11 +1107,14 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
                                  	// Get random byte value to be challenge val for binary challenge
                                  	//inc input
                                  
-000127 9508                      	ret 
+000123 9508                      	ret 
                                  	
                                  	
                                  doubleDabble:
-                                 
+000124 e043                      	ldi addReg, 3
+000125 e098                      	ldi times, 8
+000126 2711                      	clr onesTens
+000127 2766                      	clr hundreds
                                  decideStep:
                                  ; check if 3 needs to be added to any of the ones tens or hundreds nibbles
                                  checkOnes:
@@ -1206,7 +1209,7 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
                                  	//clr input
                                  	//ldi original, 255
                                  	
-000164 dfc3                      	rcall doubleDabble
+000164 dfbf                      	rcall doubleDabble
 000165 9518                      	reti
                                  
                                  loop:
@@ -1217,7 +1220,7 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
                                  	//inc index
 000168 9573                      	inc index
 000169 dfb3                      	rcall start
-00016a dfbd                      	rcall doubleDabble
+00016a dfb9                      	rcall doubleDabble
 
 
 RESOURCE USE INFORMATION
