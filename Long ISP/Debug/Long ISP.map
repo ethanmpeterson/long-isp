@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 28 15:14:09 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 28 15:28:04 2018
 
 
 EQU  SIGNATURE_000 0000001e
@@ -697,7 +697,7 @@ EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
 CSEG reset        00000100
 CSEG startTable   00000001
-CSEG TIM2_COMPA   00000160
+CSEG TIM2_COMPA   00000142
 CSEG endTable     0000000f
 DEF  original     r16
 DEF  onesTens     r17
@@ -711,20 +711,28 @@ DEF  score        r15
 DEF  copy         r14
 CSEG timers       0000010a
 CSEG setup        00000118
-CSEG loop         00000166
+CSEG loop         00000164
 CSEG start        0000011d
 CSEG getInput     00000123
-CSEG doubleDabble 00000124
-CSEG decideStep   00000128
-CSEG checkOnes    00000128
-CSEG addThreeOnes 00000139
-CSEG checkTens    0000012c
-CSEG addThreeTens 0000013b
-CSEG checkHundreds 00000130
-CSEG addThreeHundreds 0000013f
-CSEG shift        00000132
-CSEG endDabble    00000141
-CSEG display      00000142
-CSEG delay        00000159
-CSEG L1           0000015b
-CSEG isEqual      00000168
+CSEG display      00000124
+CSEG delay        0000013b
+CSEG L1           0000013d
+CSEG isEqual      00000166
+CSEG decideStep@doubleDabble@1242 0000014a
+CSEG checkOnes@doubleDabble@1242 0000014a
+CSEG checkTens@doubleDabble@1242 0000014e
+CSEG checkHundreds@doubleDabble@1242 00000152
+CSEG shift@doubleDabble@1242 00000154
+CSEG addThreeOnes@doubleDabble@1242 0000015b
+CSEG addThreeTens@doubleDabble@1242 0000015d
+CSEG addThreeHundreds@doubleDabble@1242 00000161
+CSEG endDabble@doubleDabble@1242 00000163
+CSEG decideStep@doubleDabble@1300 0000016c
+CSEG checkOnes@doubleDabble@1300 0000016c
+CSEG checkTens@doubleDabble@1300 00000170
+CSEG checkHundreds@doubleDabble@1300 00000174
+CSEG shift@doubleDabble@1300 00000176
+CSEG addThreeOnes@doubleDabble@1300 0000017d
+CSEG addThreeTens@doubleDabble@1300 0000017f
+CSEG addThreeHundreds@doubleDabble@1300 00000183
+CSEG endDabble@doubleDabble@1300 00000185
