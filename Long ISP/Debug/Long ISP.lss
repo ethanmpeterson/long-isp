@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Mon Mar 26 12:28:51 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 28 13:39:28 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
 C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
@@ -1026,8 +1026,7 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
 000002 5e20
 000003 451c
 000004 3330
-C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): warning: .cseg .db misalignment - padding zero byte
-000005 000f                      		.DB 4, 7, 32, 94, 28, 69, 48, 51, 15
+000005 000f                      		.DB 4, 7, 32, 94, 28, 69, 48, 51, 15, 0
                                  .org 0x000E
 00000e c14e                      	rjmp TIM2_COMPA
                                  endTable:
@@ -1053,9 +1052,10 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): warning
                                  	.def times = r25 ; register holding the number of bit shifts the double dabble algorithm must do before being complete
                                  	.def input = r21 ; raw graycode input from rotary encoder
                                  	.def score = r23 ; incrimented upon each correct binary combo
+                                 	.def index = r15
                                  
                                  timers:
-00010a 94f8                      	cli
+00010a 94f8                      	cli ; global interrupt disable
 00010b e007                      	ldi r16, T2ps1024 ; set the prescaler
 00010c 9300 00b1                 	sts TCCR2B, r16 ; store to appropriate register
 00010e e002                      	ldi r16, 0x02 ; set timer mode 2
@@ -1065,22 +1065,29 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): warning
                                  
 000114 e002                      	ldi r16, 1 << OCIE2A ; set timer interrupt enable bit
 000115 9300 0070                 	sts TIMSK2, r16 ; enable the interrupt
-                                 	; add 2.5s delay
-000117 9478                      	sei
+000117 9478                      	sei ; global interrupt enable
                                  
                                  setup:
 000118 2755                      	clr input
 000119 2777                      	clr score
-00011a c047                      	rjmp loop
+00011a 2700                      	clr original
+00011b 24ff                      	clr index
+00011c c046                      	rjmp loop
                                  
                                  start:
-00011b e043                      	ldi addReg, 3
-00011c e098                      	ldi times, 8
+00011d e043                      	ldi addReg, 3
+00011e e098                      	ldi times, 8
                                  	; clear registers storing double dabble output and input from rotary switch
-00011d 2711                      	clr onesTens
-00011e 2766                      	clr hundreds
-00011f b96a                      	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
-000120 9508                      	ret
+00011f 2711                      	clr onesTens
+000120 2766                      	clr hundreds
+000121 b96a                      	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
+                                 	// load original with data from table
+                                 	//clr zl
+                                 	//lpm original, z
+                                 	//movw z,x
+                                 	//ldi score, 64
+000122 2f07                      	mov original, score
+000123 9508                      	ret
                                  
                                  
                                  getInput:
@@ -1093,9 +1100,8 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): warning
                                      movw z,x*/
                                  
                                  	// Get random byte value to be challenge val for binary challenge
-000121 9553                      	inc input
-000122 0fe5                      	add zl, input
-000123 9104                      	lpm original, z
+                                 	//inc input
+                                 
 000124 9508                      	ret 
                                  	
                                  	
@@ -1182,20 +1188,33 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): warning
                                  TIM2_COMPA:
                                  	//inc onesTens
                                  	//rcall checkEqual
-00015d b159                      	in input, PIND
+                                 	//in original, PIND
                                  	//cp input, original
-                                 	//breq getInput
+00015d b159                      	in input, PIND
+                                 
+00015e 1757                      	cp input, score//original
+00015f f029                      	breq isEqual
+                                 	back:
+                                 
+                                 	//breq isEqual
                                  	//mov hundreds, input
-00015e dfbc                      	rcall start
+000160 dfbc                      	rcall start
                                  	//rcall getInput
                                  	//clr input
                                  	//ldi original, 255
-00015f b109                      	in original, PIND
-000160 dfc4                      	rcall doubleDabble
-000161 9518                      	reti
+                                 	
+000161 dfc3                      	rcall doubleDabble
+000162 9518                      	reti
                                  
                                  loop:
-000162 dfdc                      	rcall display
+000163 dfdb                      	rcall display
+000164 cffe                      	rjmp loop
+                                 
+                                 isEqual:
+                                 	//inc index
+000165 9573                      	inc score
+000166 dfb6                      	rcall start
+000167 dfbd                      	rcall doubleDabble
 
 
 RESOURCE USE INFORMATION
@@ -1213,28 +1232,28 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega328P" register use summary:
-x  :   1 y  :   0 z  :   2 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+x  :   1 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  27 r17:  10 r18:   2 r19:   2 r20:   4 
-r21:   4 r22:   7 r23:   1 r24:  13 r25:   3 r26:   1 r27:   1 r28:   1 
-r29:   1 r30:   1 r31:   0 
+r13:   0 r14:   0 r15:   1 r16:  27 r17:  10 r18:   2 r19:   2 r20:   4 
+r21:   3 r22:   7 r23:   4 r24:  13 r25:   3 r26:   1 r27:   1 r28:   1 
+r29:   1 r30:   0 r31:   0 
 Registers used: 17 out of 35 (48.6%)
 
 "ATmega328P" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   4 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   3 adiw  :   0 and   :   0 
 andi  :   4 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   1 brge  :   0 brhc  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   2 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   2 brpl  :   0 brsh  :   3 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :   5 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
+clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :   7 cls   :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 
 cpi   :   4 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   2 inc   :   1 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  19 lds   :   0 lpm   :   2 lsl   :   1 
-lsr   :   0 mov   :   5 movw  :   1 mul   :   0 muls  :   0 mulsu :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   1 jmp   :   0 
+ld    :   0 ldd   :   0 ldi   :  19 lds   :   0 lpm   :   0 lsl   :   1 
+lsr   :   0 mov   :   6 movw  :   1 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  11 pop   :   0 
-push  :   0 rcall :   6 ret   :   5 reti  :   1 rjmp  :   8 rol   :   2 
+push  :   0 rcall :   8 ret   :   5 reti  :   2 rjmp  :   8 rol   :   2 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
@@ -1245,8 +1264,8 @@ Instructions used: 25 out of 113 (22.1%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0002c8    204     10    214   32768   0.7%
+[.cseg] 0x000000 0x0002d2    214     10    224   32768   0.7%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
-Assembly complete, 0 errors, 1 warnings
+Assembly complete, 0 errors, 0 warnings

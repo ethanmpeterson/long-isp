@@ -11,7 +11,7 @@
         rjmp    reset                           ;address  of start of code
 startTable:    
 		// A set of random numbers until I know how to generate them in assembly language
-		.DB 4, 7, 32, 94, 28, 69, 48, 51, 15
+		.DB 4, 7, 32, 94, 28, 69, 48, 51, 15, 0
 .org 0x000E
 	rjmp TIM2_COMPA
 endTable:
@@ -37,9 +37,10 @@ endTable:
 	.def times = r25 ; register holding the number of bit shifts the double dabble algorithm must do before being complete
 	.def input = r21 ; raw graycode input from rotary encoder
 	.def score = r23 ; incrimented upon each correct binary combo
+	.def index = r15
 
 timers:
-	cli
+	cli ; global interrupt disable
 	ldi r16, T2ps1024 ; set the prescaler
 	sts TCCR2B, r16 ; store to appropriate register
 	ldi r16, 0x02 ; set timer mode 2
@@ -49,12 +50,13 @@ timers:
 
 	ldi r16, 1 << OCIE2A ; set timer interrupt enable bit
 	sts TIMSK2, r16 ; enable the interrupt
-	; add 2.5s delay
-	sei
+	sei ; global interrupt enable
 
 setup:
 	clr input
 	clr score
+	clr original
+	clr index
 	rjmp loop
 
 start:
@@ -64,6 +66,12 @@ start:
 	clr onesTens
 	clr hundreds
 	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
+	// load original with data from table
+	//clr zl
+	//lpm original, z
+	//movw z,x
+	//ldi score, 64
+	mov original, score
 	ret
 
 
@@ -77,9 +85,8 @@ getInput:
     movw z,x*/
 
 	// Get random byte value to be challenge val for binary challenge
-	inc input
-	add zl, input
-	lpm original, z
+	//inc input
+
 	ret 
 	
 	
@@ -166,18 +173,31 @@ L1: dec  r19
 TIM2_COMPA:
 	//inc onesTens
 	//rcall checkEqual
-	in input, PIND
+	//in original, PIND
 	//cp input, original
-	//breq getInput
+	in input, PIND
+
+	cp input, score//original
+	breq isEqual
+	back:
+
+	//breq isEqual
 	//mov hundreds, input
 	rcall start
 	//rcall getInput
 	//clr input
 	//ldi original, 255
-	in original, PIND
+	
 	rcall doubleDabble
 	reti
 
 loop:
 	rcall display
 	rjmp loop
+
+isEqual:
+	//inc index
+	inc score
+	rcall start
+	rcall doubleDabble
+	reti

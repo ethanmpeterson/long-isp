@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Mon Mar 26 12:28:51 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Wed Mar 28 13:39:28 2018
 
 
 EQU  SIGNATURE_000 0000001e
@@ -707,11 +707,12 @@ DEF  addReg       r20
 DEF  times        r25
 DEF  input        r21
 DEF  score        r23
+DEF  index        r15
 CSEG timers       0000010a
 CSEG setup        00000118
-CSEG loop         00000162
-CSEG start        0000011b
-CSEG getInput     00000121
+CSEG loop         00000163
+CSEG start        0000011d
+CSEG getInput     00000124
 CSEG doubleDabble 00000125
 CSEG decideStep   00000125
 CSEG checkOnes    00000125
@@ -725,3 +726,5 @@ CSEG endDabble    0000013e
 CSEG display      0000013f
 CSEG delay        00000156
 CSEG L1           00000158
+CSEG isEqual      00000165
+CSEG back         00000160
