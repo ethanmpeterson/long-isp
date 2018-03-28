@@ -36,8 +36,9 @@ endTable:
 	.def addReg = r20 ; holds a value of 3 to be added to other registers in the double dabble process
 	.def times = r25 ; register holding the number of bit shifts the double dabble algorithm must do before being complete
 	.def input = r21 ; raw graycode input from rotary encoder
-	.def score = r23 ; incrimented upon each correct binary combo
-	.def index = r15
+	.def index = r23 ; incrimented upon each correct binary combo
+	.def score = r15
+	.def copy = r14
 
 timers:
 	cli ; global interrupt disable
@@ -54,9 +55,9 @@ timers:
 
 setup:
 	clr input
-	clr score
-	clr original
 	clr index
+	clr original
+	clr copy
 	rjmp loop
 
 start:
@@ -70,8 +71,12 @@ start:
 	//clr zl
 	//lpm original, z
 	//movw z,x
-	//ldi score, 64
-	mov original, score
+	//ldi index, 64
+	mov zl, index
+	lpm original, z
+	lpm copy, z
+	movw z, x
+	//mov original, index
 	ret
 
 
@@ -176,11 +181,9 @@ TIM2_COMPA:
 	//in original, PIND
 	//cp input, original
 	in input, PIND
-
-	cp input, score//original
+	//lpm original, z
+	cp input, copy //index
 	breq isEqual
-	back:
-
 	//breq isEqual
 	//mov hundreds, input
 	rcall start
@@ -197,7 +200,7 @@ loop:
 
 isEqual:
 	//inc index
-	inc score
+	inc index
 	rcall start
 	rcall doubleDabble
 	reti
