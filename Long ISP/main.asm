@@ -64,6 +64,7 @@ setup:
 	clr copy
 	clr original
 	rcall initShiftReg
+	rcall initScoreDisplay
 	rjmp loop
 
 start:
@@ -271,6 +272,21 @@ display:
 	//rjmp reset ; restart the program to update input value and reset the required registers
 	ret ;
 
+scoreDisplay: // not working * 
+	mov r18, score // preserve score value as its shifted away through double dabble
+	doubleDabble score // get score digits into onesTens and hundreds registers
+	mov score, r18 // restore score value
+	; switch to ones display
+	cbi PORTC, PC4
+	sbi PORTC, PC5
+	mov working, onesTens
+	andi working, 0b00001111
+	shiftOut working
+	rcall delay
+	mov original, copy
+	doubleDabble original // place original back into double dabble registers
+	ret
+
 delay: ; 1 ms delay
 ldi  r18, 11
     ldi  r19, 99
@@ -301,12 +317,14 @@ TIM2_COMPA:
 
 loop:
 	rcall display
+	rcall scoreDisplay
 	//shiftData score
 	rjmp loop
 
 isEqual:
 	//inc index
 	inc index
+	inc score
 	rcall start
 	doubleDabble original
 	reti
@@ -315,6 +333,11 @@ initShiftReg:
 	sbi DDRB, PB3
 	sbi DDRB, PB4
 	sbi DDRB, PB5
-	ldi original, 5
-	shiftOut original
+	//ldi original, 5
+	//shiftOut original
+	ret
+
+initScoreDisplay:
+	ldi r16, 1 << PC4 | 1 << PC5
+	out DDRC, r16
 	ret
