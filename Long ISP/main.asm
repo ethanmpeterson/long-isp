@@ -253,7 +253,10 @@ endDabble:
 .ENDMACRO
 
 .MACRO scoreDisplaySelect // MACRO to enable appropiate score display ones or tens
+	cbi PORTC, PC4
+	cbi PORTC, PC5
 
+	sbi PORTC, @0
 .ENDMACRO
 
 .MACRO numDisplayOut
@@ -303,10 +306,15 @@ display:
 
 scoreDisplay: // not working * 
 	rcall initScoreDisplay
-	cbi PORTC, PC5
-	sbi PORTC, PC4
-	//clr score
-	//shiftOut score
+	scoreDisplaySelect PC4
+	mov r18, score ; retain score value
+	doubleDabble r18
+	mov working, onesTens
+	andi working, 0b00001111
+	shiftOut working
+	rcall delay
+	mov r18, copy
+	doubleDabble r18
 	ret
 
 delay: ; 1 ms delay
@@ -338,10 +346,9 @@ TIM2_COMPA:
 	reti
 
 loop:
-	sbi DDRC, 4
-	sbi PORTC, 4
-	rcall scoreDisplay
+	//rcall scoreDisplay
 	rcall display
+	rcall scoreDisplay
 	//rcall scoreDisplay
 	//shiftData score
 	rjmp loop
@@ -358,7 +365,7 @@ initShiftReg:
 	sbi DDRB, PB3
 	sbi DDRB, PB4
 	sbi DDRB, PB5
-	ldi original, 5
+	ldi original, 0
 	shiftOut original
 	ret
 
