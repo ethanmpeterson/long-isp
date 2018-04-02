@@ -256,38 +256,55 @@ endDabble:
 
 .ENDMACRO
 
+.MACRO numDisplayOut
+	cbi PORTC, PC0
+	sbrc @0, 0
+	sbi PORTC, PC0
+	
+	cbi PORTC, PC1
+	sbrc @0, 1
+	sbi PORTC, PC1
+	
+	cbi PORTC, PC2
+	sbrc @0, 2
+	sbi PORTC, PC2
+
+	cbi PORTC, PC3
+	sbrc @0, 3
+	sbi PORTC, PC3
+	
+.ENDMACRO
+
 display:
-	ldi r16, 1 << PB2 | 1 << PB1 | 1 << PB0
-	out 0x04, r16 ; set all transistor manipulation pins to output
-	ldi r16, 1 << PB2 
-	out 0x05, r16 ; enable only hundreds display
-	ldi r16, 0xFF
-	out 0x07, r16 ; set 4511 outputs
-	mov r16, hundreds
-	out 0x08, r16
+	rcall initNumDisplay ; set all transistor manipulation pins to output
+	numDisplaySelect PB2
+	//ldi r16, 0xFF
+	//out DDRC, r16 ; set 4511 outputs
+	//out PORTC, r16
+	numDisplayOut hundreds ; display hundreds
 	rcall delay
 	; switch to tens display
-	ldi r16, 1 << PB1
-	out 0x05, r16
+	numDisplaySelect PB1
 	mov working, onesTens
 	andi working, 0b11110000
 	swap working
-	out 0x08, working ; display tens
+	numDisplayOut working
+	//out PORTC, working ; display tens
 	rcall delay
 	; switch to ones Display
-	ldi r16, 1 << PB0
-	out 0x05, r16
+	numDisplaySelect PB0
 	mov working, onesTens
 	andi working, 0b00001111
-	out 0x08, working
+	//out PORTC, working
+	numDisplayOut working
 	rcall delay ; admire
 	//rjmp reset ; restart the program to update input value and reset the required registers
 	ret ;
 
 scoreDisplay: // not working * 
 	rcall initScoreDisplay
-	cbi PORTC, PC4
-	sbi PORTC, PC5
+	cbi PORTC, PC5
+	sbi PORTC, PC4
 	//clr score
 	//shiftOut score
 	ret
@@ -324,7 +341,7 @@ loop:
 	sbi DDRC, 4
 	sbi PORTC, 4
 	rcall scoreDisplay
-	//rcall display
+	rcall display
 	//rcall scoreDisplay
 	//shiftData score
 	rjmp loop
@@ -346,6 +363,20 @@ initShiftReg:
 	ret
 
 initScoreDisplay:
-	ldi r18, 1 << PC4 | 1 << PC5
-	out DDRC, r18
+	//ldi r18, 1 << PC4 | 1 << PC5
+	//out DDRC, r18
+	sbi DDRC, PC4
+	sbi DDRC, PC5
+	ret
+
+initNumDisplay:
+	sbi DDRB, PB0
+	sbi DDRB, PB1
+	sbi DDRB, PB2
+
+	sbi DDRC, PC0
+	sbi DDRC, PC1
+	sbi DDRC, PC2
+	sbi DDRC, PC3
+
 	ret

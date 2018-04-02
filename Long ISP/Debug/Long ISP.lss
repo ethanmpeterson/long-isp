@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Mon Apr 02 13:59:03 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Mon Apr 02 15:08:05 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
 C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
@@ -1029,7 +1029,7 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
 000004 3330
 000005 000f                      		.DB 4, 7, 32, 94, 28, 69, 48, 51, 15, 0
                                  .org 0x000E
-00000e c139                      	rjmp TIM2_COMPA
+00000e c15c                      	rjmp TIM2_COMPA
                                  endTable:
                                  .org    0x100                                   ;abitrary address for start of code
                                   reset:
@@ -1078,9 +1078,9 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
 000119 2777                      	clr index
 00011a 24ee                      	clr copy
 00011b 2700                      	clr original
-00011c d0a1                      	rcall initScoreDisplay
-00011d d071                      	rcall initShiftReg
-00011e c04b                      	rjmp loop
+00011c d0c5                      	rcall initScoreDisplay
+00011d d095                      	rcall initShiftReg
+00011e c06e                      	rjmp loop
                                  
                                  start:
 00011f b96a                      	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
@@ -1271,195 +1271,268 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
                                  
                                  .ENDMACRO
                                  
+                                 .MACRO numDisplayOut
+                                 	cbi PORTC, PC0
+                                 	sbrc @0, 0
+                                 	sbi PORTC, PC0
+                                 	
+                                 	cbi PORTC, PC1
+                                 	sbrc @0, 1
+                                 	sbi PORTC, PC1
+                                 	
+                                 	cbi PORTC, PC2
+                                 	sbrc @0, 2
+                                 	sbi PORTC, PC2
+                                 
+                                 	cbi PORTC, PC3
+                                 	sbrc @0, 3
+                                 	sbi PORTC, PC3
+                                 	
+                                 .ENDMACRO
+                                 
                                  display:
-000126 e007                      	ldi r16, 1 << PB2 | 1 << PB1 | 1 << PB0
-000127 b904                      	out 0x04, r16 ; set all transistor manipulation pins to output
-000128 e004                      	ldi r16, 1 << PB2 
-000129 b905                      	out 0x05, r16 ; enable only hundreds display
-00012a ef0f                      	ldi r16, 0xFF
-00012b b907                      	out 0x07, r16 ; set 4511 outputs
-00012c 2f06                      	mov r16, hundreds
-00012d b908                      	out 0x08, r16
-00012e d012                      	rcall delay
+000126 d0be                      	rcall initNumDisplay ; set all transistor manipulation pins to output
+000127 982a
+000128 9829
+000129 9828
+00012a 9a2a                      	numDisplaySelect PB2
+                                 	//ldi r16, 0xFF
+                                 	//out DDRC, r16 ; set 4511 outputs
+                                 	//out PORTC, r16
+00012b 9840
+00012c fd60
+00012d 9a40
+00012e 9841
+00012f fd61
+000130 9a41
+000131 9842
+000132 fd62
+000133 9a42
+000134 9843
+000135 fd63
+000136 9a43                      	numDisplayOut hundreds ; display hundreds
+000137 d02c                      	rcall delay
                                  	; switch to tens display
-00012f e002                      	ldi r16, 1 << PB1
-000130 b905                      	out 0x05, r16
-000131 2f81                      	mov working, onesTens
-000132 7f80                      	andi working, 0b11110000
-000133 9582                      	swap working
-000134 b988                      	out 0x08, working ; display tens
-000135 d00b                      	rcall delay
+000138 982a
+000139 9829
+00013a 9828
+00013b 9a29                      	numDisplaySelect PB1
+00013c 2f81                      	mov working, onesTens
+00013d 7f80                      	andi working, 0b11110000
+00013e 9582                      	swap working
+00013f 9840
+000140 fd80
+000141 9a40
+000142 9841
+000143 fd81
+000144 9a41
+000145 9842
+000146 fd82
+000147 9a42
+000148 9843
+000149 fd83
+00014a 9a43                      	numDisplayOut working
+                                 	//out PORTC, working ; display tens
+00014b d018                      	rcall delay
                                  	; switch to ones Display
-000136 e001                      	ldi r16, 1 << PB0
-000137 b905                      	out 0x05, r16
-000138 2f81                      	mov working, onesTens
-000139 708f                      	andi working, 0b00001111
-00013a b988                      	out 0x08, working
-00013b d005                      	rcall delay ; admire
+00014c 982a
+00014d 9829
+00014e 9828
+00014f 9a28                      	numDisplaySelect PB0
+000150 2f81                      	mov working, onesTens
+000151 708f                      	andi working, 0b00001111
+                                 	//out PORTC, working
+000152 9840
+000153 fd80
+000154 9a40
+000155 9841
+000156 fd81
+000157 9a41
+000158 9842
+000159 fd82
+00015a 9a42
+00015b 9843
+00015c fd83
+00015d 9a43                      	numDisplayOut working
+00015e d005                      	rcall delay ; admire
                                  	//rjmp reset ; restart the program to update input value and reset the required registers
-00013c 9508                      	ret ;
+00015f 9508                      	ret ;
                                  
                                  scoreDisplay: // not working * 
-00013d d080                      	rcall initScoreDisplay
-00013e 9844                      	cbi PORTC, PC4
-00013f 9a45                      	sbi PORTC, PC5
+000160 d081                      	rcall initScoreDisplay
+000161 9845                      	cbi PORTC, PC5
+000162 9a44                      	sbi PORTC, PC4
                                  	//clr score
                                  	//shiftOut score
-000140 9508                      	ret
+000163 9508                      	ret
                                  
                                  delay: ; 1 ms delay
-000141 e02b                      ldi  r18, 11
-000142 e633                          ldi  r19, 99
-000143 953a                      L1: dec  r19
-000144 f7f1                          brne L1
-000145 952a                          dec  r18
-000146 f7e1                          brne L1
-000147 9508                      	ret
+000164 e02b                      ldi  r18, 11
+000165 e633                          ldi  r19, 99
+000166 953a                      L1: dec  r19
+000167 f7f1                          brne L1
+000168 952a                          dec  r18
+000169 f7e1                          brne L1
+00016a 9508                      	ret
                                  
                                  TIM2_COMPA:
                                  	//inc onesTens
                                  	//rcall checkEqual
                                  	//in original, PIND
                                  	//cp input, original
-000148 b159                      	in input, PIND
+00016b b159                      	in input, PIND
                                  	//lpm original, z
-000149 155e                      	cp input, copy //index
-00014a f119                      	breq isEqual
+00016c 155e                      	cp input, copy //index
+00016d f121                      	breq isEqual
                                  	//breq isEqual
                                  	//mov hundreds, input
-00014b dfd3                      	rcall start
+00016e dfb0                      	rcall start
                                  	//rcall getInput
                                  	//clr input
                                  	//ldi original, 255
                                  	
-00014c e043
-00014d e098
-00014e 2711
-00014f 2766
-000150 2f81
-000151 708f
-000152 3085
-000153 f468
-000154 2f81
-000155 7f80
-000156 3580
-000157 f458
-000158 3065
-000159 f468
-00015a 0f00
-00015b 1f11
-00015c 1f66
-00015d 959a
-00015e 3090
-00015f f049
-000160 cfef
-000161 0f14
-000162 cff1
-000163 9512
-000164 0f14
-000165 9512
-000166 cff1
-000167 0f64
-000168 cff1                      	doubleDabble original
-000169 9518                      	reti
+00016f e043
+000170 e098
+000171 2711
+000172 2766
+000173 2f81
+000174 708f
+000175 3085
+000176 f468
+000177 2f81
+000178 7f80
+000179 3580
+00017a f458
+00017b 3065
+00017c f468
+00017d 0f00
+00017e 1f11
+00017f 1f66
+000180 959a
+000181 3090
+000182 f049
+000183 cfef
+000184 0f14
+000185 cff1
+000186 9512
+000187 0f14
+000188 9512
+000189 cff1
+00018a 0f64
+00018b cff1                      	doubleDabble original
+00018c 9518                      	reti
                                  
                                  loop:
-00016a 9a3c                      	sbi DDRC, 4
-00016b 9a44                      	sbi PORTC, 4
-00016c dfd0                      	rcall scoreDisplay
-                                 	//rcall display
+00018d 9a3c                      	sbi DDRC, 4
+00018e 9a44                      	sbi PORTC, 4
+00018f dfd0                      	rcall scoreDisplay
+000190 df95                      	rcall display
                                  	//rcall scoreDisplay
                                  	//shiftData score
-00016d cffc                      	rjmp loop
+000191 cffb                      	rjmp loop
                                  
                                  isEqual:
                                  	//inc index
-00016e 9573                      	inc index
-00016f 94f3                      	inc score
-000170 dfae                      	rcall start
-000171 e043
-000172 e098
-000173 2711
-000174 2766
-000175 2f81
-000176 708f
-000177 3085
-000178 f468
-000179 2f81
-00017a 7f80
-00017b 3580
-00017c f458
-00017d 3065
-00017e f468
-00017f 0f00
-000180 1f11
-000181 1f66
-000182 959a
-000183 3090
-000184 f049
-000185 cfef
-000186 0f14
-000187 cff1
-000188 9512
-000189 0f14
-00018a 9512
-00018b cff1
-00018c 0f64
-00018d cff1                      	doubleDabble original
-00018e 9518                      	reti
+000192 9573                      	inc index
+000193 94f3                      	inc score
+000194 df8a                      	rcall start
+000195 e043
+000196 e098
+000197 2711
+000198 2766
+000199 2f81
+00019a 708f
+00019b 3085
+00019c f468
+00019d 2f81
+00019e 7f80
+00019f 3580
+0001a0 f458
+0001a1 3065
+0001a2 f468
+0001a3 0f00
+0001a4 1f11
+0001a5 1f66
+0001a6 959a
+0001a7 3090
+0001a8 f049
+0001a9 cfef
+0001aa 0f14
+0001ab cff1
+0001ac 9512
+0001ad 0f14
+0001ae 9512
+0001af cff1
+0001b0 0f64
+0001b1 cff1                      	doubleDabble original
+0001b2 9518                      	reti
                                  
                                  initShiftReg:
-00018f 9a23                      	sbi DDRB, PB3
-000190 9a24                      	sbi DDRB, PB4
-000191 9a25                      	sbi DDRB, PB5
-000192 e005                      	ldi original, 5
-000193 982d
-000194 982c
-000195 982b
-000196 fd07
-000197 9a2b
-000198 9a2c
-000199 982c
-00019a 982b
-00019b fd06
-00019c 9a2b
-00019d 9a2c
-00019e 982c
-00019f 982b
-0001a0 fd05
-0001a1 9a2b
-0001a2 9a2c
-0001a3 982c
-0001a4 982b
-0001a5 fd04
-0001a6 9a2b
-0001a7 9a2c
-0001a8 982c
-0001a9 982b
-0001aa fd03
-0001ab 9a2b
-0001ac 9a2c
-0001ad 982c
-0001ae 982b
-0001af fd02
-0001b0 9a2b
-0001b1 9a2c
-0001b2 982c
-0001b3 982b
-0001b4 fd01
-0001b5 9a2b
-0001b6 9a2c
-0001b7 982c
-0001b8 982b
-0001b9 fd00
-0001ba 9a2b
-0001bb 9a2c
-0001bc 9a2d                      	shiftOut original
-0001bd 9508                      	ret
+0001b3 9a23                      	sbi DDRB, PB3
+0001b4 9a24                      	sbi DDRB, PB4
+0001b5 9a25                      	sbi DDRB, PB5
+0001b6 e005                      	ldi original, 5
+0001b7 982d
+0001b8 982c
+0001b9 982b
+0001ba fd07
+0001bb 9a2b
+0001bc 9a2c
+0001bd 982c
+0001be 982b
+0001bf fd06
+0001c0 9a2b
+0001c1 9a2c
+0001c2 982c
+0001c3 982b
+0001c4 fd05
+0001c5 9a2b
+0001c6 9a2c
+0001c7 982c
+0001c8 982b
+0001c9 fd04
+0001ca 9a2b
+0001cb 9a2c
+0001cc 982c
+0001cd 982b
+0001ce fd03
+0001cf 9a2b
+0001d0 9a2c
+0001d1 982c
+0001d2 982b
+0001d3 fd02
+0001d4 9a2b
+0001d5 9a2c
+0001d6 982c
+0001d7 982b
+0001d8 fd01
+0001d9 9a2b
+0001da 9a2c
+0001db 982c
+0001dc 982b
+0001dd fd00
+0001de 9a2b
+0001df 9a2c
+0001e0 9a2d                      	shiftOut original
+0001e1 9508                      	ret
                                  
                                  initScoreDisplay:
-0001be e320                      	ldi r18, 1 << PC4 | 1 << PC5
-0001bf b927                      	out DDRC, r18
+                                 	//ldi r18, 1 << PC4 | 1 << PC5
+                                 	//out DDRC, r18
+0001e2 9a3c                      	sbi DDRC, PC4
+0001e3 9a3d                      	sbi DDRC, PC5
+0001e4 9508                      	ret
+                                 
+                                 initNumDisplay:
+0001e5 9a20                      	sbi DDRB, PB0
+0001e6 9a21                      	sbi DDRB, PB1
+0001e7 9a22                      	sbi DDRB, PB2
+                                 
+0001e8 9a38                      	sbi DDRC, PC0
+0001e9 9a39                      	sbi DDRC, PC1
+0001ea 9a3a                      	sbi DDRC, PC2
+0001eb 9a3b                      	sbi DDRC, PC3
+                                 
 
 
 RESOURCE USE INFORMATION
@@ -1479,8 +1552,8 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   2 y  :   0 z  :   4 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   3 r15:   1 r16:  37 r17:  18 r18:   4 r19:   2 r20:   8 
-r21:   3 r22:  11 r23:   3 r24:  19 r25:   6 r26:   1 r27:   1 r28:   1 
+r13:   0 r14:   3 r15:   1 r16:  25 r17:  18 r18:   2 r19:   2 r20:   8 
+r21:   3 r22:  14 r23:   3 r24:  25 r25:   6 r26:   1 r27:   1 r28:   1 
 r29:   1 r30:   1 r31:   0 
 Registers used: 19 out of 35 (54.3%)
 
@@ -1490,17 +1563,17 @@ andi  :   6 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0
 brcc  :   0 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   2 brpl  :   0 brsh  :   6 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :  18 cbr   :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :  39 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :   9 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 
 cpi   :   8 cpse  :   0 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   2 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  23 lds   :   0 lpm   :   4 lsl   :   2 
-lsr   :   0 mov   :   8 movw  :   2 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  12 pop   :   0 
-push  :   0 rcall :   9 ret   :   7 reti  :   2 rjmp  :  12 rol   :   4 
-ror   :   0 sbc   :   0 sbci  :   0 sbi   :  23 sbic  :   0 sbis  :   0 
-sbiw  :   0 sbr   :   0 sbrc  :   8 sbrs  :   0 sec   :   0 seh   :   0 
+ld    :   0 ldd   :   0 ldi   :  17 lds   :   0 lpm   :   4 lsl   :   2 
+lsr   :   0 mov   :   7 movw  :   2 mul   :   0 muls  :   0 mulsu :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   3 pop   :   0 
+push  :   0 rcall :  11 ret   :   8 reti  :   2 rjmp  :  12 rol   :   4 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :  47 sbic  :   0 sbis  :   0 
+sbiw  :   0 sbr   :   0 sbrc  :  20 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   4 
 sub   :   0 subi  :   0 swap  :   5 tst   :   0 wdr   :   0 
@@ -1509,7 +1582,7 @@ Instructions used: 29 out of 113 (25.7%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000382    390     10    400   32768   1.2%
+[.cseg] 0x000000 0x0003da    478     10    488   32768   1.5%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
