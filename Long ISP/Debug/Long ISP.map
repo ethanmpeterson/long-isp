@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Mon Apr 02 15:40:59 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Mon Apr 02 16:32:03 2018
 
 
 EQU  SIGNATURE_000 0000001e
@@ -697,7 +697,7 @@ EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
 CSEG reset        00000100
 CSEG startTable   00000001
-CSEG TIM2_COMPA   000001d5
+CSEG TIM2_COMPA   00000205
 CSEG endTable     0000000f
 DEF  original     r16
 DEF  onesTens     r17
@@ -714,15 +714,15 @@ EQU  latch        00000005
 EQU  clk          00000004
 CSEG timers       0000010a
 CSEG setup        00000118
-CSEG initScoreDisplay 0000024a
-CSEG initShiftReg 0000021b
-CSEG loop         000001f7
-CSEG start        0000011f
-CSEG getInput     00000125
-CSEG display      00000126
-CSEG initNumDisplay 0000024d
-CSEG delay        000001ce
-CSEG scoreDisplay 00000160
+CSEG initScoreDisplay 0000025d
+CSEG initShiftReg 0000022e
+CSEG loop         0000020a
+CSEG start        00000120
+CSEG getInput     00000126
+CSEG display      00000127
+CSEG initNumDisplay 00000260
+CSEG delay        000001fe
+CSEG scoreDisplay 00000161
 CSEG decideStep@doubleDabble@1395 00000169
 CSEG checkOnes@doubleDabble@1395 00000169
 CSEG checkTens@doubleDabble@1395 0000016d
@@ -732,32 +732,23 @@ CSEG addThreeOnes@doubleDabble@1395 0000017a
 CSEG addThreeTens@doubleDabble@1395 0000017c
 CSEG addThreeHundreds@doubleDabble@1395 00000180
 CSEG endDabble@doubleDabble@1395 00000182
-CSEG decideStep@doubleDabble@1501 000001b4
-CSEG checkOnes@doubleDabble@1501 000001b4
-CSEG checkTens@doubleDabble@1501 000001b8
-CSEG checkHundreds@doubleDabble@1501 000001bc
-CSEG shift@doubleDabble@1501 000001be
-CSEG addThreeOnes@doubleDabble@1501 000001c5
-CSEG addThreeTens@doubleDabble@1501 000001c7
-CSEG addThreeHundreds@doubleDabble@1501 000001cb
-CSEG endDabble@doubleDabble@1501 000001cd
-CSEG L1           000001d0
-CSEG isEqual      000001fa
-CSEG decideStep@doubleDabble@1576 000001dd
-CSEG checkOnes@doubleDabble@1576 000001dd
-CSEG checkTens@doubleDabble@1576 000001e1
-CSEG checkHundreds@doubleDabble@1576 000001e5
-CSEG shift@doubleDabble@1576 000001e7
-CSEG addThreeOnes@doubleDabble@1576 000001ee
-CSEG addThreeTens@doubleDabble@1576 000001f0
-CSEG addThreeHundreds@doubleDabble@1576 000001f4
-CSEG endDabble@doubleDabble@1576 000001f6
-CSEG decideStep@doubleDabble@1639 00000201
-CSEG checkOnes@doubleDabble@1639 00000201
-CSEG checkTens@doubleDabble@1639 00000205
-CSEG checkHundreds@doubleDabble@1639 00000209
-CSEG shift@doubleDabble@1639 0000020b
-CSEG addThreeOnes@doubleDabble@1639 00000212
-CSEG addThreeTens@doubleDabble@1639 00000214
-CSEG addThreeHundreds@doubleDabble@1639 00000218
-CSEG endDabble@doubleDabble@1639 0000021a
+CSEG decideStep@doubleDabble@1567 000001e4
+CSEG checkOnes@doubleDabble@1567 000001e4
+CSEG checkTens@doubleDabble@1567 000001e8
+CSEG checkHundreds@doubleDabble@1567 000001ec
+CSEG shift@doubleDabble@1567 000001ee
+CSEG addThreeOnes@doubleDabble@1567 000001f5
+CSEG addThreeTens@doubleDabble@1567 000001f7
+CSEG addThreeHundreds@doubleDabble@1567 000001fb
+CSEG endDabble@doubleDabble@1567 000001fd
+CSEG L1           00000200
+CSEG isEqual      0000020d
+CSEG decideStep@doubleDabble@1658 00000214
+CSEG checkOnes@doubleDabble@1658 00000214
+CSEG checkTens@doubleDabble@1658 00000218
+CSEG checkHundreds@doubleDabble@1658 0000021c
+CSEG shift@doubleDabble@1658 0000021e
+CSEG addThreeOnes@doubleDabble@1658 00000225
+CSEG addThreeTens@doubleDabble@1658 00000227
+CSEG addThreeHundreds@doubleDabble@1658 0000022b
+CSEG endDabble@doubleDabble@1658 0000022d

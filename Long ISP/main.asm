@@ -12,7 +12,7 @@
         rjmp    reset                           ;address  of start of code
 startTable:    
 		// A set of random numbers until I know how to generate them in assembly language
-		.DB 4, 7, 32, 94, 28, 69, 48, 51, 15, 0
+		.DB 4, 14, 32, 94, 28, 69, 48, 51, 15, 0
 .org 0x000E
 	rjmp TIM2_COMPA
 endTable:
@@ -63,6 +63,7 @@ setup:
 	clr index
 	clr copy
 	clr original
+	clr score
 	rcall initScoreDisplay
 	rcall initShiftReg
 	rjmp loop
@@ -305,14 +306,20 @@ display:
 	ret ;
 
 scoreDisplay: // not working * 
-	rcall initScoreDisplay
-	scoreDisplaySelect PC4
+	scoreDisplaySelect PC5 ; select ones display
 	mov r18, score ; retain score value
 	doubleDabble r18
 	mov working, onesTens
 	andi working, 0b00001111
 	shiftOut working
 	rcall delay
+	//rcall delay
+	scoreDisplaySelect PC4 ; select tens display
+	mov working, onesTens
+	andi working, 0b11110000
+	swap working
+	shiftOut working
+	//rcall delay
 	mov r18, copy
 	doubleDabble r18
 	ret
@@ -342,7 +349,7 @@ TIM2_COMPA:
 	//clr input
 	//ldi original, 255
 	
-	doubleDabble original
+	//doubleDabble original
 	reti
 
 loop:
