@@ -7,6 +7,7 @@
 
 .cseg                                          ;load into Program Memory
 #include "prescalers.h"
+//#include "doubleDabble.s" // move double dabble algorithms and other macros here at some point
 .org   0x0000                          ;start of Interrupt Vector (Jump) Table
         rjmp    reset                           ;address  of start of code
 startTable:    
@@ -29,16 +30,20 @@ endTable:
    ldi             yh,high(endTable<<1)    ;
    movw    z,x
 
-	.def original = r16 ; value to be pushed through double dabble algorithm
-	.def onesTens = r17 ; register holding ones and tens output nibbles from double dabble
-	.def hundreds = r22 ; hundreds output from double dabble
-	.def working = r24 ; register used to work with data that needs to be preserved elsewhere
-	.def addReg = r20 ; holds a value of 3 to be added to other registers in the double dabble process
-	.def times = r25 ; register holding the number of bit shifts the double dabble algorithm must do before being complete
-	.def input = r21 ; raw graycode input from rotary encoder
-	.def index = r23 ; incrimented upon each correct binary combo
-	.def score = r15
-	.def copy = r14
+.def original = r16 ; value to be pushed through double dabble algorithm
+.def onesTens = r17 ; register holding ones and tens output nibbles from double dabble
+.def hundreds = r22 ; hundreds output from double dabble
+.def working = r24 ; register used to work with data that needs to be preserved elsewhere
+.def addReg = r20 ; holds a value of 3 to be added to other registers in the double dabble process
+.def times = r25 ; register holding the number of bit shifts the double dabble algorithm must do before being complete
+.def input = r21 ; raw graycode input from rotary encoder
+.def index = r23 ; incrimented upon each correct binary combo
+.def score = r15
+.def copy = r14
+
+.equ data = PB3
+.equ latch = PB5
+.equ clk = PB4
 
 timers:
 	cli ; global interrupt disable
@@ -56,8 +61,9 @@ timers:
 setup:
 	clr input
 	clr index
-	clr original
 	clr copy
+	clr original
+	rcall initShiftReg
 	rjmp loop
 
 start:
@@ -135,6 +141,60 @@ addThreeHundreds:
 	rjmp shift
 endDabble:
 	ret*/
+.MACRO shiftOut // MSBFIRST Shiftout
+	cbi PORTB, latch
+	// handle shifting data
+	cbi PORTB, clk
+	cbi PORTB, data
+	sbrc @0, 7 // skip if bit in register passed to macro is cleared
+	sbi PORTB, data
+	sbi PORTB, clk
+
+	cbi PORTB, clk
+	cbi PORTB, data
+	sbrc @0, 6 // skip if bit in register passed to macro is cleared
+	sbi PORTB, data
+	sbi PORTB, clk
+
+	cbi PORTB, clk
+	cbi PORTB, data
+	sbrc @0, 5 // skip if bit in register passed to macro is cleared
+	sbi PORTB, data
+	sbi PORTB, clk
+
+	cbi PORTB, clk
+	cbi PORTB, data
+	sbrc @0, 4 // skip if bit in register passed to macro is cleared
+	sbi PORTB, data
+	sbi PORTB, clk
+
+	cbi PORTB, clk
+	cbi PORTB, data
+	sbrc @0, 3 // skip if bit in register passed to macro is cleared
+	sbi PORTB, data
+	sbi PORTB, clk
+
+	cbi PORTB, clk
+	cbi PORTB, data
+	sbrc @0, 2 // skip if bit in register passed to macro is cleared
+	sbi PORTB, data
+	sbi PORTB, clk
+
+	cbi PORTB, clk
+	cbi PORTB, data
+	sbrc @0, 1 // skip if bit in register passed to macro is cleared
+	sbi PORTB, data
+	sbi PORTB, clk
+
+	cbi PORTB, clk
+	cbi PORTB, data
+	sbrc @0, 0 // skip if bit in register passed to macro is cleared
+	sbi PORTB, data
+	sbi PORTB, clk
+
+	sbi PORTB, latch
+.ENDMACRO
+
 .MACRO doubleDabble
 //doubleDabble:
 	ldi addReg, 3
@@ -241,6 +301,7 @@ TIM2_COMPA:
 
 loop:
 	rcall display
+	//shiftData score
 	rjmp loop
 
 isEqual:
@@ -249,3 +310,11 @@ isEqual:
 	rcall start
 	doubleDabble original
 	reti
+
+initShiftReg:
+	sbi DDRB, PB3
+	sbi DDRB, PB4
+	sbi DDRB, PB5
+	ldi original, 5
+	shiftOut original
+	ret
