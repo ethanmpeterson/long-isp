@@ -63,8 +63,8 @@ setup:
 	clr index
 	clr copy
 	clr original
-	rcall initShiftReg
 	rcall initScoreDisplay
+	rcall initShiftReg
 	rjmp loop
 
 start:
@@ -244,6 +244,18 @@ endDabble:
 	//ret
 .ENDMACRO
 
+.MACRO numDisplaySelect // MACRO to enable display of choice in number display
+	cbi PORTB, PB2
+	cbi PORTB, PB1
+	cbi PORTB, PB0
+
+	sbi PORTB, @0
+.ENDMACRO
+
+.MACRO scoreDisplaySelect // MACRO to enable appropiate score display ones or tens
+
+.ENDMACRO
+
 display:
 	ldi r16, 1 << PB2 | 1 << PB1 | 1 << PB0
 	out 0x04, r16 ; set all transistor manipulation pins to output
@@ -273,18 +285,11 @@ display:
 	ret ;
 
 scoreDisplay: // not working * 
-	mov r18, score // preserve score value as its shifted away through double dabble
-	doubleDabble score // get score digits into onesTens and hundreds registers
-	mov score, r18 // restore score value
-	; switch to ones display
+	rcall initScoreDisplay
 	cbi PORTC, PC4
 	sbi PORTC, PC5
-	mov working, onesTens
-	andi working, 0b00001111
-	shiftOut working
-	rcall delay
-	mov original, copy
-	doubleDabble original // place original back into double dabble registers
+	//clr score
+	//shiftOut score
 	ret
 
 delay: ; 1 ms delay
@@ -316,8 +321,11 @@ TIM2_COMPA:
 	reti
 
 loop:
-	rcall display
+	sbi DDRC, 4
+	sbi PORTC, 4
 	rcall scoreDisplay
+	//rcall display
+	//rcall scoreDisplay
 	//shiftData score
 	rjmp loop
 
@@ -333,11 +341,11 @@ initShiftReg:
 	sbi DDRB, PB3
 	sbi DDRB, PB4
 	sbi DDRB, PB5
-	//ldi original, 5
-	//shiftOut original
+	ldi original, 5
+	shiftOut original
 	ret
 
 initScoreDisplay:
-	ldi r16, 1 << PC4 | 1 << PC5
-	out DDRC, r16
+	ldi r18, 1 << PC4 | 1 << PC5
+	out DDRC, r18
 	ret
