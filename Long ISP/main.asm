@@ -10,7 +10,8 @@
 //#include "doubleDabble.s" // move double dabble algorithms and other macros here at some point
 .org   0x0000                          ;start of Interrupt Vector (Jump) Table
         rjmp    reset                           ;address  of start of code
-startTable:    
+.equ size = 15
+startTable: //.byte   
 		// A set of random numbers until I know how to generate them in assembly language
 		.DB 4, 14, 32, 94, 28, 69, 48, 51, 15, 0
 .org 0x000E
@@ -59,6 +60,8 @@ timers:
 	sei ; global interrupt enable
 
 setup:
+	// generate random numbers and load startTable here
+
 	clr input
 	clr index
 	clr copy

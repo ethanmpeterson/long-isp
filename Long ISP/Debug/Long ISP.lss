@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Mon Apr 02 16:32:03 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Sat May 26 14:18:51 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
 C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
@@ -1021,7 +1021,8 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
                                  //#include "doubleDabble.s" // move double dabble algorithms and other macros here at some point
                                  .org   0x0000                          ;start of Interrupt Vector (Jump) Table
 000000 c0ff                              rjmp    reset                           ;address  of start of code
-                                 startTable:    
+                                 .equ size = 15
+                                 startTable: //.byte   
                                  		// A set of random numbers until I know how to generate them in assembly language
 000001 0e04
 000002 5e20
@@ -1074,6 +1075,8 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
 000117 9478                      	sei ; global interrupt enable
                                  
                                  setup:
+                                 	// generate random numbers and load startTable here
+                                 
 000118 2755                      	clr input
 000119 2777                      	clr index
 00011a 24ee                      	clr copy
