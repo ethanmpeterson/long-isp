@@ -5,12 +5,20 @@
 ; Author : Ethan Peterson
 ;
 
+.dseg
+
+array: ; array of random numbers for binary game
+	.byte 100 ; reserves 100 bytes for 100 unqiue numbers over 5 min play period
+
 .cseg                                          ;load into Program Memory
 #include "prescalers.h"
 //#include "doubleDabble.s" // move double dabble algorithms and other macros here at some point
 .org   0x0000                          ;start of Interrupt Vector (Jump) Table
         rjmp    reset                           ;address  of start of code
 .equ size = 15
+	; set stack pointers
+	ldi xl, low(array)
+	ldi xh, high(array)
 startTable: //.byte   
 		// A set of random numbers until I know how to generate them in assembly language
 		.DB 4, 14, 32, 94, 28, 69, 48, 51, 15, 0
@@ -58,6 +66,9 @@ timers:
 	ldi r16, 1 << OCIE2A ; set timer interrupt enable bit
 	sts TIMSK2, r16 ; enable the interrupt
 	sei ; global interrupt enable
+
+generateRandoms: ; generates the random numbers in to populate the array
+	ret
 
 setup:
 	// generate random numbers and load startTable here
