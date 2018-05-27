@@ -5,26 +5,22 @@
 ; Author : Ethan Peterson
 ;
 
-.dseg
-
-array: ; array of random numbers for binary game
-	.byte 100 ; reserves 100 bytes for 100 unqiue numbers over 5 min play period
-
 .cseg                                          ;load into Program Memory
 #include "prescalers.h"
 //#include "doubleDabble.s" // move double dabble algorithms and other macros here at some point
 .org   0x0000                          ;start of Interrupt Vector (Jump) Table
         rjmp    reset                           ;address  of start of code
 .equ size = 15
-	; set stack pointers
-	ldi xl, low(array)
-	ldi xh, high(array)
 startTable: //.byte   
 		// A set of random numbers until I know how to generate them in assembly language
 		.DB 4, 14, 32, 94, 28, 69, 48, 51, 15, 0
 .org 0x000E
 	rjmp TIM2_COMPA
 endTable:
+.org 0x002A
+	rjmp ADC_Complete
+.org 0x0020
+		rjmp TIM0_OVF
 .org    0x100                                   ;abitrary address for start of code
  reset:
 	clr r22
@@ -33,10 +29,10 @@ endTable:
     ldi             r16, high(RAMEND)       ; the end of SRAM to support
     out             sph,r16                 ; function calls, etc.
 
-   ldi             xl,low(startTable<<1)   ; position X and Y pointers to the
-   ldi             xh,high(startTable<<1)  ; start and end addresses of
-   ldi             yl,low(endTable<<1)     ; our data table, respectively
-   ldi             yh,high(endTable<<1)    ;
+   //ldi             xl,low(startTable<<1)   ; position X and Y pointers to the
+   //ldi             xh,high(startTable<<1)  ; start and end addresses of
+   //ldi             yl,low(endTable<<1)     ; our data table, respectively
+   //ldi             yh,high(endTable<<1)    ;
    movw    z,x
 
 .def original = r16 ; value to be pushed through double dabble algorithm
@@ -46,7 +42,7 @@ endTable:
 .def addReg = r20 ; holds a value of 3 to be added to other registers in the double dabble process
 .def times = r25 ; register holding the number of bit shifts the double dabble algorithm must do before being complete
 .def input = r21 ; raw graycode input from rotary encoder
-.def index = r23 ; incrimented upon each correct binary combo
+.def newValue = r23 ; where newly generated random numbers will be stored
 .def score = r15
 .def copy = r14
 
@@ -54,8 +50,10 @@ endTable:
 .equ latch = PB5
 .equ clk = PB4
 
+rjmp setup
+
 timers:
-	cli ; global interrupt disable
+	//cli ; global interrupt disable
 	ldi r16, T2ps1024 ; set the prescaler
 	sts TCCR2B, r16 ; store to appropriate register
 	ldi r16, 0x02 ; set timer mode 2
@@ -65,34 +63,88 @@ timers:
 
 	ldi r16, 1 << OCIE2A ; set timer interrupt enable bit
 	sts TIMSK2, r16 ; enable the interrupt
-	sei ; global interrupt enable
-
-generateRandoms: ; generates the random numbers in to populate the array
+	//sei ; global interrupt enable
 	ret
 
-setup:
-	// generate random numbers and load startTable here
+ADCInit:
+	ser r16 ; set all bits in r16
+	ldi r16, (1 << REFS0) | (1 << ADLAR)
+	sts ADMUX, r16
+	; Enable, start dummy conversion, enable timer as trigger, prescaler
+	ldi r16, (1 << ADEN) | (1 << ADSC) | (1 << ADIE) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0)
+	sts ADCSRA, r16
+	ldi r16, 1 << ADTS2
+	sts ADCSRB, r16
+dummy:
+	lds r16, ADCSRA
+	andi r16,  1 << ADIF
+	breq dummy
+	ret
 
+ADC_Complete:
+	lds newValue, ADCH ; grab ADC reading and place in gp reg
+	
+	reti
+
+T0Init: ; initialize T0 interrupt to schedule ADC conversions
+	clr r16
+	out TCCR0A, r16 ; normal mode OC0A/B disconnected
+	ldi r16, T0ps8 ; 
+	out TCCR0B, r16
+	ldi r16, 1 << TOIE0 ; Timer interrupt enable
+	sts TIMSK0, r16 ; output to mask register to
+	ret
+
+TIM0_OVF:
+	lds r19, ADCSRA ; start an ADC conversion
+	sbr r19, 1 << ADSC ; set the required bit
+	sts ADCSRA, r19
+	reti
+
+setup:
+	clr newValue
 	clr input
-	clr index
 	clr copy
 	clr original
 	clr score
+
+	cli
+
 	rcall initScoreDisplay
 	rcall initShiftReg
+	rcall timers
+	rcall ADCInit
+	//rcall T0Init
+	sei
 	rjmp loop
 
 start:
 	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
-	// load original with data from table
-	//clr zl
-	//lpm original, z
-	//movw z,x
-	//ldi index, 64
-	mov zl, index
-	lpm original, z
-	lpm copy, z
-	movw z, x
+	//mov zl, index
+
+	mov r17, newValue ; copy the seed
+	andi r17, 0x43  
+	clr r18
+	clr r19 
+	; generate random # in newValue reg using ADC reading as seed... reference: https://www.avrfreaks.net/forum/i-need-pseudo-random-number-generator-attiny-13
+	lsr r17
+	adc r18, r19
+	lsr r17
+	adc r18, r19
+	lsr r17
+	lsr r17
+	lsr r17
+	lsr r17
+	lsr r17
+	adc r18, r19
+	bst r18, 0 ;
+	bld newValue, 7
+	lsr newValue 
+
+	mov original, newValue
+	mov copy, newValue
+
+	//movw z, x
 	//mov original, index
 	ret
 
@@ -358,7 +410,9 @@ TIM2_COMPA:
 	breq isEqual
 	//breq isEqual
 	//mov hundreds, input
-	rcall start
+
+	;rcall start
+
 	//rcall getInput
 	//clr input
 	//ldi original, 255
@@ -375,8 +429,6 @@ loop:
 	rjmp loop
 
 isEqual:
-	//inc index
-	inc index
 	inc score
 	rcall start
 	doubleDabble original

@@ -1,10 +1,10 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Sat May 26 14:32:01 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Sat May 26 22:47:18 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
-C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
+C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
-C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
+C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
                                  
                                  ;
                                  
@@ -993,11 +993,6 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): Includi
                                  ; Author : Ethan Peterson
                                  ;
                                  
-                                 .dseg
-                                 
-                                 array: ; array of random numbers for binary game
-000100                           	.byte 100 ; reserves 100 bytes for 100 unqiue numbers over 5 min play period
-                                 
                                  .cseg                                          ;load into Program Memory
                                  #include "prescalers.h"
                                  
@@ -1027,19 +1022,20 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): Includi
                                  .org   0x0000                          ;start of Interrupt Vector (Jump) Table
 000000 c0ff                              rjmp    reset                           ;address  of start of code
                                  .equ size = 15
-                                 	; set stack pointers
-000001 e0a0                      	ldi xl, low(array)
-000002 e0b1                      	ldi xh, high(array)
                                  startTable: //.byte   
                                  		// A set of random numbers until I know how to generate them in assembly language
-000003 0e04
-000004 5e20
-000005 451c
-000006 3330
-000007 000f                      		.DB 4, 14, 32, 94, 28, 69, 48, 51, 15, 0
+000001 0e04
+000002 5e20
+000003 451c
+000004 3330
+000005 000f                      		.DB 4, 14, 32, 94, 28, 69, 48, 51, 15, 0
                                  .org 0x000E
-00000e c1f6                      	rjmp TIM2_COMPA
+00000e c225                      	rjmp TIM2_COMPA
                                  endTable:
+                                 .org 0x002A
+00002a c0f8                      	rjmp ADC_Complete
+                                 .org 0x0020
+000020 c10d                      		rjmp TIM0_OVF
                                  .org    0x100                                   ;abitrary address for start of code
                                   reset:
 000100 2766                      	clr r22
@@ -1048,11 +1044,11 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): Includi
 000103 e008                          ldi             r16, high(RAMEND)       ; the end of SRAM to support
 000104 bf0e                          out             sph,r16                 ; function calls, etc.
                                  
-000105 e0a6                         ldi             xl,low(startTable<<1)   ; position X and Y pointers to the
-000106 e0b0                         ldi             xh,high(startTable<<1)  ; start and end addresses of
-000107 e1ce                         ldi             yl,low(endTable<<1)     ; our data table, respectively
-000108 e0d0                         ldi             yh,high(endTable<<1)    ;
-000109 01fd                         movw    z,x
+                                    //ldi             xl,low(startTable<<1)   ; position X and Y pointers to the
+                                    //ldi             xh,high(startTable<<1)  ; start and end addresses of
+                                    //ldi             yl,low(endTable<<1)     ; our data table, respectively
+                                    //ldi             yh,high(endTable<<1)    ;
+000105 01fd                         movw    z,x
                                  
                                  .def original = r16 ; value to be pushed through double dabble algorithm
                                  .def onesTens = r17 ; register holding ones and tens output nibbles from double dabble
@@ -1061,7 +1057,7 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): Includi
                                  .def addReg = r20 ; holds a value of 3 to be added to other registers in the double dabble process
                                  .def times = r25 ; register holding the number of bit shifts the double dabble algorithm must do before being complete
                                  .def input = r21 ; raw graycode input from rotary encoder
-                                 .def index = r23 ; incrimented upon each correct binary combo
+                                 .def newValue = r23 ; where newly generated random numbers will be stored
                                  .def score = r15
                                  .def copy = r14
                                  
@@ -1069,44 +1065,104 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): Includi
                                  .equ latch = PB5
                                  .equ clk = PB4
                                  
-                                 timers:
-00010a 94f8                      	cli ; global interrupt disable
-00010b e007                      	ldi r16, T2ps1024 ; set the prescaler
-00010c 9300 00b1                 	sts TCCR2B, r16 ; store to appropriate register
-00010e e002                      	ldi r16, 0x02 ; set timer mode 2
-00010f 9300 00b0                 	sts TCCR2A, r16 ; store
-000111 e70c                      	ldi r16, 124 ; set output compare number to get 63hz freq
-000112 9300 00b3                 	sts OCR2A, r16 ; store to output compare reg
+000106 c02d                      rjmp setup
                                  
-000114 e002                      	ldi r16, 1 << OCIE2A ; set timer interrupt enable bit
-000115 9300 0070                 	sts TIMSK2, r16 ; enable the interrupt
-000117 9478                      	sei ; global interrupt enable
+                                 timers:
+                                 	//cli ; global interrupt disable
+000107 e007                      	ldi r16, T2ps1024 ; set the prescaler
+000108 9300 00b1                 	sts TCCR2B, r16 ; store to appropriate register
+00010a e002                      	ldi r16, 0x02 ; set timer mode 2
+00010b 9300 00b0                 	sts TCCR2A, r16 ; store
+00010d e70c                      	ldi r16, 124 ; set output compare number to get 63hz freq
+00010e 9300 00b3                 	sts OCR2A, r16 ; store to output compare reg
+                                 
+000110 e002                      	ldi r16, 1 << OCIE2A ; set timer interrupt enable bit
+000111 9300 0070                 	sts TIMSK2, r16 ; enable the interrupt
+                                 	//sei ; global interrupt enable
+000113 9508                      	ret
+                                 
+                                 ADCInit:
+000114 ef0f                      	ser r16 ; set all bits in r16
+000115 e600                      	ldi r16, (1 << REFS0) | (1 << ADLAR)
+000116 9300 007c                 	sts ADMUX, r16
+                                 	; Enable, start dummy conversion, enable timer as trigger, prescaler
+000118 ec0f                      	ldi r16, (1 << ADEN) | (1 << ADSC) | (1 << ADIE) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0)
+000119 9300 007a                 	sts ADCSRA, r16
+00011b e004                      	ldi r16, 1 << ADTS2
+00011c 9300 007b                 	sts ADCSRB, r16
+                                 dummy:
+00011e 9100 007a                 	lds r16, ADCSRA
+000120 7100                      	andi r16,  1 << ADIF
+000121 f3e1                      	breq dummy
+000122 9508                      	ret
+                                 
+                                 ADC_Complete:
+000123 9170 0079                 	lds newValue, ADCH ; grab ADC reading and place in gp reg
+                                 	
+000125 9518                      	reti
+                                 
+                                 T0Init: ; initialize T0 interrupt to schedule ADC conversions
+000126 2700                      	clr r16
+000127 bd04                      	out TCCR0A, r16 ; normal mode OC0A/B disconnected
+000128 e002                      	ldi r16, T0ps8 ; 
+000129 bd05                      	out TCCR0B, r16
+00012a e001                      	ldi r16, 1 << TOIE0 ; Timer interrupt enable
+00012b 9300 006e                 	sts TIMSK0, r16 ; output to mask register to
+00012d 9508                      	ret
+                                 
+                                 TIM0_OVF:
+00012e 9130 007a                 	lds r19, ADCSRA ; start an ADC conversion
+000130 6430                      	sbr r19, 1 << ADSC ; set the required bit
+000131 9330 007a                 	sts ADCSRA, r19
+000133 9518                      	reti
                                  
                                  setup:
-                                 	// generate random numbers and load startTable here
+000134 2777                      	clr newValue
+000135 2755                      	clr input
+000136 24ee                      	clr copy
+000137 2700                      	clr original
+000138 24ff                      	clr score
                                  
-000118 2755                      	clr input
-000119 2777                      	clr index
-00011a 24ee                      	clr copy
-00011b 2700                      	clr original
-00011c 24ff                      	clr score
-00011d d13f                      	rcall initScoreDisplay
-00011e d10f                      	rcall initShiftReg
-00011f c0ea                      	rjmp loop
+000139 94f8                      	cli
+                                 
+00013a d14f                      	rcall initScoreDisplay
+00013b d11f                      	rcall initShiftReg
+00013c dfca                      	rcall timers
+00013d dfd6                      	rcall ADCInit
+                                 	//rcall T0Init
+00013e 9478                      	sei
+00013f c0f8                      	rjmp loop
                                  
                                  start:
-000120 b96a                      	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
-                                 	// load original with data from table
-                                 	//clr zl
-                                 	//lpm original, z
-                                 	//movw z,x
-                                 	//ldi index, 64
-000121 2fe7                      	mov zl, index
-000122 9104                      	lpm original, z
-000123 90e4                      	lpm copy, z
-000124 01fd                      	movw z, x
+000140 b96a                      	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
+                                 	//mov zl, index
+                                 
+000141 2f17                      	mov r17, newValue ; copy the seed
+                                 
+000142 7413                      	andi r17, 0x43 ; mask out all but bits 6, 1, and 0
+000143 2722                      	clr r18 ; count the number of 1's
+000144 2733                      	clr r19 ; need a zero to add to
+                                 
+000145 9516                      	lsr r17
+000146 1f23                      	adc r18, r19
+000147 9516                      	lsr r17
+000148 1f23                      	adc r18, r19
+000149 9516                      	lsr r17
+00014a 9516                      	lsr r17
+00014b 9516                      	lsr r17
+00014c 9516                      	lsr r17
+00014d 9516                      	lsr r17
+00014e 1f23                      	adc r18, r19
+00014f fb20                      	bst r18, 0 ; copy the least significant bit to T
+000150 f977                      	bld newValue, 7 ; and store it to the most significant bit of my original number
+000151 9576                      	lsr newValue ; right shift the original number
+                                 
+000152 2f07                      	mov original, newValue
+000153 2ee7                      	mov copy, newValue
+                                 
+                                 	//movw z, x
                                  	//mov original, index
-000125 9508                      	ret
+000154 9508                      	ret
                                  
                                  
                                  getInput:
@@ -1121,7 +1177,7 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): Includi
                                  	// Get random byte value to be challenge val for binary challenge
                                  	//inc input
                                  
-000126 9508                      	ret 
+000155 9508                      	ret 
                                  	
                                  	
                                  /*doubleDabble:
@@ -1306,371 +1362,371 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(14): Includi
                                  .ENDMACRO
                                  
                                  display:
-000127 d138                      	rcall initNumDisplay ; set all transistor manipulation pins to output
-000128 982a
-000129 9829
-00012a 9828
-00012b 9a2a                      	numDisplaySelect PB2
+000156 d136                      	rcall initNumDisplay ; set all transistor manipulation pins to output
+000157 982a
+000158 9829
+000159 9828
+00015a 9a2a                      	numDisplaySelect PB2
                                  	//ldi r16, 0xFF
                                  	//out DDRC, r16 ; set 4511 outputs
                                  	//out PORTC, r16
-00012c 9840
-00012d fd60
-00012e 9a40
-00012f 9841
-000130 fd61
-000131 9a41
-000132 9842
-000133 fd62
-000134 9a42
-000135 9843
-000136 fd63
-000137 9a43                      	numDisplayOut hundreds ; display hundreds
-000138 d0c5                      	rcall delay
+00015b 9840
+00015c fd60
+00015d 9a40
+00015e 9841
+00015f fd61
+000160 9a41
+000161 9842
+000162 fd62
+000163 9a42
+000164 9843
+000165 fd63
+000166 9a43                      	numDisplayOut hundreds ; display hundreds
+000167 d0c5                      	rcall delay
                                  	; switch to tens display
-000139 982a
-00013a 9829
-00013b 9828
-00013c 9a29                      	numDisplaySelect PB1
-00013d 2f81                      	mov working, onesTens
-00013e 7f80                      	andi working, 0b11110000
-00013f 9582                      	swap working
-000140 9840
-000141 fd80
-000142 9a40
-000143 9841
-000144 fd81
-000145 9a41
-000146 9842
-000147 fd82
-000148 9a42
-000149 9843
-00014a fd83
-00014b 9a43                      	numDisplayOut working
+000168 982a
+000169 9829
+00016a 9828
+00016b 9a29                      	numDisplaySelect PB1
+00016c 2f81                      	mov working, onesTens
+00016d 7f80                      	andi working, 0b11110000
+00016e 9582                      	swap working
+00016f 9840
+000170 fd80
+000171 9a40
+000172 9841
+000173 fd81
+000174 9a41
+000175 9842
+000176 fd82
+000177 9a42
+000178 9843
+000179 fd83
+00017a 9a43                      	numDisplayOut working
                                  	//out PORTC, working ; display tens
-00014c d0b1                      	rcall delay
+00017b d0b1                      	rcall delay
                                  	; switch to ones Display
-00014d 982a
-00014e 9829
-00014f 9828
-000150 9a28                      	numDisplaySelect PB0
-000151 2f81                      	mov working, onesTens
-000152 708f                      	andi working, 0b00001111
+00017c 982a
+00017d 9829
+00017e 9828
+00017f 9a28                      	numDisplaySelect PB0
+000180 2f81                      	mov working, onesTens
+000181 708f                      	andi working, 0b00001111
                                  	//out PORTC, working
-000153 9840
-000154 fd80
-000155 9a40
-000156 9841
-000157 fd81
-000158 9a41
-000159 9842
-00015a fd82
-00015b 9a42
-00015c 9843
-00015d fd83
-00015e 9a43                      	numDisplayOut working
-00015f d09e                      	rcall delay ; admire
+000182 9840
+000183 fd80
+000184 9a40
+000185 9841
+000186 fd81
+000187 9a41
+000188 9842
+000189 fd82
+00018a 9a42
+00018b 9843
+00018c fd83
+00018d 9a43                      	numDisplayOut working
+00018e d09e                      	rcall delay ; admire
                                  	//rjmp reset ; restart the program to update input value and reset the required registers
-000160 9508                      	ret ;
+00018f 9508                      	ret ;
                                  
                                  scoreDisplay: // not working * 
-000161 9844
-000162 9845
-000163 9a45                      	scoreDisplaySelect PC5 ; select ones display
-000164 2d2f                      	mov r18, score ; retain score value
-000165 e043
-000166 e098
-000167 2711
-000168 2766
-000169 2f81
-00016a 708f
-00016b 3085
-00016c f468
-00016d 2f81
-00016e 7f80
-00016f 3580
-000170 f458
-000171 3065
-000172 f468
-000173 0f22
-000174 1f11
-000175 1f66
-000176 959a
-000177 3090
-000178 f049
-000179 cfef
-00017a 0f14
-00017b cff1
-00017c 9512
-00017d 0f14
-00017e 9512
-00017f cff1
-000180 0f64
-000181 cff1                      	doubleDabble r18
-000182 2f81                      	mov working, onesTens
-000183 708f                      	andi working, 0b00001111
-000184 982d
-000185 982c
-000186 982b
-000187 fd87
-000188 9a2b
-000189 9a2c
-00018a 982c
-00018b 982b
-00018c fd86
-00018d 9a2b
-00018e 9a2c
-00018f 982c
-000190 982b
-000191 fd85
-000192 9a2b
-000193 9a2c
-000194 982c
-000195 982b
-000196 fd84
-000197 9a2b
-000198 9a2c
-000199 982c
-00019a 982b
-00019b fd83
-00019c 9a2b
-00019d 9a2c
-00019e 982c
-00019f 982b
-0001a0 fd82
-0001a1 9a2b
-0001a2 9a2c
-0001a3 982c
-0001a4 982b
-0001a5 fd81
-0001a6 9a2b
-0001a7 9a2c
-0001a8 982c
-0001a9 982b
-0001aa fd80
-0001ab 9a2b
-0001ac 9a2c
-0001ad 9a2d                      	shiftOut working
-0001ae d04f                      	rcall delay
+000190 9844
+000191 9845
+000192 9a45                      	scoreDisplaySelect PC5 ; select ones display
+000193 2d2f                      	mov r18, score ; retain score value
+000194 e043
+000195 e098
+000196 2711
+000197 2766
+000198 2f81
+000199 708f
+00019a 3085
+00019b f468
+00019c 2f81
+00019d 7f80
+00019e 3580
+00019f f458
+0001a0 3065
+0001a1 f468
+0001a2 0f22
+0001a3 1f11
+0001a4 1f66
+0001a5 959a
+0001a6 3090
+0001a7 f049
+0001a8 cfef
+0001a9 0f14
+0001aa cff1
+0001ab 9512
+0001ac 0f14
+0001ad 9512
+0001ae cff1
+0001af 0f64
+0001b0 cff1                      	doubleDabble r18
+0001b1 2f81                      	mov working, onesTens
+0001b2 708f                      	andi working, 0b00001111
+0001b3 982d
+0001b4 982c
+0001b5 982b
+0001b6 fd87
+0001b7 9a2b
+0001b8 9a2c
+0001b9 982c
+0001ba 982b
+0001bb fd86
+0001bc 9a2b
+0001bd 9a2c
+0001be 982c
+0001bf 982b
+0001c0 fd85
+0001c1 9a2b
+0001c2 9a2c
+0001c3 982c
+0001c4 982b
+0001c5 fd84
+0001c6 9a2b
+0001c7 9a2c
+0001c8 982c
+0001c9 982b
+0001ca fd83
+0001cb 9a2b
+0001cc 9a2c
+0001cd 982c
+0001ce 982b
+0001cf fd82
+0001d0 9a2b
+0001d1 9a2c
+0001d2 982c
+0001d3 982b
+0001d4 fd81
+0001d5 9a2b
+0001d6 9a2c
+0001d7 982c
+0001d8 982b
+0001d9 fd80
+0001da 9a2b
+0001db 9a2c
+0001dc 9a2d                      	shiftOut working
+0001dd d04f                      	rcall delay
                                  	//rcall delay
-0001af 9844
-0001b0 9845
-0001b1 9a44                      	scoreDisplaySelect PC4 ; select tens display
-0001b2 2f81                      	mov working, onesTens
-0001b3 7f80                      	andi working, 0b11110000
-0001b4 9582                      	swap working
-0001b5 982d
-0001b6 982c
-0001b7 982b
-0001b8 fd87
-0001b9 9a2b
-0001ba 9a2c
-0001bb 982c
-0001bc 982b
-0001bd fd86
-0001be 9a2b
-0001bf 9a2c
-0001c0 982c
-0001c1 982b
-0001c2 fd85
-0001c3 9a2b
-0001c4 9a2c
-0001c5 982c
-0001c6 982b
-0001c7 fd84
-0001c8 9a2b
-0001c9 9a2c
-0001ca 982c
-0001cb 982b
-0001cc fd83
-0001cd 9a2b
-0001ce 9a2c
-0001cf 982c
-0001d0 982b
-0001d1 fd82
-0001d2 9a2b
-0001d3 9a2c
-0001d4 982c
-0001d5 982b
-0001d6 fd81
-0001d7 9a2b
-0001d8 9a2c
-0001d9 982c
-0001da 982b
-0001db fd80
-0001dc 9a2b
-0001dd 9a2c
-0001de 9a2d                      	shiftOut working
+0001de 9844
+0001df 9845
+0001e0 9a44                      	scoreDisplaySelect PC4 ; select tens display
+0001e1 2f81                      	mov working, onesTens
+0001e2 7f80                      	andi working, 0b11110000
+0001e3 9582                      	swap working
+0001e4 982d
+0001e5 982c
+0001e6 982b
+0001e7 fd87
+0001e8 9a2b
+0001e9 9a2c
+0001ea 982c
+0001eb 982b
+0001ec fd86
+0001ed 9a2b
+0001ee 9a2c
+0001ef 982c
+0001f0 982b
+0001f1 fd85
+0001f2 9a2b
+0001f3 9a2c
+0001f4 982c
+0001f5 982b
+0001f6 fd84
+0001f7 9a2b
+0001f8 9a2c
+0001f9 982c
+0001fa 982b
+0001fb fd83
+0001fc 9a2b
+0001fd 9a2c
+0001fe 982c
+0001ff 982b
+000200 fd82
+000201 9a2b
+000202 9a2c
+000203 982c
+000204 982b
+000205 fd81
+000206 9a2b
+000207 9a2c
+000208 982c
+000209 982b
+00020a fd80
+00020b 9a2b
+00020c 9a2c
+00020d 9a2d                      	shiftOut working
                                  	//rcall delay
-0001df 2d2e                      	mov r18, copy
-0001e0 e043
-0001e1 e098
-0001e2 2711
-0001e3 2766
-0001e4 2f81
-0001e5 708f
-0001e6 3085
-0001e7 f468
-0001e8 2f81
-0001e9 7f80
-0001ea 3580
-0001eb f458
-0001ec 3065
-0001ed f468
-0001ee 0f22
-0001ef 1f11
-0001f0 1f66
-0001f1 959a
-0001f2 3090
-0001f3 f049
-0001f4 cfef
-0001f5 0f14
-0001f6 cff1
-0001f7 9512
-0001f8 0f14
-0001f9 9512
-0001fa cff1
-0001fb 0f64
-0001fc cff1                      	doubleDabble r18
-0001fd 9508                      	ret
+00020e 2d2e                      	mov r18, copy
+00020f e043
+000210 e098
+000211 2711
+000212 2766
+000213 2f81
+000214 708f
+000215 3085
+000216 f468
+000217 2f81
+000218 7f80
+000219 3580
+00021a f458
+00021b 3065
+00021c f468
+00021d 0f22
+00021e 1f11
+00021f 1f66
+000220 959a
+000221 3090
+000222 f049
+000223 cfef
+000224 0f14
+000225 cff1
+000226 9512
+000227 0f14
+000228 9512
+000229 cff1
+00022a 0f64
+00022b cff1                      	doubleDabble r18
+00022c 9508                      	ret
                                  
                                  delay: ; 1 ms delay
-0001fe e02b                      ldi  r18, 11
-0001ff e633                          ldi  r19, 99
-000200 953a                      L1: dec  r19
-000201 f7f1                          brne L1
-000202 952a                          dec  r18
-000203 f7e1                          brne L1
-000204 9508                      	ret
+00022d e02b                      ldi  r18, 11
+00022e e633                          ldi  r19, 99
+00022f 953a                      L1: dec  r19
+000230 f7f1                          brne L1
+000231 952a                          dec  r18
+000232 f7e1                          brne L1
+000233 9508                      	ret
                                  
                                  TIM2_COMPA:
                                  	//inc onesTens
                                  	//rcall checkEqual
                                  	//in original, PIND
                                  	//cp input, original
-000205 b159                      	in input, PIND
+000234 b159                      	in input, PIND
                                  	//lpm original, z
-000206 155e                      	cp input, copy //index
-000207 f029                      	breq isEqual
+000235 155e                      	cp input, copy //index
+000236 f021                      	breq isEqual
                                  	//breq isEqual
                                  	//mov hundreds, input
-000208 df17                      	rcall start
+                                 
+                                 	;rcall start
+                                 
                                  	//rcall getInput
                                  	//clr input
                                  	//ldi original, 255
                                  	
                                  	//doubleDabble original
-000209 9518                      	reti
+000237 9518                      	reti
                                  
                                  loop:
                                  	//rcall scoreDisplay
-00020a df1c                      	rcall display
-00020b df55                      	rcall scoreDisplay
+000238 df1d                      	rcall display
+000239 df56                      	rcall scoreDisplay
                                  	//rcall scoreDisplay
                                  	//shiftData score
-00020c cffd                      	rjmp loop
+00023a cffd                      	rjmp loop
                                  
                                  isEqual:
-                                 	//inc index
-00020d 9573                      	inc index
-00020e 94f3                      	inc score
-00020f df10                      	rcall start
-000210 e043
-000211 e098
-000212 2711
-000213 2766
-000214 2f81
-000215 708f
-000216 3085
-000217 f468
-000218 2f81
-000219 7f80
-00021a 3580
-00021b f458
-00021c 3065
-00021d f468
-00021e 0f00
-00021f 1f11
-000220 1f66
-000221 959a
-000222 3090
-000223 f049
-000224 cfef
-000225 0f14
-000226 cff1
-000227 9512
-000228 0f14
-000229 9512
-00022a cff1
-00022b 0f64
-00022c cff1                      	doubleDabble original
-00022d 9518                      	reti
+00023b 94f3                      	inc score
+00023c df03                      	rcall start
+00023d e043
+00023e e098
+00023f 2711
+000240 2766
+000241 2f81
+000242 708f
+000243 3085
+000244 f468
+000245 2f81
+000246 7f80
+000247 3580
+000248 f458
+000249 3065
+00024a f468
+00024b 0f00
+00024c 1f11
+00024d 1f66
+00024e 959a
+00024f 3090
+000250 f049
+000251 cfef
+000252 0f14
+000253 cff1
+000254 9512
+000255 0f14
+000256 9512
+000257 cff1
+000258 0f64
+000259 cff1                      	doubleDabble original
+00025a 9518                      	reti
                                  
                                  initShiftReg:
-00022e 9a23                      	sbi DDRB, PB3
-00022f 9a24                      	sbi DDRB, PB4
-000230 9a25                      	sbi DDRB, PB5
-000231 e000                      	ldi original, 0
-000232 982d
-000233 982c
-000234 982b
-000235 fd07
-000236 9a2b
-000237 9a2c
-000238 982c
-000239 982b
-00023a fd06
-00023b 9a2b
-00023c 9a2c
-00023d 982c
-00023e 982b
-00023f fd05
-000240 9a2b
-000241 9a2c
-000242 982c
-000243 982b
-000244 fd04
-000245 9a2b
-000246 9a2c
-000247 982c
-000248 982b
-000249 fd03
-00024a 9a2b
-00024b 9a2c
-00024c 982c
-00024d 982b
-00024e fd02
-00024f 9a2b
-000250 9a2c
-000251 982c
-000252 982b
-000253 fd01
-000254 9a2b
-000255 9a2c
-000256 982c
-000257 982b
-000258 fd00
-000259 9a2b
-00025a 9a2c
-00025b 9a2d                      	shiftOut original
-00025c 9508                      	ret
+00025b 9a23                      	sbi DDRB, PB3
+00025c 9a24                      	sbi DDRB, PB4
+00025d 9a25                      	sbi DDRB, PB5
+00025e e000                      	ldi original, 0
+00025f 982d
+000260 982c
+000261 982b
+000262 fd07
+000263 9a2b
+000264 9a2c
+000265 982c
+000266 982b
+000267 fd06
+000268 9a2b
+000269 9a2c
+00026a 982c
+00026b 982b
+00026c fd05
+00026d 9a2b
+00026e 9a2c
+00026f 982c
+000270 982b
+000271 fd04
+000272 9a2b
+000273 9a2c
+000274 982c
+000275 982b
+000276 fd03
+000277 9a2b
+000278 9a2c
+000279 982c
+00027a 982b
+00027b fd02
+00027c 9a2b
+00027d 9a2c
+00027e 982c
+00027f 982b
+000280 fd01
+000281 9a2b
+000282 9a2c
+000283 982c
+000284 982b
+000285 fd00
+000286 9a2b
+000287 9a2c
+000288 9a2d                      	shiftOut original
+000289 9508                      	ret
                                  
                                  initScoreDisplay:
                                  	//ldi r18, 1 << PC4 | 1 << PC5
                                  	//out DDRC, r18
-00025d 9a3c                      	sbi DDRC, PC4
-00025e 9a3d                      	sbi DDRC, PC5
-00025f 9508                      	ret
+00028a 9a3c                      	sbi DDRC, PC4
+00028b 9a3d                      	sbi DDRC, PC5
+00028c 9508                      	ret
                                  
                                  initNumDisplay:
-000260 9a20                      	sbi DDRB, PB0
-000261 9a21                      	sbi DDRB, PB1
-000262 9a22                      	sbi DDRB, PB2
+00028d 9a20                      	sbi DDRB, PB0
+00028e 9a21                      	sbi DDRB, PB1
+00028f 9a22                      	sbi DDRB, PB2
                                  
-000263 9a38                      	sbi DDRC, PC0
-000264 9a39                      	sbi DDRC, PC1
-000265 9a3a                      	sbi DDRC, PC2
-000266 9a3b                      	sbi DDRC, PC3
+000290 9a38                      	sbi DDRC, PC0
+000291 9a39                      	sbi DDRC, PC1
+000292 9a3a                      	sbi DDRC, PC2
+000293 9a3b                      	sbi DDRC, PC3
                                  
 
 
@@ -1689,40 +1745,40 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega328P" register use summary:
-x  :   2 y  :   0 z  :   4 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+x  :   1 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   4 r15:   3 r16:  24 r17:  28 r18:   6 r19:   2 r20:  12 
-r21:   3 r22:  18 r23:   3 r24:  52 r25:   9 r26:   2 r27:   2 r28:   1 
-r29:   1 r30:   1 r31:   0 
-Registers used: 19 out of 35 (54.3%)
+r13:   0 r14:   4 r15:   3 r16:  39 r17:  37 r18:  11 r19:   9 r20:  12 
+r21:   3 r22:  18 r23:   7 r24:  52 r25:   9 r26:   0 r27:   0 r28:   0 
+r29:   0 r30:   0 r31:   0 
+Registers used: 14 out of 35 (40.0%)
 
 "ATmega328P" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   9 adiw  :   0 and   :   0 
-andi  :  10 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   4 brge  :   0 brhc  :   0 
+.lds  :   0 .sts  :   0 adc   :   3 add   :   9 adiw  :   0 and   :   0 
+andi  :  12 asr   :   0 bclr  :   0 bld   :   1 brbc  :   0 brbs  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   5 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   2 brpl  :   0 brsh  :   9 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :  76 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  12 cls   :   0 
+brvs  :   0 bset  :   0 bst   :   1 call  :   0 cbi   :  76 cbr   :   0 
+clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  15 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 
 cpi   :  12 cpse  :   0 dec   :   5 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   2 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  21 lds   :   0 lpm   :   4 lsl   :   3 
-lsr   :   0 mov   :  13 movw  :   2 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   3 pop   :   0 
-push  :   0 rcall :  11 ret   :   8 reti  :   2 rjmp  :  16 rol   :   6 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   1 jmp   :   0 
+ld    :   0 ldd   :   0 ldi   :  20 lds   :   3 lpm   :   0 lsl   :   3 
+lsr   :   8 mov   :  15 movw  :   1 mul   :   0 muls  :   0 mulsu :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   5 pop   :   0 
+push  :   0 rcall :  12 ret   :  11 reti  :   4 rjmp  :  19 rol   :   6 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :  80 sbic  :   0 sbis  :   0 
-sbiw  :   0 sbr   :   0 sbrc  :  36 sbrs  :   0 sec   :   0 seh   :   0 
-sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   4 
+sbiw  :   0 sbr   :   1 sbrc  :  36 sbrs  :   0 sec   :   0 seh   :   0 
+sei   :   1 sen   :   0 ser   :   1 ses   :   0 set   :   0 sev   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   9 
 sub   :   0 subi  :   0 swap  :   8 tst   :   0 wdr   :   0 
-Instructions used: 29 out of 113 (25.7%)
+Instructions used: 35 out of 113 (31.0%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0004d0    728     10    738   32768   2.3%
-[.dseg] 0x000100 0x000164      0    100    100    2048   4.9%
+[.cseg] 0x000000 0x00052a    818     10    828   32768   2.5%
+[.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
 Assembly complete, 0 errors, 0 warnings
