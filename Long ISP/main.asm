@@ -84,6 +84,7 @@ dummy:
 ADC_Complete:
 	lds newValue, ADCH ; grab ADC reading and place in gp reg
 	
+	
 	reti
 
 T0Init: ; initialize T0 interrupt to schedule ADC conversions
@@ -118,14 +119,22 @@ setup:
 	sei
 	rjmp loop
 
+random:
+	mov r18, newValue
+	clc 
+	rol r19
+	brcc pc + 2
+    eor r19, r18
+	ret
+
 start:
 	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
 	//mov zl, index
 
 	mov r17, newValue ; copy the seed
-	andi r17, 0x43  
-	clr r18
-	clr r19 
+	and r17, r18 
+	ldi r18, 0x43
+	//clr r19 
 	; generate random # in newValue reg using ADC reading as seed... reference: https://www.avrfreaks.net/forum/i-need-pseudo-random-number-generator-attiny-13
 	lsr r17
 	adc r18, r19
@@ -139,7 +148,7 @@ start:
 	adc r18, r19
 	bst r18, 0 ;
 	bld newValue, 7
-	lsr newValue 
+	lsr newValue
 
 	mov original, newValue
 	mov copy, newValue
