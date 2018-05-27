@@ -23,28 +23,25 @@
   <FILE>Long ISP.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <reset><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>25</LINE></reset>
-  <startTable><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>14</LINE></startTable>
-  <TIM2_COMPA><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>411</LINE></TIM2_COMPA>
-  <endTable><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>19</LINE></endTable>
-  <ADC_Complete><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>84</LINE></ADC_Complete>
-  <TIM0_OVF><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>99</LINE></TIM0_OVF>
-  <setup><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>105</LINE></setup>
-  <timers><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>55</LINE></timers>
-  <ADCInit><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>69</LINE></ADCInit>
-  <dummy><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>78</LINE></dummy>
-  <T0Init><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>90</LINE></T0Init>
-  <initScoreDisplay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>454</LINE></initScoreDisplay>
-  <initShiftReg><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>446</LINE></initShiftReg>
-  <loop><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>432</LINE></loop>
-  <random><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>122</LINE></random>
-  <start><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>130</LINE></start>
-  <getInput><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>161</LINE></getInput>
-  <display><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>357</LINE></display>
-  <initNumDisplay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>461</LINE></initNumDisplay>
-  <delay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>402</LINE></delay>
-  <scoreDisplay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>383</LINE></scoreDisplay>
-  <L1><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>405</LINE></L1>
-  <isEqual><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>440</LINE></isEqual>
+  <reset><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>20</LINE></reset>
+  <TIM2_COMPA><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>324</LINE></TIM2_COMPA>
+  <ADC_Complete><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>73</LINE></ADC_Complete>
+  <TIM0_OVF><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>86</LINE></TIM0_OVF>
+  <setup><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>92</LINE></setup>
+  <timers><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>45</LINE></timers>
+  <ADCInit><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>58</LINE></ADCInit>
+  <dummy><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>67</LINE></dummy>
+  <T0Init><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>77</LINE></T0Init>
+  <initScoreDisplay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>349</LINE></initScoreDisplay>
+  <initShiftReg><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>341</LINE></initShiftReg>
+  <loop><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>330</LINE></loop>
+  <random><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>109</LINE></random>
+  <start><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>117</LINE></start>
+  <display><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>278</LINE></display>
+  <initNumDisplay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>354</LINE></initNumDisplay>
+  <delay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>315</LINE></delay>
+  <scoreDisplay><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>298</LINE></scoreDisplay>
+  <L1><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>318</LINE></L1>
+  <isEqual><FILE>C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm</FILE><LINE>335</LINE></isEqual>
  </LABELS>
 </ASSEMBLER_INFO>
