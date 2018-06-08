@@ -16,6 +16,10 @@
 	rjmp ADC_Complete
 .org 0x0020
 		rjmp TIM0_OVF
+
+.org 0x001A
+		rjmp TIM1_OVF
+
 .org    0x100                                   ;abitrary address for start of code
  reset:
 	clr r22
@@ -35,6 +39,8 @@
 .def newValue = r23 ; where newly generated random numbers will be stored
 .def score = r15
 .def copy = r14
+.def overflows = r13
+.def gameEndFlag = r11
 
 .equ data = PB3
 .equ latch = PB5
@@ -83,19 +89,43 @@ T0Init: ; initialize T0 interrupt to schedule ADC conversions
 	sts TIMSK0, r16 ; output to mask register to
 	ret
 
+T1Init: ; 1 Hz Timer overflow interrupt to monitor how long game has ran
+	clr r16
+	ldi r16, 1 << CS12
+	sts TCCR1B, r16
+	ldi r16, 1 << TOIE1
+	sts TIMSK1, r16
+	ret
+
 TIM0_OVF:
 	lds r19, ADCSRA ; start an ADC conversion
 	sbr r19, 1 << ADSC ; set the required bit
 	sts ADCSRA, r19
 	reti
 
+TIM1_OVF:
+	dec overflows
+	tst overflows
+	breq twoMin
+	reti
+
+twoMin:
+	; end the game here
+	dec gameEndFlag
+	reti
+
 setup:
+	
+	ldi r16, 3
+	mov overflows, r16
+	ldi r16, 1
+	mov gameEndFlag, r16
+
 	clr newValue
 	clr input
 	clr copy
 	clr original
 	clr score
-
 	cli
 
 	rcall initScoreDisplay
@@ -103,16 +133,9 @@ setup:
 	rcall timers
 	rcall ADCInit
 	//rcall T0Init
+	rcall T1Init
 	sei
 	rjmp loop
-
-random:
-	mov r18, newValue
-	clc 
-	rol r19
-	brcc pc + 2
-    eor r19, r18
-	ret
 
 start:
 	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
@@ -296,14 +319,14 @@ display:
 	ret ;
 
 scoreDisplay:
-	scoreDisplaySelect PC4 ; select ones display
+	scoreDisplaySelect PC5 ; select ones display
 	mov r18, score ; retain score value
 	doubleDabble r18
 	mov working, onesTens
 	andi working, 0b00001111
 	shiftOut working
 	rcall delay
-	scoreDisplaySelect PC5 ; select tens display
+	scoreDisplaySelect PC4 ; select tens display
 	mov working, onesTens
 	andi working, 0b11110000
 	swap working
@@ -330,7 +353,14 @@ TIM2_COMPA:
 loop:
 	rcall display ; display POV for challenge number and score
 	rcall scoreDisplay
+
+	tst gameEndFlag
+	breq gameEnd
+
 	rjmp loop
+
+gameEnd:
+	rjmp gameEnd
 
 isEqual:
 	inc score
