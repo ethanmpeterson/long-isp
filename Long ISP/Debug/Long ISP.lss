@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Fri Jun 08 12:08:37 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Fri Jun 08 12:32:46 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
 C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
@@ -1022,7 +1022,7 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
 000000 c0ff                              rjmp    reset                           ;address  of start of code
                                  .equ size = 15
                                  .org 0x000E
-00000e c236                      	rjmp TIM2_COMPA
+00000e c27a                      	rjmp TIM2_COMPA
                                  .org 0x002A
 00002a c0f8                      	rjmp ADC_Complete
                                  .org 0x0020
@@ -1052,6 +1052,7 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
                                  .def copy = r14
                                  .def overflows = r13
                                  .def gameEndFlag = r11
+                                 .def scoreCopy = r10
                                  
                                  .equ data = PB3
                                  .equ latch = PB5
@@ -1139,14 +1140,14 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
 00014a 24ff                      	clr score
 00014b 94f8                      	cli
                                  
-00014c d151                      	rcall initScoreDisplay
-00014d d121                      	rcall initShiftReg
+00014c d18f                      	rcall initScoreDisplay
+00014d d15f                      	rcall initShiftReg
 00014e dfb8                      	rcall timers
 00014f dfc4                      	rcall ADCInit
                                  	//rcall T0Init
 000150 dfdd                      	rcall T1Init
 000151 9478                      	sei
-000152 c0f6                      	rjmp loop
+000152 c0f2                      	rjmp loop
                                  
                                  start:
 000153 b96a                      	out 0x0A, hundreds ; clear DDRD register using 0 value in hundreds reg
@@ -1310,7 +1311,7 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
                                  .ENDMACRO
                                  
                                  display:
-000167 d139                      	rcall initNumDisplay ; set all transistor manipulation pins to output
+000167 d177                      	rcall initNumDisplay ; set all transistor manipulation pins to output
 000168 982a
 000169 9829
 00016a 9828
@@ -1539,121 +1540,185 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
 000243 f7e1                          brne L1
 000244 9508                      	ret
                                  
-                                 TIM2_COMPA:
-000245 b159                      	in input, PIND
-000246 155e                      	cp input, copy
-000247 f039                      	breq isEqual
-000248 9518                      	reti
                                  
                                  loop:
-000249 df1d                      	rcall display ; display POV for challenge number and score
-00024a df56                      	rcall scoreDisplay
+000245 df21                      	rcall display ; display POV for challenge number and score
+000246 df5a                      	rcall scoreDisplay
                                  
-00024b 20bb                      	tst gameEndFlag
-00024c f009                      	breq gameEnd
+000247 20bb                      	tst gameEndFlag
+000248 f009                      	breq gameEnd
                                  
-00024d cffb                      	rjmp loop
+000249 cffb                      	rjmp loop
+                                 
                                  
                                  gameEnd:
-00024e cfff                      	rjmp gameEnd
+00024a e000                      	ldi original, 0
+00024b e043
+00024c e098
+00024d 2711
+00024e 2766
+00024f 2f81
+000250 708f
+000251 3085
+000252 f468
+000253 2f81
+000254 7f80
+000255 3580
+000256 f458
+000257 3065
+000258 f468
+000259 0f00
+00025a 1f11
+00025b 1f66
+00025c 959a
+00025d 3090
+00025e f049
+00025f cfef
+000260 0f14
+000261 cff1
+000262 9512
+000263 0f14
+000264 9512
+000265 cff1
+000266 0f64
+000267 cff1                      	doubleDabble original
+000268 defe                      	rcall display
+000269 2caf                      	mov scoreCopy, score
+00026a e043
+00026b e098
+00026c 2711
+00026d 2766
+00026e 2f81
+00026f 708f
+000270 3085
+000271 f468
+000272 2f81
+000273 7f80
+000274 3580
+000275 f458
+000276 3065
+000277 f468
+000278 0caa
+000279 1f11
+00027a 1f66
+00027b 959a
+00027c 3090
+00027d f049
+00027e cfef
+00027f 0f14
+000280 cff1
+000281 9512
+000282 0f14
+000283 9512
+000284 cff1
+000285 0f64
+000286 cff1                      	doubleDabble scoreCopy
+000287 df19                      	rcall scoreDisplay
+000288 cfc1                      	rjmp gameEnd
+                                 
+                                 TIM2_COMPA:
+000289 b159                      	in input, PIND
+00028a 155e                      	cp input, copy
+00028b f009                      	breq isEqual
+00028c 9518                      	reti
                                  
                                  isEqual:
-00024f 94f3                      	inc score
-000250 df02                      	rcall start
-000251 e043
-000252 e098
-000253 2711
-000254 2766
-000255 2f81
-000256 708f
-000257 3085
-000258 f468
-000259 2f81
-00025a 7f80
-00025b 3580
-00025c f458
-00025d 3065
-00025e f468
-00025f 0f00
-000260 1f11
-000261 1f66
-000262 959a
-000263 3090
-000264 f049
-000265 cfef
-000266 0f14
-000267 cff1
-000268 9512
-000269 0f14
-00026a 9512
-00026b cff1
-00026c 0f64
-00026d cff1                      	doubleDabble original
-00026e 9518                      	reti
+00028d 94f3                      	inc score
+00028e dec4                      	rcall start
+00028f e043
+000290 e098
+000291 2711
+000292 2766
+000293 2f81
+000294 708f
+000295 3085
+000296 f468
+000297 2f81
+000298 7f80
+000299 3580
+00029a f458
+00029b 3065
+00029c f468
+00029d 0f00
+00029e 1f11
+00029f 1f66
+0002a0 959a
+0002a1 3090
+0002a2 f049
+0002a3 cfef
+0002a4 0f14
+0002a5 cff1
+0002a6 9512
+0002a7 0f14
+0002a8 9512
+0002a9 cff1
+0002aa 0f64
+0002ab cff1                      	doubleDabble original
+0002ac 9518                      	reti
                                  
                                  initShiftReg:
-00026f 9a23                      	sbi DDRB, PB3
-000270 9a24                      	sbi DDRB, PB4
-000271 9a25                      	sbi DDRB, PB5
-000272 e000                      	ldi original, 0
-000273 982d
-000274 982c
-000275 982b
-000276 fd07
-000277 9a2b
-000278 9a2c
-000279 982c
-00027a 982b
-00027b fd06
-00027c 9a2b
-00027d 9a2c
-00027e 982c
-00027f 982b
-000280 fd05
-000281 9a2b
-000282 9a2c
-000283 982c
-000284 982b
-000285 fd04
-000286 9a2b
-000287 9a2c
-000288 982c
-000289 982b
-00028a fd03
-00028b 9a2b
-00028c 9a2c
-00028d 982c
-00028e 982b
-00028f fd02
-000290 9a2b
-000291 9a2c
-000292 982c
-000293 982b
-000294 fd01
-000295 9a2b
-000296 9a2c
-000297 982c
-000298 982b
-000299 fd00
-00029a 9a2b
-00029b 9a2c
-00029c 9a2d                      	shiftOut original
-00029d 9508                      	ret
+0002ad 9a23                      	sbi DDRB, PB3
+0002ae 9a24                      	sbi DDRB, PB4
+0002af 9a25                      	sbi DDRB, PB5
+0002b0 e000                      	ldi original, 0
+0002b1 982d
+0002b2 982c
+0002b3 982b
+0002b4 fd07
+0002b5 9a2b
+0002b6 9a2c
+0002b7 982c
+0002b8 982b
+0002b9 fd06
+0002ba 9a2b
+0002bb 9a2c
+0002bc 982c
+0002bd 982b
+0002be fd05
+0002bf 9a2b
+0002c0 9a2c
+0002c1 982c
+0002c2 982b
+0002c3 fd04
+0002c4 9a2b
+0002c5 9a2c
+0002c6 982c
+0002c7 982b
+0002c8 fd03
+0002c9 9a2b
+0002ca 9a2c
+0002cb 982c
+0002cc 982b
+0002cd fd02
+0002ce 9a2b
+0002cf 9a2c
+0002d0 982c
+0002d1 982b
+0002d2 fd01
+0002d3 9a2b
+0002d4 9a2c
+0002d5 982c
+0002d6 982b
+0002d7 fd00
+0002d8 9a2b
+0002d9 9a2c
+0002da 9a2d                      	shiftOut original
+0002db 9508                      	ret
                                  
                                  initScoreDisplay:
-00029e 9a3c                      	sbi DDRC, PC4
-00029f 9a3d                      	sbi DDRC, PC5
-0002a0 9508                      	ret
+0002dc 9a3c                      	sbi DDRC, PC4
+0002dd 9a3d                      	sbi DDRC, PC5
+0002de 9508                      	ret
                                  
                                  initNumDisplay:
-0002a1 9a20                      	sbi DDRB, PB0
-0002a2 9a21                      	sbi DDRB, PB1
-0002a3 9a22                      	sbi DDRB, PB2
+0002df 9a20                      	sbi DDRB, PB0
+0002e0 9a21                      	sbi DDRB, PB1
+0002e1 9a22                      	sbi DDRB, PB2
                                  
-0002a4 9a38                      	sbi DDRC, PC0
-0002a5 9a39                      	sbi DDRC, PC1
-0002a6 9a3a                      	sbi DDRC, PC2
-0002a7 9a3b                      	sbi DDRC, PC3
+0002e2 9a38                      	sbi DDRC, PC0
+0002e3 9a39                      	sbi DDRC, PC1
+0002e4 9a3a                      	sbi DDRC, PC2
+0002e5 9a3b                      	sbi DDRC, PC3
 
 
 RESOURCE USE INFORMATION
@@ -1672,38 +1737,38 @@ counted separately from r26..r31 here.
 
 "ATmega328P" register use summary:
 x  :   1 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
-r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   3 r12:   0 
-r13:   3 r14:   4 r15:   3 r16:  48 r17:  37 r18:  12 r19:   8 r20:  12 
-r21:   3 r22:  18 r23:   7 r24:  52 r25:   9 r26:   0 r27:   0 r28:   0 
+r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   2 r11:   3 r12:   0 
+r13:   3 r14:   4 r15:   4 r16:  50 r17:  53 r18:  12 r19:   8 r20:  20 
+r21:   3 r22:  26 r23:   7 r24:  64 r25:  15 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 16 out of 35 (45.7%)
+Registers used: 17 out of 35 (48.6%)
 
 "ATmega328P" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   3 add   :   9 adiw  :   0 and   :   1 
-andi  :  11 asr   :   0 bclr  :   0 bld   :   1 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   7 brge  :   0 brhc  :   0 
+.lds  :   0 .sts  :   0 adc   :   3 add   :  15 adiw  :   0 and   :   1 
+andi  :  15 asr   :   0 bclr  :   0 bld   :   1 brbc  :   0 brbs  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   9 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   2 brpl  :   0 brsh  :   9 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   2 brpl  :   0 brsh  :  15 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   1 call  :   0 cbi   :  76 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  14 cls   :   0 
+clc   :   0 clh   :   0 cli   :   1 cln   :   0 clr   :  18 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 
-cpi   :  12 cpse  :   0 dec   :   7 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :  20 cpse  :   0 dec   :   9 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   1 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  25 lds   :   3 lpm   :   0 lsl   :   3 
-lsr   :   8 mov   :  17 movw  :   1 mul   :   0 muls  :   0 mulsu :   0 
+ld    :   0 ldd   :   0 ldi   :  30 lds   :   3 lpm   :   0 lsl   :   5 
+lsr   :   8 mov   :  22 movw  :   1 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   5 pop   :   0 
-push  :   0 rcall :  13 ret   :  11 reti  :   6 rjmp  :  21 rol   :   6 
+push  :   0 rcall :  15 ret   :  11 reti  :   6 rjmp  :  29 rol   :  10 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :  80 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   1 sbrc  :  36 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   1 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :  11 
-sub   :   0 subi  :   0 swap  :   8 tst   :   2 wdr   :   0 
+sub   :   0 subi  :   0 swap  :  12 tst   :   2 wdr   :   0 
 Instructions used: 37 out of 113 (32.7%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000552    860      0    860   32768   2.6%
+[.cseg] 0x000000 0x0005ce    984      0    984   32768   3.0%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

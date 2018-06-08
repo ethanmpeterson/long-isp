@@ -41,6 +41,7 @@
 .def copy = r14
 .def overflows = r13
 .def gameEndFlag = r11
+.def scoreCopy = r10
 
 .equ data = PB3
 .equ latch = PB5
@@ -344,11 +345,6 @@ L1: dec  r19
     brne L1
 	ret
 
-TIM2_COMPA:
-	in input, PIND
-	cp input, copy
-	breq isEqual
-	reti
 
 loop:
 	rcall display ; display POV for challenge number and score
@@ -359,8 +355,21 @@ loop:
 
 	rjmp loop
 
+
 gameEnd:
+	ldi original, 0
+	doubleDabble original
+	rcall display
+	mov scoreCopy, score
+	doubleDabble scoreCopy
+	rcall scoreDisplay
 	rjmp gameEnd
+
+TIM2_COMPA:
+	in input, PIND
+	cp input, copy
+	breq isEqual
+	reti
 
 isEqual:
 	inc score
