@@ -3368,48 +3368,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </deviceset>
 </devicesets>
 </library>
-<library name="SparkFun-PowerSymbols">
-<description>&lt;h3&gt;SparkFun Power Symbols&lt;/h3&gt;
-This library contains power, ground, and voltage-supply symbols.
-&lt;br&gt;
-&lt;br&gt;
-We've spent an enormous amount of time creating and checking these footprints and parts, but it is &lt;b&gt; the end user's responsibility&lt;/b&gt; to ensure correctness and suitablity for a given componet or application. 
-&lt;br&gt;
-&lt;br&gt;If you enjoy using this library, please buy one of our products at &lt;a href=" www.sparkfun.com"&gt;SparkFun.com&lt;/a&gt;.
-&lt;br&gt;
-&lt;br&gt;
-&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
-&lt;br&gt;
-&lt;br&gt;
-You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
-<packages>
-</packages>
-<symbols>
-<symbol name="12V">
-<description>&lt;h3&gt;12V Voltage Supply&lt;/h3&gt;</description>
-<wire x1="0.762" y1="1.27" x2="0" y2="2.54" width="0.254" layer="94"/>
-<wire x1="0" y1="2.54" x2="-0.762" y2="1.27" width="0.254" layer="94"/>
-<pin name="12V" x="0" y="0" visible="off" length="short" direction="sup" rot="R90"/>
-<text x="0" y="2.794" size="1.778" layer="96" align="bottom-center">&gt;VALUE</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="12V" prefix="SUPPLY">
-<description>&lt;h3&gt;12V Supply Symbol&lt;/h3&gt;
-&lt;p&gt;Power supply symbol for a specifically-stated 12V source.&lt;/p&gt;</description>
-<gates>
-<gate name="G$1" symbol="12V" x="0" y="0"/>
-</gates>
-<devices>
-<device name="">
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="SparkFun-LED">
 <description>&lt;h3&gt;SparkFun LEDs&lt;/h3&gt;
 This library contains discrete LEDs for illumination or indication, but no displays.
@@ -3910,12 +3868,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="GND22" library="supply1" deviceset="GND" device=""/>
 <part name="GND23" library="supply1" deviceset="GND" device=""/>
 <part name="GND24" library="supply1" deviceset="GND" device=""/>
-<part name="SUPPLY1" library="SparkFun-PowerSymbols" deviceset="12V" device="" value="9V"/>
-<part name="SUPPLY2" library="SparkFun-PowerSymbols" deviceset="12V" device="" value="9V"/>
-<part name="SUPPLY3" library="SparkFun-PowerSymbols" deviceset="12V" device="" value="9V"/>
-<part name="SUPPLY4" library="SparkFun-PowerSymbols" deviceset="12V" device="" value="9V"/>
-<part name="SUPPLY5" library="SparkFun-PowerSymbols" deviceset="12V" device="" value="9V"/>
-<part name="PWR" library="adafruit" deviceset="EG1218" device="S"/>
 <part name="D1" library="SparkFun-LED" deviceset="LED" device="3MM"/>
 <part name="D2" library="SparkFun-LED" deviceset="LED" device="3MM"/>
 <part name="D3" library="SparkFun-LED" deviceset="LED" device="3MM"/>
@@ -3924,6 +3876,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="D6" library="SparkFun-LED" deviceset="LED" device="3MM"/>
 <part name="D7" library="SparkFun-LED" deviceset="LED" device="3MM"/>
 <part name="D8" library="SparkFun-LED" deviceset="LED" device="3MM"/>
+<part name="P+5" library="supply1" deviceset="VCC" device=""/>
+<part name="P+7" library="supply1" deviceset="VCC" device=""/>
+<part name="P+17" library="supply1" deviceset="VCC" device=""/>
+<part name="P+18" library="supply1" deviceset="VCC" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4002,12 +3958,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="GND23" gate="1" x="-33.02" y="30.48"/>
 <instance part="IC2" gate="P" x="137.16" y="43.18"/>
 <instance part="GND24" gate="1" x="137.16" y="30.48"/>
-<instance part="SUPPLY1" gate="G$1" x="0" y="78.74" rot="R180"/>
-<instance part="SUPPLY2" gate="G$1" x="-33.02" y="53.34"/>
-<instance part="SUPPLY3" gate="G$1" x="-17.78" y="60.96"/>
-<instance part="SUPPLY4" gate="G$1" x="137.16" y="53.34"/>
-<instance part="SUPPLY5" gate="G$1" x="116.84" y="60.96"/>
-<instance part="PWR" gate="1" x="-2.54" y="88.9"/>
 <instance part="D1" gate="G$1" x="195.58" y="149.86" rot="R270"/>
 <instance part="D2" gate="G$1" x="195.58" y="134.62" rot="R270"/>
 <instance part="D3" gate="G$1" x="195.58" y="119.38" rot="R270"/>
@@ -4016,6 +3966,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="D6" gate="G$1" x="195.58" y="76.2" rot="R270"/>
 <instance part="D7" gate="G$1" x="195.58" y="60.96" rot="R270"/>
 <instance part="D8" gate="G$1" x="195.58" y="45.72" rot="R270"/>
+<instance part="P+5" gate="VCC" x="-33.02" y="58.42"/>
+<instance part="P+7" gate="VCC" x="-17.78" y="60.96"/>
+<instance part="P+17" gate="VCC" x="116.84" y="60.96"/>
+<instance part="P+18" gate="VCC" x="137.16" y="55.88"/>
 </instances>
 <busses>
 </busses>
@@ -4096,6 +4050,34 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="S8" gate="1" pin="S"/>
 <pinref part="P+16" gate="VCC" pin="VCC"/>
 <wire x1="228.6" y1="43.18" x2="215.9" y2="43.18" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="P" pin="VDD"/>
+<pinref part="P+5" gate="VCC" pin="VCC"/>
+<wire x1="-33.02" y1="55.88" x2="-33.02" y2="50.8" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="A" pin="LT"/>
+<pinref part="P+7" gate="VCC" pin="VCC"/>
+<wire x1="-17.78" y1="58.42" x2="-17.78" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="A" pin="BI"/>
+<wire x1="-20.32" y1="55.88" x2="-20.32" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="-20.32" y1="58.42" x2="-17.78" y2="58.42" width="0.1524" layer="91"/>
+<junction x="-17.78" y="58.42"/>
+</segment>
+<segment>
+<pinref part="IC2" gate="A" pin="LT"/>
+<pinref part="P+17" gate="VCC" pin="VCC"/>
+<wire x1="116.84" y1="58.42" x2="116.84" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="IC2" gate="A" pin="BI"/>
+<wire x1="114.3" y1="55.88" x2="114.3" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="114.3" y1="58.42" x2="116.84" y2="58.42" width="0.1524" layer="91"/>
+<junction x="116.84" y="58.42"/>
+</segment>
+<segment>
+<pinref part="IC2" gate="P" pin="VDD"/>
+<pinref part="P+18" gate="VCC" pin="VCC"/>
+<wire x1="137.16" y1="53.34" x2="137.16" y2="50.8" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -4766,51 +4748,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="C1" gate="G$1" pin="1"/>
 <wire x1="7.62" y1="96.52" x2="12.7" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="7.62" y1="93.98" x2="7.62" y2="96.52" width="0.1524" layer="91"/>
-<pinref part="PWR" gate="1" pin="S"/>
-<wire x1="2.54" y1="93.98" x2="2.54" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="2.54" y1="96.52" x2="7.62" y2="96.52" width="0.1524" layer="91"/>
-<junction x="7.62" y="96.52"/>
-</segment>
-<segment>
-<pinref part="IC1" gate="P" pin="VDD"/>
-<wire x1="-33.02" y1="53.34" x2="-33.02" y2="50.8" width="0.1524" layer="91"/>
-<pinref part="SUPPLY2" gate="G$1" pin="12V"/>
-</segment>
-<segment>
-<pinref part="IC1" gate="A" pin="LT"/>
-<wire x1="-17.78" y1="60.96" x2="-17.78" y2="55.88" width="0.1524" layer="91"/>
-<pinref part="IC1" gate="A" pin="BI"/>
-<wire x1="-20.32" y1="55.88" x2="-20.32" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="-20.32" y1="60.96" x2="-17.78" y2="60.96" width="0.1524" layer="91"/>
-<pinref part="SUPPLY3" gate="G$1" pin="12V"/>
-<junction x="-17.78" y="60.96"/>
-</segment>
-<segment>
-<pinref part="IC2" gate="A" pin="LT"/>
-<wire x1="116.84" y1="60.96" x2="116.84" y2="55.88" width="0.1524" layer="91"/>
-<pinref part="IC2" gate="A" pin="BI"/>
-<wire x1="114.3" y1="55.88" x2="114.3" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="114.3" y1="60.96" x2="116.84" y2="60.96" width="0.1524" layer="91"/>
-<pinref part="SUPPLY5" gate="G$1" pin="12V"/>
-<junction x="116.84" y="60.96"/>
-</segment>
-<segment>
-<pinref part="IC2" gate="P" pin="VDD"/>
-<wire x1="137.16" y1="53.34" x2="137.16" y2="50.8" width="0.1524" layer="91"/>
-<pinref part="SUPPLY4" gate="G$1" pin="12V"/>
-</segment>
-<segment>
-<pinref part="SUPPLY1" gate="G$1" pin="12V"/>
-<pinref part="PWR" gate="1" pin="P"/>
-<wire x1="0" y1="78.74" x2="0" y2="83.82" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$1" class="0">
-<segment>
 <pinref part="J1" gate="G$1" pin="PWR"/>
-<pinref part="PWR" gate="1" pin="O"/>
-<wire x1="-22.86" y1="96.52" x2="-2.54" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="-2.54" y1="96.52" x2="-2.54" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="-22.86" y1="96.52" x2="7.62" y2="96.52" width="0.1524" layer="91"/>
+<junction x="7.62" y="96.52"/>
 </segment>
 </net>
 </nets>
