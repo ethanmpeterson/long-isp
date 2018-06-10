@@ -3283,6 +3283,12 @@ thin small outline package</description>
 <part name="S6" library="adafruit" deviceset="EG1218" device="S"/>
 <part name="S7" library="adafruit" deviceset="EG1218" device="S"/>
 <part name="S8" library="adafruit" deviceset="EG1218" device="S"/>
+<part name="P+14" library="supply1" deviceset="VCC" device=""/>
+<part name="P+15" library="supply1" deviceset="VCC" device=""/>
+<part name="P+16" library="supply1" deviceset="VCC" device=""/>
+<part name="GND19" library="supply1" deviceset="GND" device=""/>
+<part name="GND20" library="supply1" deviceset="GND" device=""/>
+<part name="GND21" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -3356,6 +3362,12 @@ thin small outline package</description>
 <instance part="S6" gate="1" x="210.82" y="78.74" rot="R270"/>
 <instance part="S7" gate="1" x="210.82" y="63.5" rot="R270"/>
 <instance part="S8" gate="1" x="210.82" y="48.26" rot="R270"/>
+<instance part="P+14" gate="VCC" x="231.14" y="73.66" rot="R270"/>
+<instance part="P+15" gate="VCC" x="231.14" y="58.42" rot="R270"/>
+<instance part="P+16" gate="VCC" x="231.14" y="43.18" rot="R270"/>
+<instance part="GND19" gate="1" x="223.52" y="78.74" rot="R90"/>
+<instance part="GND20" gate="1" x="223.52" y="63.5" rot="R90"/>
+<instance part="GND21" gate="1" x="223.52" y="48.26" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -3439,6 +3451,21 @@ thin small outline package</description>
 <pinref part="S5" gate="1" pin="S"/>
 <pinref part="P+13" gate="VCC" pin="VCC"/>
 <wire x1="228.6" y1="88.9" x2="215.9" y2="88.9" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="S6" gate="1" pin="S"/>
+<pinref part="P+14" gate="VCC" pin="VCC"/>
+<wire x1="228.6" y1="73.66" x2="215.9" y2="73.66" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="S7" gate="1" pin="S"/>
+<pinref part="P+15" gate="VCC" pin="VCC"/>
+<wire x1="228.6" y1="58.42" x2="215.9" y2="58.42" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="S8" gate="1" pin="S"/>
+<pinref part="P+16" gate="VCC" pin="VCC"/>
+<wire x1="228.6" y1="43.18" x2="215.9" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -3548,6 +3575,21 @@ thin small outline package</description>
 <pinref part="S5" gate="1" pin="O"/>
 <pinref part="GND18" gate="1" pin="GND"/>
 <wire x1="220.98" y1="93.98" x2="215.9" y2="93.98" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="S6" gate="1" pin="O"/>
+<pinref part="GND19" gate="1" pin="GND"/>
+<wire x1="220.98" y1="78.74" x2="215.9" y2="78.74" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="S7" gate="1" pin="O"/>
+<pinref part="GND20" gate="1" pin="GND"/>
+<wire x1="220.98" y1="63.5" x2="215.9" y2="63.5" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="S8" gate="1" pin="O"/>
+<pinref part="GND21" gate="1" pin="GND"/>
+<wire x1="220.98" y1="48.26" x2="215.9" y2="48.26" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$1" class="0">
