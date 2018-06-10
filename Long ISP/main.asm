@@ -107,17 +107,17 @@ TIM0_OVF:
 TIM1_OVF:
 	dec overflows
 	tst overflows
-	breq twoMin
+	breq fourMin
 	reti
 
-twoMin:
+fourMin:
 	; end the game here
 	dec gameEndFlag
 	reti
 
 setup:
 	
-	ldi r16, 3
+	ldi r16, 240
 	mov overflows, r16
 	ldi r16, 1
 	mov gameEndFlag, r16

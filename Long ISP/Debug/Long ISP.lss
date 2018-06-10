@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Fri Jun 08 12:32:46 2018
+AVRASM ver. 2.2.7  C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm Fri Jun 08 12:44:45 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m328pdef.inc'
 C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Including file 'C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\prescalers.h'
@@ -1118,17 +1118,17 @@ C:\Users\Ethan Peterson\Desktop\Long ISP\long-isp\Long ISP\main.asm(9): Includin
                                  TIM1_OVF:
 00013c 94da                      	dec overflows
 00013d 20dd                      	tst overflows
-00013e f009                      	breq twoMin
+00013e f009                      	breq fourMin
 00013f 9518                      	reti
                                  
-                                 twoMin:
+                                 fourMin:
                                  	; end the game here
 000140 94ba                      	dec gameEndFlag
 000141 9518                      	reti
                                  
                                  setup:
                                  	
-000142 e003                      	ldi r16, 3
+000142 ef00                      	ldi r16, 240
 000143 2ed0                      	mov overflows, r16
 000144 e001                      	ldi r16, 1
 000145 2eb0                      	mov gameEndFlag, r16
