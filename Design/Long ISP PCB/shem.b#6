@@ -172,7 +172,6 @@
 <wire x1="101.2609" y1="-4" x2="112.5309" y2="7.27" width="0.001" layer="20" curve="90"/>
 <circle x="5.08" y="5.08" radius="1.6" width="0.001" layer="20"/>
 <circle x="5.08" y="62.23" radius="1.6" width="0.001" layer="20"/>
-<circle x="68.58" y="43.18" radius="1.6" width="0.001" layer="20"/>
 <circle x="95.25" y="5.08" radius="1.6" width="0.001" layer="20"/>
 <circle x="95.25" y="62.23" radius="1.6" width="0.001" layer="20"/>
 <text x="8.89" y="22.86" size="1.778" layer="21" font="vector" align="center">128</text>
@@ -767,6 +766,55 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </package>
 </packages>
 </library>
+<library name="SparkFun-LED">
+<description>&lt;h3&gt;SparkFun LEDs&lt;/h3&gt;
+This library contains discrete LEDs for illumination or indication, but no displays.
+&lt;br&gt;
+&lt;br&gt;
+We've spent an enormous amount of time creating and checking these footprints and parts, but it is &lt;b&gt; the end user's responsibility&lt;/b&gt; to ensure correctness and suitablity for a given componet or application. 
+&lt;br&gt;
+&lt;br&gt;If you enjoy using this library, please buy one of our products at &lt;a href=" www.sparkfun.com"&gt;SparkFun.com&lt;/a&gt;.
+&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
+&lt;br&gt;
+&lt;br&gt;
+You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
+<packages>
+<package name="LED_3MM">
+<description>&lt;h3&gt;LED 3MM PTH&lt;/h3&gt;
+
+3 mm, round.
+
+&lt;p&gt;Specifications:
+&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
+&lt;li&gt;Pin pitch: 0.1inch&lt;/li&gt;
+&lt;li&gt;Diameter: 3mm&lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;
+&lt;p&gt;Example device(s):
+&lt;ul&gt;&lt;li&gt;LED&lt;/li&gt;&lt;/ul&gt;</description>
+<wire x1="1.5748" y1="-1.27" x2="1.5748" y2="1.27" width="0.254" layer="51"/>
+<wire x1="0" y1="2.032" x2="1.561" y2="1.3009" width="0.254" layer="22" curve="-50.193108" cap="flat"/>
+<wire x1="-1.7929" y1="0.9562" x2="0" y2="2.032" width="0.254" layer="22" curve="-61.926949" cap="flat"/>
+<wire x1="0" y1="-2.032" x2="1.5512" y2="-1.3126" width="0.254" layer="22" curve="49.763022" cap="flat"/>
+<wire x1="-1.7643" y1="-1.0082" x2="0" y2="-2.032" width="0.254" layer="22" curve="60.255215" cap="flat"/>
+<wire x1="-2.032" y1="0" x2="-1.7891" y2="0.9634" width="0.254" layer="51" curve="-28.301701" cap="flat"/>
+<wire x1="-2.032" y1="0" x2="-1.7306" y2="-1.065" width="0.254" layer="51" curve="31.60822" cap="flat"/>
+<wire x1="1.5748" y1="1.2954" x2="1.5748" y2="0.7874" width="0.254" layer="22"/>
+<wire x1="1.5748" y1="-1.2954" x2="1.5748" y2="-0.8382" width="0.254" layer="22"/>
+<pad name="A" x="-1.27" y="0" drill="0.8128" diameter="1.8796"/>
+<pad name="K" x="1.27" y="0" drill="0.8128" diameter="1.8796"/>
+<text x="0" y="2.286" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
+<text x="0" y="-2.286" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
+<wire x1="0" y1="2.032" x2="1.561" y2="1.3009" width="0.254" layer="21" curve="-50.193108" cap="flat"/>
+<wire x1="-1.7929" y1="0.9562" x2="0" y2="2.032" width="0.254" layer="21" curve="-61.926949" cap="flat"/>
+<wire x1="0" y1="-2.032" x2="1.5512" y2="-1.3126" width="0.254" layer="21" curve="49.763022" cap="flat"/>
+<wire x1="-1.7643" y1="-1.0082" x2="0" y2="-2.032" width="0.254" layer="21" curve="60.255215" cap="flat"/>
+<wire x1="1.5748" y1="1.2954" x2="1.5748" y2="0.7874" width="0.254" layer="21"/>
+<wire x1="1.5748" y1="-1.2954" x2="1.5748" y2="-0.8382" width="0.254" layer="21"/>
+</package>
+</packages>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -1044,6 +1092,31 @@ design rules under a new name.</description>
 <element name="LS1" library="SparkFun-Electromechanical" package="BUZZER-12MM" value="BUZZER-PTH" x="8.89" y="52.07">
 <attribute name="PROD_ID" value="COMP-08253" x="8.89" y="52.07" size="1.778" layer="27" display="off"/>
 <attribute name="SF_SKU" value="COM-07950" x="8.89" y="52.07" size="1.778" layer="27" display="off"/>
+</element>
+<element name="PWR" library="adafruit" package="EG1218" value="" x="-20.32" y="-12.7"/>
+<element name="D1" library="SparkFun-LED" package="LED_3MM" value="" x="-20.32" y="-30.48">
+<attribute name="PROD_ID" value="DIO-08794" x="-20.32" y="-30.48" size="1.778" layer="27" display="off"/>
+</element>
+<element name="D2" library="SparkFun-LED" package="LED_3MM" value="" x="-20.32" y="-49.53">
+<attribute name="PROD_ID" value="DIO-08794" x="-20.32" y="-49.53" size="1.778" layer="27" display="off"/>
+</element>
+<element name="D3" library="SparkFun-LED" package="LED_3MM" value="" x="-20.32" y="-68.58">
+<attribute name="PROD_ID" value="DIO-08794" x="-20.32" y="-68.58" size="1.778" layer="27" display="off"/>
+</element>
+<element name="D4" library="SparkFun-LED" package="LED_3MM" value="" x="-20.32" y="-87.63">
+<attribute name="PROD_ID" value="DIO-08794" x="-20.32" y="-87.63" size="1.778" layer="27" display="off"/>
+</element>
+<element name="D5" library="SparkFun-LED" package="LED_3MM" value="" x="-20.32" y="-106.68">
+<attribute name="PROD_ID" value="DIO-08794" x="-20.32" y="-106.68" size="1.778" layer="27" display="off"/>
+</element>
+<element name="D6" library="SparkFun-LED" package="LED_3MM" value="" x="-20.32" y="-125.73">
+<attribute name="PROD_ID" value="DIO-08794" x="-20.32" y="-125.73" size="1.778" layer="27" display="off"/>
+</element>
+<element name="D7" library="SparkFun-LED" package="LED_3MM" value="" x="-20.32" y="-144.78">
+<attribute name="PROD_ID" value="DIO-08794" x="-20.32" y="-144.78" size="1.778" layer="27" display="off"/>
+</element>
+<element name="D8" library="SparkFun-LED" package="LED_3MM" value="" x="-20.32" y="-163.83">
+<attribute name="PROD_ID" value="DIO-08794" x="-20.32" y="-163.83" size="1.778" layer="27" display="off"/>
 </element>
 </elements>
 <signals>
@@ -1870,7 +1943,6 @@ design rules under a new name.</description>
 <via x="14.605" y="27.94" extent="1-16" drill="0.6096"/>
 </signal>
 <signal name="9V">
-<contactref element="J1" pad="PWR"/>
 <contactref element="U1" pad="IN"/>
 <contactref element="C1" pad="1"/>
 <contactref element="IC1" pad="16"/>
@@ -1893,7 +1965,6 @@ design rules under a new name.</description>
 <wire x1="0" y1="47.625" x2="0" y2="41.91" width="0.635" layer="16"/>
 <wire x1="-3.81" y1="51.435" x2="0" y2="47.625" width="0.635" layer="16"/>
 <wire x1="-3.81" y1="54.61" x2="-3.81" y2="51.435" width="0.635" layer="16"/>
-<wire x1="-3.81" y1="54.61" x2="-4.08" y2="54.61" width="0.635" layer="16"/>
 <wire x1="94.615" y1="40.005" x2="101.6" y2="46.99" width="0.635" layer="16"/>
 <wire x1="85.09" y1="40.005" x2="94.615" y2="40.005" width="0.635" layer="16"/>
 <wire x1="83.82" y1="38.735" x2="85.09" y2="40.005" width="0.635" layer="16"/>
@@ -1902,6 +1973,15 @@ design rules under a new name.</description>
 <wire x1="5.715" y1="34.29" x2="5.08" y2="34.29" width="0.635" layer="16"/>
 <wire x1="-15.24" y1="36.195" x2="-15.24" y2="27.94" width="0.635" layer="16"/>
 <wire x1="0" y1="36.195" x2="-15.24" y2="36.195" width="0.635" layer="16"/>
+<contactref element="PWR" pad="S"/>
+<contactref element="PWR" pad="P"/>
+<wire x1="-17.78" y1="-12.7" x2="-20.32" y2="-12.7" width="0" layer="19" extent="1-1"/>
+<wire x1="-12.065" y1="13.97" x2="-17.78" y2="-12.7" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$1">
+<contactref element="J1" pad="PWR"/>
+<contactref element="PWR" pad="O"/>
+<wire x1="-22.86" y1="-12.7" x2="-4.08" y2="54.61" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 </board>
