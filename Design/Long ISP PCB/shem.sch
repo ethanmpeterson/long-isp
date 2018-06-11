@@ -2548,39 +2548,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </device>
 </devices>
 </deviceset>
-<deviceset name="330OHM" prefix="R">
-<description>&lt;h3&gt;330Ω resistor&lt;/h3&gt;
-&lt;p&gt;A resistor is a passive two-terminal electrical component that implements electrical resistance as a circuit element. Resistors act to reduce current flow, and, at the same time, act to lower voltage levels within circuits. - Wikipedia&lt;/p&gt;</description>
-<gates>
-<gate name="G$1" symbol="RESISTOR" x="0" y="0"/>
-</gates>
-<devices>
-<device name="-0603-1/10W-1%" package="0603">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="RES-00818"/>
-<attribute name="VALUE" value="330"/>
-</technology>
-</technologies>
-</device>
-<device name="-HORIZ-1/10W-5%" package="AXIAL-0.3">
-<connects>
-<connect gate="G$1" pin="1" pad="P$1"/>
-<connect gate="G$1" pin="2" pad="P$2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="RES-8371" constant="no"/>
-<attribute name="VALUE" value="330" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
 </devicesets>
 </library>
 <library name="SparkFun-Clocks">
@@ -3401,426 +3368,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </deviceset>
 </devicesets>
 </library>
-<library name="SparkFun-LED">
-<description>&lt;h3&gt;SparkFun LEDs&lt;/h3&gt;
-This library contains discrete LEDs for illumination or indication, but no displays.
-&lt;br&gt;
-&lt;br&gt;
-We've spent an enormous amount of time creating and checking these footprints and parts, but it is &lt;b&gt; the end user's responsibility&lt;/b&gt; to ensure correctness and suitablity for a given componet or application. 
-&lt;br&gt;
-&lt;br&gt;If you enjoy using this library, please buy one of our products at &lt;a href=" www.sparkfun.com"&gt;SparkFun.com&lt;/a&gt;.
-&lt;br&gt;
-&lt;br&gt;
-&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
-&lt;br&gt;
-&lt;br&gt;
-You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
-<packages>
-<package name="LED_5MM">
-<description>&lt;B&gt;LED 5mm PTH&lt;/B&gt;&lt;p&gt;
-5 mm, round
-&lt;p&gt;Specifications:
-&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
-&lt;li&gt;Pin pitch: 0.1inch&lt;/li&gt;
-&lt;li&gt;Diameter: 5mm&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-&lt;p&gt;Example device(s):
-&lt;ul&gt;&lt;li&gt;LED-IR-THRU&lt;/li&gt;</description>
-<wire x1="2.54" y1="-1.905" x2="2.54" y2="1.905" width="0.2032" layer="22"/>
-<wire x1="-1.143" y1="0" x2="0" y2="1.143" width="0.1524" layer="51" curve="-90" cap="flat"/>
-<wire x1="0" y1="-1.143" x2="1.143" y2="0" width="0.1524" layer="51" curve="90" cap="flat"/>
-<wire x1="-1.651" y1="0" x2="0" y2="1.651" width="0.1524" layer="51" curve="-90" cap="flat"/>
-<wire x1="0" y1="-1.651" x2="1.651" y2="0" width="0.1524" layer="51" curve="90" cap="flat"/>
-<wire x1="-2.159" y1="0" x2="0" y2="2.159" width="0.1524" layer="51" curve="-90" cap="flat"/>
-<wire x1="0" y1="-2.159" x2="2.159" y2="0" width="0.1524" layer="51" curve="90" cap="flat"/>
-<pad name="A" x="-1.27" y="0" drill="0.8128" diameter="1.8796"/>
-<pad name="K" x="1.27" y="0" drill="0.8128" diameter="1.8796"/>
-<text x="0" y="3.3909" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
-<text x="0.0254" y="-3.3909" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
-<wire x1="2.54" y1="-1.905" x2="2.54" y2="1.905" width="0.2032" layer="21"/>
-<wire x1="2.54" y1="-1.905" x2="2.54" y2="1.905" width="0.254" layer="21" curve="-286.260205" cap="flat"/>
-<circle x="0" y="0" radius="2.54" width="0.1524" layer="21"/>
-<wire x1="2.54" y1="-1.905" x2="2.54" y2="1.905" width="0.2032" layer="51"/>
-</package>
-<package name="LED_3MM">
-<description>&lt;h3&gt;LED 3MM PTH&lt;/h3&gt;
-
-3 mm, round.
-
-&lt;p&gt;Specifications:
-&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
-&lt;li&gt;Pin pitch: 0.1inch&lt;/li&gt;
-&lt;li&gt;Diameter: 3mm&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-&lt;p&gt;Example device(s):
-&lt;ul&gt;&lt;li&gt;LED&lt;/li&gt;&lt;/ul&gt;</description>
-<wire x1="1.5748" y1="-1.27" x2="1.5748" y2="1.27" width="0.254" layer="51"/>
-<wire x1="0" y1="2.032" x2="1.561" y2="1.3009" width="0.254" layer="22" curve="-50.193108" cap="flat"/>
-<wire x1="-1.7929" y1="0.9562" x2="0" y2="2.032" width="0.254" layer="22" curve="-61.926949" cap="flat"/>
-<wire x1="0" y1="-2.032" x2="1.5512" y2="-1.3126" width="0.254" layer="22" curve="49.763022" cap="flat"/>
-<wire x1="-1.7643" y1="-1.0082" x2="0" y2="-2.032" width="0.254" layer="22" curve="60.255215" cap="flat"/>
-<wire x1="-2.032" y1="0" x2="-1.7891" y2="0.9634" width="0.254" layer="51" curve="-28.301701" cap="flat"/>
-<wire x1="-2.032" y1="0" x2="-1.7306" y2="-1.065" width="0.254" layer="51" curve="31.60822" cap="flat"/>
-<wire x1="1.5748" y1="1.2954" x2="1.5748" y2="0.7874" width="0.254" layer="22"/>
-<wire x1="1.5748" y1="-1.2954" x2="1.5748" y2="-0.8382" width="0.254" layer="22"/>
-<pad name="A" x="-1.27" y="0" drill="0.8128" diameter="1.8796"/>
-<pad name="K" x="1.27" y="0" drill="0.8128" diameter="1.8796"/>
-<text x="0" y="2.286" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
-<text x="0" y="-2.286" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
-<wire x1="0" y1="2.032" x2="1.561" y2="1.3009" width="0.254" layer="21" curve="-50.193108" cap="flat"/>
-<wire x1="-1.7929" y1="0.9562" x2="0" y2="2.032" width="0.254" layer="21" curve="-61.926949" cap="flat"/>
-<wire x1="0" y1="-2.032" x2="1.5512" y2="-1.3126" width="0.254" layer="21" curve="49.763022" cap="flat"/>
-<wire x1="-1.7643" y1="-1.0082" x2="0" y2="-2.032" width="0.254" layer="21" curve="60.255215" cap="flat"/>
-<wire x1="1.5748" y1="1.2954" x2="1.5748" y2="0.7874" width="0.254" layer="21"/>
-<wire x1="1.5748" y1="-1.2954" x2="1.5748" y2="-0.8382" width="0.254" layer="21"/>
-</package>
-<package name="LED-1206">
-<description>&lt;h3&gt;LED 1206 SMT&lt;/h3&gt;
-
-1206, surface mount. 
-
-&lt;p&gt;Specifications:
-&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
-&lt;li&gt;Pin pitch: &lt;/li&gt;
-&lt;li&gt;Area: 0.125" x 0.06"&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-&lt;p&gt;Example device(s):
-&lt;ul&gt;&lt;li&gt;LED&lt;/li&gt;&lt;/ul&gt;</description>
-<wire x1="2.4" y1="0.6825" x2="2.4" y2="-0.6825" width="0.2032" layer="21"/>
-<smd name="A" x="-1.5" y="0" dx="1.2" dy="1.4" layer="1"/>
-<smd name="C" x="1.5" y="0" dx="1.2" dy="1.4" layer="1"/>
-<text x="0" y="0.9525" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
-<text x="0" y="-0.9525" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
-<wire x1="0.65375" y1="0.6825" x2="0.65375" y2="-0.6825" width="0.2032" layer="51"/>
-<wire x1="0.635" y1="0" x2="0.15875" y2="0.47625" width="0.2032" layer="51"/>
-<wire x1="0.635" y1="0" x2="0.15875" y2="-0.47625" width="0.2032" layer="51"/>
-</package>
-<package name="LED-0603">
-<description>&lt;B&gt;LED 0603 SMT&lt;/B&gt;&lt;p&gt;
-0603, surface mount.
-&lt;p&gt;Specifications:
-&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
-&lt;li&gt;Pin pitch:0.075inch &lt;/li&gt;
-&lt;li&gt;Area: 0.06" x 0.03"&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-&lt;p&gt;Example device(s):
-&lt;ul&gt;&lt;li&gt;LED - BLUE&lt;/li&gt;</description>
-<smd name="C" x="0.877" y="0" dx="1" dy="1" layer="1" roundness="30" rot="R270"/>
-<smd name="A" x="-0.877" y="0" dx="1" dy="1" layer="1" roundness="30" rot="R270"/>
-<text x="0" y="0.635" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
-<text x="0" y="-0.635" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
-<wire x1="1.5875" y1="0.47625" x2="1.5875" y2="-0.47625" width="0.127" layer="21"/>
-<wire x1="0.15875" y1="0.47625" x2="0.15875" y2="0" width="0.127" layer="51"/>
-<wire x1="0.15875" y1="0" x2="0.15875" y2="-0.47625" width="0.127" layer="51"/>
-<wire x1="0.15875" y1="0" x2="-0.15875" y2="0.3175" width="0.127" layer="51"/>
-<wire x1="0.15875" y1="0" x2="-0.15875" y2="-0.3175" width="0.127" layer="51"/>
-</package>
-<package name="LED_10MM">
-<description>&lt;B&gt;LED 10mm PTH&lt;/B&gt;&lt;p&gt;
-10 mm, round
-&lt;p&gt;Specifications:
-&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
-&lt;li&gt;Pin pitch: 0.2inch&lt;/li&gt;
-&lt;li&gt;Diameter: 10mm&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-&lt;p&gt;Example device(s):
-&lt;ul&gt;&lt;li&gt;LED&lt;/li&gt;</description>
-<wire x1="-5" y1="-2" x2="-5" y2="2" width="0.2032" layer="21" curve="316.862624"/>
-<wire x1="-5" y1="2" x2="-5" y2="-2" width="0.2032" layer="21"/>
-<pad name="A" x="2.54" y="0" drill="2.4" diameter="3.7"/>
-<pad name="C" x="-2.54" y="0" drill="2.4" diameter="3.7"/>
-<text x="2.159" y="2.54" size="1.016" layer="51" ratio="15">L</text>
-<text x="-2.921" y="2.54" size="1.016" layer="51" ratio="15">S</text>
-<wire x1="-5" y1="2" x2="-5" y2="-2" width="0.2032" layer="22"/>
-<text x="0" y="5.715" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
-<text x="0" y="-5.715" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
-<wire x1="-5" y1="2" x2="-5" y2="-2" width="0.2032" layer="51"/>
-</package>
-<package name="FKIT-LED-1206">
-<description>&lt;B&gt;LED 1206 SMT&lt;/B&gt;&lt;p&gt;
-1206, surface mount
-&lt;p&gt;Specifications:
-&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
-&lt;li&gt;Area: 0.125"x 0.06" &lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-&lt;p&gt;Example device(s):
-&lt;ul&gt;&lt;li&gt;LED&lt;/li&gt;</description>
-<wire x1="1.55" y1="-0.75" x2="-1.55" y2="-0.75" width="0.1016" layer="51"/>
-<wire x1="-1.55" y1="-0.75" x2="-1.55" y2="0.75" width="0.1016" layer="51"/>
-<wire x1="-1.55" y1="0.75" x2="1.55" y2="0.75" width="0.1016" layer="51"/>
-<wire x1="1.55" y1="0.75" x2="1.55" y2="-0.75" width="0.1016" layer="51"/>
-<wire x1="-0.55" y1="0.5" x2="-0.55" y2="-0.5" width="0.1016" layer="51" curve="84.547378"/>
-<wire x1="0.55" y1="-0.5" x2="0.55" y2="0.5" width="0.1016" layer="51" curve="84.547378"/>
-<smd name="A" x="-1.422" y="0" dx="1.6" dy="1.803" layer="1"/>
-<smd name="C" x="1.422" y="0" dx="1.6" dy="1.803" layer="1"/>
-<text x="0" y="1.11125" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
-<text x="0" y="-1.11125" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
-<rectangle x1="0.45" y1="-0.7" x2="0.8" y2="-0.45" layer="51"/>
-<rectangle x1="0.8" y1="-0.7" x2="0.9" y2="0.5" layer="51"/>
-<rectangle x1="0.8" y1="0.55" x2="0.9" y2="0.7" layer="51"/>
-<rectangle x1="-0.9" y1="-0.7" x2="-0.8" y2="0.5" layer="51"/>
-<rectangle x1="-0.9" y1="0.55" x2="-0.8" y2="0.7" layer="51"/>
-<wire x1="2.54" y1="0.9525" x2="2.54" y2="-0.9525" width="0.2032" layer="21"/>
-<wire x1="0.3175" y1="0.635" x2="0.3175" y2="0" width="0.2032" layer="51"/>
-<wire x1="0.3175" y1="0" x2="0.3175" y2="-0.635" width="0.2032" layer="51"/>
-<wire x1="0.3175" y1="0" x2="0" y2="0.3175" width="0.2032" layer="51"/>
-<wire x1="0.3175" y1="0" x2="0" y2="-0.3175" width="0.2032" layer="51"/>
-</package>
-<package name="LED_3MM-NS">
-<description>&lt;h3&gt;LED 3MM PTH- No Silk&lt;/h3&gt;
-
-3 mm, round, no silk outline of package
-
-&lt;p&gt;Specifications:
-&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
-&lt;li&gt;Pin pitch: 0.1inch&lt;/li&gt;
-&lt;li&gt;Diameter: 3mm&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-&lt;p&gt;Example device(s):
-&lt;ul&gt;&lt;li&gt;LED&lt;/li&gt;&lt;/ul&gt;</description>
-<wire x1="1.5748" y1="-1.27" x2="1.5748" y2="1.27" width="0.254" layer="51"/>
-<wire x1="0" y1="2.032" x2="1.561" y2="1.3009" width="0.254" layer="51" curve="-50.193108" cap="flat"/>
-<wire x1="-1.7929" y1="0.9562" x2="0" y2="2.032" width="0.254" layer="51" curve="-61.926949" cap="flat"/>
-<wire x1="0" y1="-2.032" x2="1.5512" y2="-1.3126" width="0.254" layer="51" curve="49.763022" cap="flat"/>
-<wire x1="-1.7643" y1="-1.0082" x2="0" y2="-2.032" width="0.254" layer="51" curve="60.255215" cap="flat"/>
-<wire x1="-2.032" y1="0" x2="-1.7891" y2="0.9634" width="0.254" layer="51" curve="-28.301701" cap="flat"/>
-<wire x1="-2.032" y1="0" x2="-1.7306" y2="-1.065" width="0.254" layer="51" curve="31.60822" cap="flat"/>
-<wire x1="1.5748" y1="1.2954" x2="1.5748" y2="0.7874" width="0.254" layer="51"/>
-<wire x1="1.5748" y1="-1.2954" x2="1.5748" y2="-0.8382" width="0.254" layer="51"/>
-<pad name="A" x="-1.27" y="0" drill="0.8128"/>
-<pad name="K" x="1.27" y="0" drill="0.8128"/>
-<text x="0" y="2.286" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
-<text x="0" y="-2.286" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
-<wire x1="1.8923" y1="1.2954" x2="1.8923" y2="0.7874" width="0.254" layer="21"/>
-<wire x1="1.8923" y1="-1.2954" x2="1.8923" y2="-0.8382" width="0.254" layer="21"/>
-</package>
-<package name="LED_5MM-KIT">
-<description>&lt;h3&gt;LED 5mm KIT PTH&lt;/h3&gt;
-&lt;p&gt;
-&lt;b&gt;Warning:&lt;/b&gt; This is the KIT version of this package. This package has a smaller diameter top stop mask, which doesn't cover the diameter of the pad. This means only the bottom side of the pads' copper will be exposed. You'll only be able to solder to the bottom side.&lt;/p&gt;
-
-&lt;p&gt;Specifications:
-&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
-&lt;li&gt;Pin pitch: 0.1inch&lt;/li&gt;
-&lt;li&gt;Diameter: 5mm&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-&lt;p&gt;Example Device:
-&lt;ul&gt;&lt;li&gt;LED&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;</description>
-<wire x1="2.54" y1="-1.905" x2="2.54" y2="1.905" width="0.2032" layer="22"/>
-<wire x1="-1.143" y1="0" x2="0" y2="1.143" width="0.1524" layer="51" curve="-90" cap="flat"/>
-<wire x1="0" y1="-1.143" x2="1.143" y2="0" width="0.1524" layer="51" curve="90" cap="flat"/>
-<wire x1="-1.651" y1="0" x2="0" y2="1.651" width="0.1524" layer="51" curve="-90" cap="flat"/>
-<wire x1="0" y1="-1.651" x2="1.651" y2="0" width="0.1524" layer="51" curve="90" cap="flat"/>
-<wire x1="-2.159" y1="0" x2="0" y2="2.159" width="0.1524" layer="51" curve="-90" cap="flat"/>
-<wire x1="0" y1="-2.159" x2="2.159" y2="0" width="0.1524" layer="51" curve="90" cap="flat"/>
-<pad name="A" x="-1.27" y="0" drill="0.8128" diameter="1.8796" stop="no"/>
-<pad name="K" x="1.27" y="0" drill="0.8128" diameter="1.8796" stop="no"/>
-<text x="0" y="3.3909" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
-<text x="0.0254" y="-3.3909" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
-<polygon width="0.127" layer="30">
-<vertex x="-1.2675" y="-0.9525" curve="-90"/>
-<vertex x="-2.2224" y="-0.0228" curve="-90.011749"/>
-<vertex x="-1.27" y="0.9526" curve="-90"/>
-<vertex x="-0.32" y="-0.0254" curve="-90.024193"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="-1.27" y="-0.4445" curve="-90.012891"/>
-<vertex x="-1.7145" y="-0.0203" curve="-90"/>
-<vertex x="-1.27" y="0.447" curve="-90"/>
-<vertex x="-0.8281" y="-0.0101" curve="-90.012967"/>
-</polygon>
-<polygon width="0.127" layer="30">
-<vertex x="1.2725" y="-0.9525" curve="-90"/>
-<vertex x="0.3176" y="-0.0228" curve="-90.011749"/>
-<vertex x="1.27" y="0.9526" curve="-90"/>
-<vertex x="2.22" y="-0.0254" curve="-90.024193"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="1.27" y="-0.4445" curve="-90.012891"/>
-<vertex x="0.8255" y="-0.0203" curve="-90"/>
-<vertex x="1.27" y="0.447" curve="-90"/>
-<vertex x="1.7119" y="-0.0101" curve="-90.012967"/>
-</polygon>
-<wire x1="2.54" y1="-1.905" x2="2.54" y2="1.905" width="0.2032" layer="21"/>
-<wire x1="2.54" y1="-1.905" x2="2.54" y2="1.905" width="0.254" layer="21" curve="-286.260205" cap="flat"/>
-<circle x="0" y="0" radius="2.54" width="0.1524" layer="21"/>
-<wire x1="2.54" y1="-1.905" x2="2.54" y2="1.905" width="0.2032" layer="51"/>
-</package>
-<package name="LED-1206-BOTTOM">
-<description>&lt;h3&gt;LED 1206 SMT&lt;/h3&gt;
-
-1206, surface mount. 
-
-&lt;p&gt;Specifications:
-&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
-&lt;li&gt;Area: 0.125" x 0.06"&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-&lt;p&gt;Example device(s):
-&lt;ul&gt;&lt;li&gt;LED&lt;/li&gt;&lt;/ul&gt;</description>
-<wire x1="-2" y1="0.4" x2="-2" y2="-0.4" width="0.127" layer="49"/>
-<wire x1="-2.4" y1="0" x2="-1.6" y2="0" width="0.127" layer="49"/>
-<wire x1="1.6" y1="0" x2="2.4" y2="0" width="0.127" layer="49"/>
-<wire x1="-1.27" y1="0" x2="-0.381" y2="0" width="0.127" layer="49"/>
-<wire x1="-0.381" y1="0" x2="-0.381" y2="0.635" width="0.127" layer="49"/>
-<wire x1="-0.381" y1="0.635" x2="0.254" y2="0" width="0.127" layer="49"/>
-<wire x1="0.254" y1="0" x2="-0.381" y2="-0.635" width="0.127" layer="49"/>
-<wire x1="-0.381" y1="-0.635" x2="-0.381" y2="0" width="0.127" layer="49"/>
-<wire x1="0.254" y1="0" x2="0.254" y2="0.635" width="0.127" layer="49"/>
-<wire x1="0.254" y1="0" x2="0.254" y2="-0.635" width="0.127" layer="49"/>
-<wire x1="0.254" y1="0" x2="1.27" y2="0" width="0.127" layer="49"/>
-<rectangle x1="-0.75" y1="-0.75" x2="0.75" y2="0.75" layer="51"/>
-<smd name="A" x="-1.8" y="0" dx="1.5" dy="1.6" layer="1"/>
-<smd name="C" x="1.8" y="0" dx="1.5" dy="1.6" layer="1"/>
-<hole x="0" y="0" drill="2.3"/>
-<polygon width="0" layer="51">
-<vertex x="1.1" y="-0.5"/>
-<vertex x="1.1" y="0.5"/>
-<vertex x="1.6" y="0.5"/>
-<vertex x="1.6" y="0.25" curve="90"/>
-<vertex x="1.4" y="0.05"/>
-<vertex x="1.4" y="-0.05" curve="90"/>
-<vertex x="1.6" y="-0.25"/>
-<vertex x="1.6" y="-0.5"/>
-</polygon>
-<polygon width="0" layer="51">
-<vertex x="-1.1" y="0.5"/>
-<vertex x="-1.1" y="-0.5"/>
-<vertex x="-1.6" y="-0.5"/>
-<vertex x="-1.6" y="-0.25" curve="90"/>
-<vertex x="-1.4" y="-0.05"/>
-<vertex x="-1.4" y="0.05" curve="90"/>
-<vertex x="-1.6" y="0.25"/>
-<vertex x="-1.6" y="0.5"/>
-</polygon>
-<wire x1="2.7686" y1="1.016" x2="2.7686" y2="-1.016" width="0.127" layer="21"/>
-<text x="0" y="1.27" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
-<text x="0" y="-1.27" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
-<wire x1="2.7686" y1="1.016" x2="2.7686" y2="-1.016" width="0.127" layer="22"/>
-</package>
-</packages>
-<symbols>
-<symbol name="LED">
-<description>&lt;h3&gt;LED&lt;/h3&gt;
-&lt;p&gt;&lt;/p&gt;</description>
-<wire x1="1.27" y1="0" x2="0" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="0" y1="-2.54" x2="-1.27" y2="0" width="0.254" layer="94"/>
-<wire x1="1.27" y1="-2.54" x2="0" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="0" y1="-2.54" x2="-1.27" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="1.27" y1="0" x2="-1.27" y2="0" width="0.254" layer="94"/>
-<wire x1="-2.032" y1="-0.762" x2="-3.429" y2="-2.159" width="0.1524" layer="94"/>
-<wire x1="-1.905" y1="-1.905" x2="-3.302" y2="-3.302" width="0.1524" layer="94"/>
-<text x="-3.429" y="-4.572" size="1.778" layer="95" font="vector" rot="R90">&gt;NAME</text>
-<text x="1.905" y="-4.572" size="1.778" layer="96" font="vector" rot="R90" align="top-left">&gt;VALUE</text>
-<pin name="C" x="0" y="-5.08" visible="off" length="short" direction="pas" rot="R90"/>
-<pin name="A" x="0" y="2.54" visible="off" length="short" direction="pas" rot="R270"/>
-<polygon width="0.1524" layer="94">
-<vertex x="-3.429" y="-2.159"/>
-<vertex x="-3.048" y="-1.27"/>
-<vertex x="-2.54" y="-1.778"/>
-</polygon>
-<polygon width="0.1524" layer="94">
-<vertex x="-3.302" y="-3.302"/>
-<vertex x="-2.921" y="-2.413"/>
-<vertex x="-2.413" y="-2.921"/>
-</polygon>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="LED" prefix="D" uservalue="yes">
-<description>&lt;b&gt;LED (Generic)&lt;/b&gt;
-&lt;p&gt;Standard schematic elements and footprints for 5mm, 3mm, 1206, and 0603 sized LEDs. Generic LEDs with no color specified.&lt;/p&gt;</description>
-<gates>
-<gate name="G$1" symbol="LED" x="0" y="0"/>
-</gates>
-<devices>
-<device name="5MM" package="LED_5MM">
-<connects>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="K"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="3MM" package="LED_3MM">
-<connects>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="K"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="DIO-08794" constant="no"/>
-</technology>
-</technologies>
-</device>
-<device name="1206" package="LED-1206">
-<connects>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="C"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="0603" package="LED-0603">
-<connects>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="C"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="10MM" package="LED_10MM">
-<connects>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="C"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="-FKIT-1206" package="FKIT-LED-1206">
-<connects>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="C"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="-3MM-NO_SILK" package="LED_3MM-NS">
-<connects>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="K"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="5MM-KIT" package="LED_5MM-KIT">
-<connects>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="K"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="1206-BOTTOM" package="LED-1206-BOTTOM">
-<connects>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="C"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 </libraries>
 <attributes>
 </attributes>
@@ -3900,36 +3447,12 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="GND22" library="supply1" deviceset="GND" device=""/>
 <part name="GND23" library="supply1" deviceset="GND" device=""/>
 <part name="GND24" library="supply1" deviceset="GND" device=""/>
-<part name="D1" library="SparkFun-LED" deviceset="LED" device="3MM"/>
-<part name="D2" library="SparkFun-LED" deviceset="LED" device="3MM"/>
-<part name="D3" library="SparkFun-LED" deviceset="LED" device="3MM"/>
-<part name="D4" library="SparkFun-LED" deviceset="LED" device="3MM"/>
-<part name="D5" library="SparkFun-LED" deviceset="LED" device="3MM"/>
-<part name="D6" library="SparkFun-LED" deviceset="LED" device="3MM"/>
-<part name="D7" library="SparkFun-LED" deviceset="LED" device="3MM"/>
-<part name="D8" library="SparkFun-LED" deviceset="LED" device="3MM"/>
 <part name="P+5" library="supply1" deviceset="VCC" device=""/>
 <part name="P+7" library="supply1" deviceset="VCC" device=""/>
 <part name="P+17" library="supply1" deviceset="VCC" device=""/>
 <part name="P+18" library="supply1" deviceset="VCC" device=""/>
 <part name="PWR" library="adafruit" deviceset="EG1218" device="S"/>
 <part name="P+1" library="supply1" deviceset="VCC" device=""/>
-<part name="R2" library="SparkFun-Resistors" deviceset="330OHM" device="-HORIZ-1/10W-5%" value="330"/>
-<part name="R3" library="SparkFun-Resistors" deviceset="330OHM" device="-HORIZ-1/10W-5%" value="330"/>
-<part name="R4" library="SparkFun-Resistors" deviceset="330OHM" device="-HORIZ-1/10W-5%" value="330"/>
-<part name="R5" library="SparkFun-Resistors" deviceset="330OHM" device="-HORIZ-1/10W-5%" value="330"/>
-<part name="R6" library="SparkFun-Resistors" deviceset="330OHM" device="-HORIZ-1/10W-5%" value="330"/>
-<part name="R7" library="SparkFun-Resistors" deviceset="330OHM" device="-HORIZ-1/10W-5%" value="330"/>
-<part name="R8" library="SparkFun-Resistors" deviceset="330OHM" device="-HORIZ-1/10W-5%" value="330"/>
-<part name="R9" library="SparkFun-Resistors" deviceset="330OHM" device="-HORIZ-1/10W-5%" value="330"/>
-<part name="GND25" library="supply1" deviceset="GND" device=""/>
-<part name="GND26" library="supply1" deviceset="GND" device=""/>
-<part name="GND27" library="supply1" deviceset="GND" device=""/>
-<part name="GND28" library="supply1" deviceset="GND" device=""/>
-<part name="GND29" library="supply1" deviceset="GND" device=""/>
-<part name="GND30" library="supply1" deviceset="GND" device=""/>
-<part name="GND31" library="supply1" deviceset="GND" device=""/>
-<part name="GND32" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4007,36 +3530,12 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="GND23" gate="1" x="-33.02" y="30.48"/>
 <instance part="IC2" gate="P" x="137.16" y="43.18"/>
 <instance part="GND24" gate="1" x="137.16" y="30.48"/>
-<instance part="D1" gate="G$1" x="195.58" y="149.86" rot="R270"/>
-<instance part="D2" gate="G$1" x="195.58" y="134.62" rot="R270"/>
-<instance part="D3" gate="G$1" x="195.58" y="119.38" rot="R270"/>
-<instance part="D4" gate="G$1" x="195.58" y="106.68" rot="R270"/>
-<instance part="D5" gate="G$1" x="195.58" y="91.44" rot="R270"/>
-<instance part="D6" gate="G$1" x="195.58" y="76.2" rot="R270"/>
-<instance part="D7" gate="G$1" x="195.58" y="60.96" rot="R270"/>
-<instance part="D8" gate="G$1" x="195.58" y="45.72" rot="R270"/>
 <instance part="P+5" gate="VCC" x="-33.02" y="58.42"/>
 <instance part="P+7" gate="VCC" x="-17.78" y="60.96"/>
 <instance part="P+17" gate="VCC" x="116.84" y="60.96"/>
 <instance part="P+18" gate="VCC" x="137.16" y="55.88"/>
 <instance part="PWR" gate="1" x="33.02" y="114.3" rot="R180"/>
 <instance part="P+1" gate="VCC" x="30.48" y="124.46"/>
-<instance part="R2" gate="G$1" x="182.88" y="149.86"/>
-<instance part="R3" gate="G$1" x="182.88" y="134.62"/>
-<instance part="R4" gate="G$1" x="182.88" y="119.38"/>
-<instance part="R5" gate="G$1" x="182.88" y="106.68"/>
-<instance part="R6" gate="G$1" x="182.88" y="91.44"/>
-<instance part="R7" gate="G$1" x="182.88" y="76.2"/>
-<instance part="R8" gate="G$1" x="182.88" y="60.96"/>
-<instance part="R9" gate="G$1" x="182.88" y="45.72"/>
-<instance part="GND25" gate="1" x="172.72" y="45.72" rot="R270"/>
-<instance part="GND26" gate="1" x="172.72" y="60.96" rot="R270"/>
-<instance part="GND27" gate="1" x="172.72" y="76.2" rot="R270"/>
-<instance part="GND28" gate="1" x="172.72" y="91.44" rot="R270"/>
-<instance part="GND29" gate="1" x="172.72" y="106.68" rot="R270"/>
-<instance part="GND30" gate="1" x="172.72" y="119.38" rot="R270"/>
-<instance part="GND31" gate="1" x="172.72" y="134.62" rot="R270"/>
-<instance part="GND32" gate="1" x="172.72" y="149.86" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -4283,46 +3782,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="Q3" gate="G$1" pin="E"/>
 <pinref part="GND9" gate="1" pin="GND"/>
 <wire x1="50.8" y1="-20.32" x2="50.8" y2="-17.78" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="R9" gate="G$1" pin="1"/>
-<pinref part="GND25" gate="1" pin="GND"/>
-<wire x1="175.26" y1="45.72" x2="177.8" y2="45.72" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="R8" gate="G$1" pin="1"/>
-<pinref part="GND26" gate="1" pin="GND"/>
-<wire x1="175.26" y1="60.96" x2="177.8" y2="60.96" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="R7" gate="G$1" pin="1"/>
-<pinref part="GND27" gate="1" pin="GND"/>
-<wire x1="175.26" y1="76.2" x2="177.8" y2="76.2" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="R6" gate="G$1" pin="1"/>
-<pinref part="GND28" gate="1" pin="GND"/>
-<wire x1="175.26" y1="91.44" x2="177.8" y2="91.44" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="R5" gate="G$1" pin="1"/>
-<pinref part="GND29" gate="1" pin="GND"/>
-<wire x1="175.26" y1="106.68" x2="177.8" y2="106.68" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="R4" gate="G$1" pin="1"/>
-<pinref part="GND30" gate="1" pin="GND"/>
-<wire x1="175.26" y1="119.38" x2="177.8" y2="119.38" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="R3" gate="G$1" pin="1"/>
-<pinref part="GND31" gate="1" pin="GND"/>
-<wire x1="175.26" y1="134.62" x2="177.8" y2="134.62" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="R2" gate="G$1" pin="1"/>
-<pinref part="GND32" gate="1" pin="GND"/>
-<wire x1="175.26" y1="149.86" x2="177.8" y2="149.86" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SCK" class="0">
@@ -4764,7 +4223,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S1" gate="1" pin="P"/>
 <junction x="205.74" y="149.86"/>
-<pinref part="D1" gate="G$1" pin="A"/>
 <wire x1="198.12" y1="149.86" x2="205.74" y2="149.86" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -4776,7 +4234,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S2" gate="1" pin="P"/>
 <junction x="205.74" y="134.62"/>
-<pinref part="D2" gate="G$1" pin="A"/>
 <wire x1="198.12" y1="134.62" x2="205.74" y2="134.62" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -4788,7 +4245,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S3" gate="1" pin="P"/>
 <junction x="205.74" y="119.38"/>
-<pinref part="D3" gate="G$1" pin="A"/>
 <wire x1="198.12" y1="119.38" x2="205.74" y2="119.38" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -4800,7 +4256,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S4" gate="1" pin="P"/>
 <junction x="205.74" y="106.68"/>
-<pinref part="D4" gate="G$1" pin="A"/>
 <wire x1="198.12" y1="106.68" x2="205.74" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -4812,7 +4267,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S5" gate="1" pin="P"/>
 <junction x="205.74" y="91.44"/>
-<pinref part="D5" gate="G$1" pin="A"/>
 <wire x1="198.12" y1="91.44" x2="205.74" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -4824,7 +4278,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S7" gate="1" pin="P"/>
 <junction x="205.74" y="60.96"/>
-<pinref part="D7" gate="G$1" pin="A"/>
 <wire x1="198.12" y1="60.96" x2="205.74" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -4836,7 +4289,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S6" gate="1" pin="P"/>
 <junction x="205.74" y="76.2"/>
-<pinref part="D6" gate="G$1" pin="A"/>
 <wire x1="198.12" y1="76.2" x2="205.74" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -4848,7 +4300,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S8" gate="1" pin="P"/>
 <junction x="205.74" y="45.72"/>
-<pinref part="D8" gate="G$1" pin="A"/>
 <wire x1="198.12" y1="45.72" x2="205.74" y2="45.72" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -4883,75 +4334,12 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <junction x="27.94" y="96.52"/>
 </segment>
 </net>
-<net name="N$12" class="0">
-<segment>
-<pinref part="D1" gate="G$1" pin="C"/>
-<pinref part="R2" gate="G$1" pin="2"/>
-<wire x1="187.96" y1="149.86" x2="190.5" y2="149.86" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$13" class="0">
-<segment>
-<pinref part="D2" gate="G$1" pin="C"/>
-<pinref part="R3" gate="G$1" pin="2"/>
-<wire x1="187.96" y1="134.62" x2="190.5" y2="134.62" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$14" class="0">
-<segment>
-<pinref part="D3" gate="G$1" pin="C"/>
-<pinref part="R4" gate="G$1" pin="2"/>
-<wire x1="187.96" y1="119.38" x2="190.5" y2="119.38" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$15" class="0">
-<segment>
-<pinref part="D5" gate="G$1" pin="C"/>
-<pinref part="R6" gate="G$1" pin="2"/>
-<wire x1="187.96" y1="91.44" x2="190.5" y2="91.44" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$17" class="0">
-<segment>
-<pinref part="D6" gate="G$1" pin="C"/>
-<pinref part="R7" gate="G$1" pin="2"/>
-<wire x1="187.96" y1="76.2" x2="190.5" y2="76.2" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$18" class="0">
-<segment>
-<pinref part="D7" gate="G$1" pin="C"/>
-<pinref part="R8" gate="G$1" pin="2"/>
-<wire x1="187.96" y1="60.96" x2="190.5" y2="60.96" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$19" class="0">
-<segment>
-<pinref part="D8" gate="G$1" pin="C"/>
-<pinref part="R9" gate="G$1" pin="2"/>
-<wire x1="187.96" y1="45.72" x2="190.5" y2="45.72" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$20" class="0">
-<segment>
-<pinref part="D4" gate="G$1" pin="C"/>
-<pinref part="R5" gate="G$1" pin="2"/>
-<wire x1="187.96" y1="106.68" x2="190.5" y2="106.68" width="0.1524" layer="91"/>
-</segment>
-</net>
 </nets>
 </sheet>
 </sheets>
 <errors>
-<approved hash="102,1,0,83.82,12V,9V,,,,"/>
-<approved hash="102,1,-33.02,53.34,12V,9V,,,,"/>
-<approved hash="102,1,-17.78,60.96,12V,9V,,,,"/>
-<approved hash="102,1,137.16,53.34,12V,9V,,,,"/>
-<approved hash="102,1,116.84,60.96,12V,9V,,,,"/>
 <approved hash="104,1,-33.02,35.56,IC1P,VSS,GND,,,"/>
-<approved hash="104,1,-33.02,50.8,IC1P,VDD,9V,,,"/>
 <approved hash="104,1,137.16,35.56,IC2P,VSS,GND,,,"/>
-<approved hash="104,1,137.16,50.8,IC2P,VDD,9V,,,"/>
 <approved hash="113,1,20.32,91.9226,U1,,,,,"/>
 <approved hash="113,1,210.82,153.281,S1,,,,,"/>
 <approved hash="113,1,210.82,138.041,S2,,,,,"/>
@@ -4961,12 +4349,22 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <approved hash="113,1,210.82,79.6205,S6,,,,,"/>
 <approved hash="113,1,210.82,64.3805,S7,,,,,"/>
 <approved hash="113,1,210.82,49.1405,S8,,,,,"/>
-<approved hash="115,1,12.7,111.76,MOSI,,,,,"/>
 <approved hash="115,1,116.84,96.52,MOSI,,,,,"/>
-<approved hash="115,1,101.6,99.06,HUNDREDS_ENABLE,,,,,"/>
-<approved hash="115,1,-15.24,-27.94,HUNDREDS_ENABLE,,,,,"/>
-<approved hash="115,1,76.2,68.58,BUZZ,,,,,"/>
-<approved hash="115,1,119.38,68.58,BUZZ,,,,,"/>
+<approved hash="115,1,160.02,25.4,SCORE_A,,,,,"/>
+<approved hash="115,1,129.54,27.94,SCORE_A,,,,,"/>
+<approved hash="115,1,157.48,25.4,SCORE_B,,,,,"/>
+<approved hash="115,1,127,27.94,SCORE_B,,,,,"/>
+<approved hash="115,1,154.94,25.4,SCORE_C,,,,,"/>
+<approved hash="115,1,124.46,27.94,SCORE_C,,,,,"/>
+<approved hash="115,1,152.4,25.4,SCORE_D,,,,,"/>
+<approved hash="115,1,121.92,27.94,SCORE_D,,,,,"/>
+<approved hash="115,1,149.86,25.4,SCORE_E,,,,,"/>
+<approved hash="115,1,119.38,27.94,SCORE_E,,,,,"/>
+<approved hash="115,1,147.32,25.4,SCORE_F,,,,,"/>
+<approved hash="115,1,116.84,27.94,SCORE_F,,,,,"/>
+<approved hash="115,1,144.78,25.4,SCORE_G,,,,,"/>
+<approved hash="115,1,114.3,27.94,SCORE_G,,,,,"/>
+<approved hash="115,1,110.49,91.44,SCK,,,,,"/>
 <approved hash="115,1,101.6,149.86,IA,,,,,"/>
 <approved hash="115,1,-5.08,55.88,IA,,,,,"/>
 <approved hash="115,1,101.6,147.32,IB,,,,,"/>
@@ -4975,28 +4373,18 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <approved hash="115,1,-10.16,55.88,IC,,,,,"/>
 <approved hash="115,1,101.6,142.24,ID,,,,,"/>
 <approved hash="115,1,-12.7,55.88,ID,,,,,"/>
-<approved hash="115,1,-15.24,111.76,SCK,,,,,"/>
-<approved hash="115,1,110.49,91.44,SCK,,,,,"/>
-<approved hash="115,1,101.6,104.14,ONES_ENABLE,,,,,"/>
-<approved hash="115,1,40.64,-27.94,ONES_ENABLE,,,,,"/>
-<approved hash="115,1,101.6,137.16,SCORE_ONES_ENABLE,,,,,"/>
-<approved hash="115,1,149.86,-27.94,SCORE_ONES_ENABLE,,,,,"/>
-<approved hash="115,1,205.74,149.86,S0,,,,,"/>
+<approved hash="115,1,76.2,68.58,BUZZ,,,,,"/>
+<approved hash="115,1,119.38,68.58,BUZZ,,,,,"/>
+<approved hash="115,1,54.61,149.86,RST,,,,,"/>
 <approved hash="115,1,101.6,127,S0,,,,,"/>
-<approved hash="115,1,205.74,134.62,S1,,,,,"/>
 <approved hash="115,1,101.6,124.46,S1,,,,,"/>
-<approved hash="115,1,205.74,119.38,S2,,,,,"/>
 <approved hash="115,1,101.6,121.92,S2,,,,,"/>
-<approved hash="115,1,205.74,106.68,S3,,,,,"/>
 <approved hash="115,1,101.6,119.38,S3,,,,,"/>
-<approved hash="115,1,205.74,91.44,S4,,,,,"/>
 <approved hash="115,1,101.6,116.84,S4,,,,,"/>
-<approved hash="115,1,205.74,76.2,S5,,,,,"/>
 <approved hash="115,1,101.6,114.3,S5,,,,,"/>
-<approved hash="115,1,205.74,60.96,S6,,,,,"/>
 <approved hash="115,1,101.6,111.76,S6,,,,,"/>
-<approved hash="115,1,205.74,45.72,S7,,,,,"/>
 <approved hash="115,1,101.6,109.22,S7,,,,,"/>
+<approved hash="115,1,101.6,99.06,HUNDREDS_ENABLE,,,,,"/>
 <approved hash="115,1,50.8,25.4,NUM_A,,,,,"/>
 <approved hash="115,1,22.86,25.4,NUM_A,,,,,"/>
 <approved hash="115,1,-5.08,27.94,NUM_A,,,,,"/>
@@ -5009,37 +4397,20 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <approved hash="115,1,43.18,25.4,NUM_D,,,,,"/>
 <approved hash="115,1,15.24,25.4,NUM_D,,,,,"/>
 <approved hash="115,1,-12.7,27.94,NUM_D,,,,,"/>
-<approved hash="115,1,160.02,25.4,SCORE_A,,,,,"/>
-<approved hash="115,1,129.54,27.94,SCORE_A,,,,,"/>
 <approved hash="115,1,40.64,25.4,NUM_E,,,,,"/>
 <approved hash="115,1,12.7,25.4,NUM_E,,,,,"/>
 <approved hash="115,1,-15.24,27.94,NUM_E,,,,,"/>
-<approved hash="115,1,101.6,101.6,TENS_ENABLE,,,,,"/>
-<approved hash="115,1,12.7,-27.94,TENS_ENABLE,,,,,"/>
-<approved hash="115,1,157.48,25.4,SCORE_B,,,,,"/>
-<approved hash="115,1,127,27.94,SCORE_B,,,,,"/>
 <approved hash="115,1,38.1,25.4,NUM_F,,,,,"/>
 <approved hash="115,1,10.16,25.4,NUM_F,,,,,"/>
 <approved hash="115,1,-17.78,27.94,NUM_F,,,,,"/>
-<approved hash="115,1,154.94,25.4,SCORE_C,,,,,"/>
-<approved hash="115,1,124.46,27.94,SCORE_C,,,,,"/>
-<approved hash="115,1,101.6,139.7,SCORE_TENS_ENABLE,,,,,"/>
-<approved hash="115,1,119.38,-27.94,SCORE_TENS_ENABLE,,,,,"/>
 <approved hash="115,1,35.56,25.4,NUM_G,,,,,"/>
 <approved hash="115,1,7.62,25.4,NUM_G,,,,,"/>
 <approved hash="115,1,-20.32,27.94,NUM_G,,,,,"/>
-<approved hash="115,1,152.4,25.4,SCORE_D,,,,,"/>
-<approved hash="115,1,121.92,27.94,SCORE_D,,,,,"/>
-<approved hash="115,1,149.86,25.4,SCORE_E,,,,,"/>
-<approved hash="115,1,119.38,27.94,SCORE_E,,,,,"/>
-<approved hash="115,1,147.32,25.4,SCORE_F,,,,,"/>
-<approved hash="115,1,116.84,27.94,SCORE_F,,,,,"/>
-<approved hash="115,1,144.78,25.4,SCORE_G,,,,,"/>
-<approved hash="115,1,114.3,27.94,SCORE_G,,,,,"/>
-<approved hash="115,1,-15.24,114.3,MISO,,,,,"/>
+<approved hash="115,1,101.6,104.14,ONES_ENABLE,,,,,"/>
+<approved hash="115,1,101.6,101.6,TENS_ENABLE,,,,,"/>
 <approved hash="115,1,114.3,93.98,MISO,,,,,"/>
-<approved hash="115,1,-15.24,109.22,RST,,,,,"/>
-<approved hash="115,1,54.61,149.86,RST,,,,,"/>
+<approved hash="115,1,101.6,137.16,SCORE_ONES_ENABLE,,,,,"/>
+<approved hash="115,1,101.6,139.7,SCORE_TENS_ENABLE,,,,,"/>
 </errors>
 </schematic>
 </drawing>

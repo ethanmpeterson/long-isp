@@ -1,0 +1,291 @@
+# NetScript
+# 
+# Exported from shem.sch at 2018-06-10 8:17 PM
+# 
+# EAGLE Version 8.0.2 Copyright (c) 1988-2017 Autodesk, Inc.
+# 
+Change Class 0;
+Signal '9V'       'C1'       '1' \
+                  'J1'       'PWR' \
+                  'U1'       'IN' \
+                  ;
+Change Class 0;
+Signal 'BUZZ'     'LS1'      '+' \
+                  'U3'       '4' \
+                  ;
+Change Class 0;
+Signal 'GND'      'C1'       '2' \
+                  'C2'       '2' \
+                  'C3'       '2' \
+                  'C4'       '1' \
+                  'IC1'      '5' \
+                  'IC1'      '8' \
+                  'IC2'      '5' \
+                  'IC2'      '8' \
+                  'ISP1'     '6' \
+                  'J1'       'GND' \
+                  'J1'       'GNDBREAK' \
+                  'LS1'      '-' \
+                  'Q1'       '3' \
+                  'Q2'       '3' \
+                  'Q3'       '3' \
+                  'Q4'       '3' \
+                  'Q5'       '3' \
+                  'S1'       'O' \
+                  'S2'       'O' \
+                  'S3'       'O' \
+                  'S4'       'O' \
+                  'S5'       'O' \
+                  'S6'       'O' \
+                  'S7'       'O' \
+                  'S8'       'O' \
+                  'U1'       'GND' \
+                  'U2'       '22' \
+                  'U2'       '8' \
+                  'U3'       '13' \
+                  'U3'       '8' \
+                  ;
+Change Class 0;
+Signal 'HUNDREDS_ENABLE' 'Q1'       '2' \
+                  'U2'       '16' \
+                  ;
+Change Class 0;
+Signal 'IA'       'IC1'      '7' \
+                  'U2'       '23' \
+                  ;
+Change Class 0;
+Signal 'IB'       'IC1'      '1' \
+                  'U2'       '24' \
+                  ;
+Change Class 0;
+Signal 'IC'       'IC1'      '2' \
+                  'U2'       '25' \
+                  ;
+Change Class 0;
+Signal 'ID'       'IC1'      '6' \
+                  'U2'       '26' \
+                  ;
+Change Class 0;
+Signal 'MISO'     'ISP1'     '1' \
+                  'U2'       '18' \
+                  'U3'       '11' \
+                  ;
+Change Class 0;
+Signal 'MOSI'     'ISP1'     '4' \
+                  'U2'       '17' \
+                  'U3'       '14' \
+                  ;
+Change Class 0;
+Signal 'N$1'      'C2'       '1' \
+                  'PWR'      'S' \
+                  'U1'       'OUT' \
+                  ;
+Change Class 0;
+Signal 'N$2'      'C3'       '1' \
+                  'U2'       '10' \
+                  'Y1'       '1' \
+                  ;
+Change Class 0;
+Signal 'N$3'      'C4'       '2' \
+                  'U2'       '9' \
+                  'Y1'       '2' \
+                  ;
+Change Class 0;
+Signal 'N$4'      'DIS1'     '3' \
+                  'DIS1'     '8' \
+                  'Q1'       '1' \
+                  ;
+Change Class 0;
+Signal 'N$5'      'IC2'      '7' \
+                  'U3'       '15' \
+                  ;
+Change Class 0;
+Signal 'N$6'      'DIS2'     '3' \
+                  'DIS2'     '8' \
+                  'Q2'       '1' \
+                  ;
+Change Class 0;
+Signal 'N$7'      'IC2'      '1' \
+                  'U3'       '1' \
+                  ;
+Change Class 0;
+Signal 'N$8'      'DIS3'     '3' \
+                  'DIS3'     '8' \
+                  'Q3'       '1' \
+                  ;
+Change Class 0;
+Signal 'N$9'      'IC2'      '2' \
+                  'U3'       '2' \
+                  ;
+Change Class 0;
+Signal 'N$10'     'IC2'      '6' \
+                  'U3'       '3' \
+                  ;
+Change Class 0;
+Signal 'N$11'     'DIS4'     '3' \
+                  'DIS4'     '8' \
+                  'Q4'       '1' \
+                  ;
+Change Class 0;
+Signal 'N$16'     'DIS5'     '3' \
+                  'DIS5'     '8' \
+                  'Q5'       '1' \
+                  ;
+Change Class 0;
+Signal 'NUM_A'    'DIS1'     '7' \
+                  'DIS2'     '7' \
+                  'DIS3'     '7' \
+                  'IC1'      '13' \
+                  ;
+Change Class 0;
+Signal 'NUM_B'    'DIS1'     '6' \
+                  'DIS2'     '6' \
+                  'DIS3'     '6' \
+                  'IC1'      '12' \
+                  ;
+Change Class 0;
+Signal 'NUM_C'    'DIS1'     '4' \
+                  'DIS2'     '4' \
+                  'DIS3'     '4' \
+                  'IC1'      '11' \
+                  ;
+Change Class 0;
+Signal 'NUM_D'    'DIS1'     '2' \
+                  'DIS2'     '2' \
+                  'DIS3'     '2' \
+                  'IC1'      '10' \
+                  ;
+Change Class 0;
+Signal 'NUM_E'    'DIS1'     '1' \
+                  'DIS2'     '1' \
+                  'DIS3'     '1' \
+                  'IC1'      '9' \
+                  ;
+Change Class 0;
+Signal 'NUM_F'    'DIS1'     '9' \
+                  'DIS2'     '9' \
+                  'DIS3'     '9' \
+                  'IC1'      '15' \
+                  ;
+Change Class 0;
+Signal 'NUM_G'    'DIS1'     '10' \
+                  'DIS2'     '10' \
+                  'DIS3'     '10' \
+                  'IC1'      '14' \
+                  ;
+Change Class 0;
+Signal 'ONES_ENABLE' 'Q3'       '2' \
+                  'U2'       '14' \
+                  ;
+Change Class 0;
+Signal 'RST'      'ISP1'     '5' \
+                  'R1'       'P$1' \
+                  'U2'       '1' \
+                  ;
+Change Class 0;
+Signal 'S0'       'S1'       'P' \
+                  'U2'       '2' \
+                  ;
+Change Class 0;
+Signal 'S1'       'S2'       'P' \
+                  'U2'       '3' \
+                  ;
+Change Class 0;
+Signal 'S2'       'S3'       'P' \
+                  'U2'       '4' \
+                  ;
+Change Class 0;
+Signal 'S3'       'S4'       'P' \
+                  'U2'       '5' \
+                  ;
+Change Class 0;
+Signal 'S4'       'S5'       'P' \
+                  'U2'       '6' \
+                  ;
+Change Class 0;
+Signal 'S5'       'S6'       'P' \
+                  'U2'       '11' \
+                  ;
+Change Class 0;
+Signal 'S6'       'S7'       'P' \
+                  'U2'       '12' \
+                  ;
+Change Class 0;
+Signal 'S7'       'S8'       'P' \
+                  'U2'       '13' \
+                  ;
+Change Class 0;
+Signal 'SCK'      'ISP1'     '3' \
+                  'U2'       '19' \
+                  'U3'       '12' \
+                  ;
+Change Class 0;
+Signal 'SCORE_A'  'DIS4'     '7' \
+                  'DIS5'     '7' \
+                  'IC2'      '13' \
+                  ;
+Change Class 0;
+Signal 'SCORE_B'  'DIS4'     '6' \
+                  'DIS5'     '6' \
+                  'IC2'      '12' \
+                  ;
+Change Class 0;
+Signal 'SCORE_C'  'DIS4'     '4' \
+                  'DIS5'     '4' \
+                  'IC2'      '11' \
+                  ;
+Change Class 0;
+Signal 'SCORE_D'  'DIS4'     '2' \
+                  'DIS5'     '2' \
+                  'IC2'      '10' \
+                  ;
+Change Class 0;
+Signal 'SCORE_E'  'DIS4'     '1' \
+                  'DIS5'     '1' \
+                  'IC2'      '9' \
+                  ;
+Change Class 0;
+Signal 'SCORE_F'  'DIS4'     '9' \
+                  'DIS5'     '9' \
+                  'IC2'      '15' \
+                  ;
+Change Class 0;
+Signal 'SCORE_G'  'DIS4'     '10' \
+                  'DIS5'     '10' \
+                  'IC2'      '14' \
+                  ;
+Change Class 0;
+Signal 'SCORE_ONES_ENABLE' 'Q4'       '2' \
+                  'U2'       '28' \
+                  ;
+Change Class 0;
+Signal 'SCORE_TENS_ENABLE' 'Q5'       '2' \
+                  'U2'       '27' \
+                  ;
+Change Class 0;
+Signal 'TENS_ENABLE' 'Q2'       '2' \
+                  'U2'       '15' \
+                  ;
+Change Class 0;
+Signal 'VCC'      'IC1'      '16' \
+                  'IC1'      '3' \
+                  'IC1'      '4' \
+                  'IC2'      '16' \
+                  'IC2'      '3' \
+                  'IC2'      '4' \
+                  'ISP1'     '2' \
+                  'PWR'      'P' \
+                  'R1'       'P$2' \
+                  'S1'       'S' \
+                  'S2'       'S' \
+                  'S3'       'S' \
+                  'S4'       'S' \
+                  'S5'       'S' \
+                  'S6'       'S' \
+                  'S7'       'S' \
+                  'S8'       'S' \
+                  'U2'       '20' \
+                  'U2'       '7' \
+                  'U3'       '10' \
+                  'U3'       '16' \
+                  ;

@@ -4659,6 +4659,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S1" gate="1" pin="P"/>
 <junction x="205.74" y="149.86"/>
+<pinref part="D1" gate="G$1" pin="A"/>
+<wire x1="198.12" y1="149.86" x2="205.74" y2="149.86" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="S1" class="0">
@@ -4669,6 +4671,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S2" gate="1" pin="P"/>
 <junction x="205.74" y="134.62"/>
+<pinref part="D2" gate="G$1" pin="A"/>
+<wire x1="198.12" y1="134.62" x2="205.74" y2="134.62" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="S2" class="0">
@@ -4679,6 +4683,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S3" gate="1" pin="P"/>
 <junction x="205.74" y="119.38"/>
+<pinref part="D3" gate="G$1" pin="A"/>
+<wire x1="198.12" y1="119.38" x2="205.74" y2="119.38" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="S3" class="0">
@@ -4689,6 +4695,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S4" gate="1" pin="P"/>
 <junction x="205.74" y="106.68"/>
+<pinref part="D4" gate="G$1" pin="A"/>
+<wire x1="198.12" y1="106.68" x2="205.74" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="S4" class="0">
@@ -4699,6 +4707,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S5" gate="1" pin="P"/>
 <junction x="205.74" y="91.44"/>
+<pinref part="D5" gate="G$1" pin="A"/>
+<wire x1="198.12" y1="91.44" x2="205.74" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="S6" class="0">
@@ -4709,6 +4719,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S7" gate="1" pin="P"/>
 <junction x="205.74" y="60.96"/>
+<pinref part="D7" gate="G$1" pin="A"/>
+<wire x1="198.12" y1="60.96" x2="205.74" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="S5" class="0">
@@ -4719,6 +4731,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S6" gate="1" pin="P"/>
 <junction x="205.74" y="76.2"/>
+<pinref part="D6" gate="G$1" pin="A"/>
+<wire x1="198.12" y1="76.2" x2="205.74" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="S7" class="0">
@@ -4729,6 +4743,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S8" gate="1" pin="P"/>
 <junction x="205.74" y="45.72"/>
+<pinref part="D8" gate="G$1" pin="A"/>
+<wire x1="198.12" y1="45.72" x2="205.74" y2="45.72" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="BUZZ" class="0">
@@ -4766,15 +4782,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </sheet>
 </sheets>
 <errors>
-<approved hash="102,1,0,83.82,12V,9V,,,,"/>
-<approved hash="102,1,-33.02,53.34,12V,9V,,,,"/>
-<approved hash="102,1,-17.78,60.96,12V,9V,,,,"/>
-<approved hash="102,1,137.16,53.34,12V,9V,,,,"/>
-<approved hash="102,1,116.84,60.96,12V,9V,,,,"/>
 <approved hash="104,1,-33.02,35.56,IC1P,VSS,GND,,,"/>
-<approved hash="104,1,-33.02,50.8,IC1P,VDD,9V,,,"/>
 <approved hash="104,1,137.16,35.56,IC2P,VSS,GND,,,"/>
-<approved hash="104,1,137.16,50.8,IC2P,VDD,9V,,,"/>
 <approved hash="113,1,20.32,91.9226,U1,,,,,"/>
 <approved hash="113,1,210.82,153.281,S1,,,,,"/>
 <approved hash="113,1,210.82,138.041,S2,,,,,"/>
@@ -4784,12 +4793,22 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <approved hash="113,1,210.82,79.6205,S6,,,,,"/>
 <approved hash="113,1,210.82,64.3805,S7,,,,,"/>
 <approved hash="113,1,210.82,49.1405,S8,,,,,"/>
-<approved hash="115,1,12.7,111.76,MOSI,,,,,"/>
 <approved hash="115,1,116.84,96.52,MOSI,,,,,"/>
-<approved hash="115,1,101.6,99.06,HUNDREDS_ENABLE,,,,,"/>
-<approved hash="115,1,-15.24,-27.94,HUNDREDS_ENABLE,,,,,"/>
-<approved hash="115,1,76.2,68.58,BUZZ,,,,,"/>
-<approved hash="115,1,119.38,68.58,BUZZ,,,,,"/>
+<approved hash="115,1,160.02,25.4,SCORE_A,,,,,"/>
+<approved hash="115,1,129.54,27.94,SCORE_A,,,,,"/>
+<approved hash="115,1,157.48,25.4,SCORE_B,,,,,"/>
+<approved hash="115,1,127,27.94,SCORE_B,,,,,"/>
+<approved hash="115,1,154.94,25.4,SCORE_C,,,,,"/>
+<approved hash="115,1,124.46,27.94,SCORE_C,,,,,"/>
+<approved hash="115,1,152.4,25.4,SCORE_D,,,,,"/>
+<approved hash="115,1,121.92,27.94,SCORE_D,,,,,"/>
+<approved hash="115,1,149.86,25.4,SCORE_E,,,,,"/>
+<approved hash="115,1,119.38,27.94,SCORE_E,,,,,"/>
+<approved hash="115,1,147.32,25.4,SCORE_F,,,,,"/>
+<approved hash="115,1,116.84,27.94,SCORE_F,,,,,"/>
+<approved hash="115,1,144.78,25.4,SCORE_G,,,,,"/>
+<approved hash="115,1,114.3,27.94,SCORE_G,,,,,"/>
+<approved hash="115,1,110.49,91.44,SCK,,,,,"/>
 <approved hash="115,1,101.6,149.86,IA,,,,,"/>
 <approved hash="115,1,-5.08,55.88,IA,,,,,"/>
 <approved hash="115,1,101.6,147.32,IB,,,,,"/>
@@ -4798,28 +4817,18 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <approved hash="115,1,-10.16,55.88,IC,,,,,"/>
 <approved hash="115,1,101.6,142.24,ID,,,,,"/>
 <approved hash="115,1,-12.7,55.88,ID,,,,,"/>
-<approved hash="115,1,-15.24,111.76,SCK,,,,,"/>
-<approved hash="115,1,110.49,91.44,SCK,,,,,"/>
-<approved hash="115,1,101.6,104.14,ONES_ENABLE,,,,,"/>
-<approved hash="115,1,40.64,-27.94,ONES_ENABLE,,,,,"/>
-<approved hash="115,1,101.6,137.16,SCORE_ONES_ENABLE,,,,,"/>
-<approved hash="115,1,149.86,-27.94,SCORE_ONES_ENABLE,,,,,"/>
-<approved hash="115,1,205.74,149.86,S0,,,,,"/>
+<approved hash="115,1,76.2,68.58,BUZZ,,,,,"/>
+<approved hash="115,1,119.38,68.58,BUZZ,,,,,"/>
+<approved hash="115,1,54.61,149.86,RST,,,,,"/>
 <approved hash="115,1,101.6,127,S0,,,,,"/>
-<approved hash="115,1,205.74,134.62,S1,,,,,"/>
 <approved hash="115,1,101.6,124.46,S1,,,,,"/>
-<approved hash="115,1,205.74,119.38,S2,,,,,"/>
 <approved hash="115,1,101.6,121.92,S2,,,,,"/>
-<approved hash="115,1,205.74,106.68,S3,,,,,"/>
 <approved hash="115,1,101.6,119.38,S3,,,,,"/>
-<approved hash="115,1,205.74,91.44,S4,,,,,"/>
 <approved hash="115,1,101.6,116.84,S4,,,,,"/>
-<approved hash="115,1,205.74,76.2,S5,,,,,"/>
 <approved hash="115,1,101.6,114.3,S5,,,,,"/>
-<approved hash="115,1,205.74,60.96,S6,,,,,"/>
 <approved hash="115,1,101.6,111.76,S6,,,,,"/>
-<approved hash="115,1,205.74,45.72,S7,,,,,"/>
 <approved hash="115,1,101.6,109.22,S7,,,,,"/>
+<approved hash="115,1,101.6,99.06,HUNDREDS_ENABLE,,,,,"/>
 <approved hash="115,1,50.8,25.4,NUM_A,,,,,"/>
 <approved hash="115,1,22.86,25.4,NUM_A,,,,,"/>
 <approved hash="115,1,-5.08,27.94,NUM_A,,,,,"/>
@@ -4832,37 +4841,20 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <approved hash="115,1,43.18,25.4,NUM_D,,,,,"/>
 <approved hash="115,1,15.24,25.4,NUM_D,,,,,"/>
 <approved hash="115,1,-12.7,27.94,NUM_D,,,,,"/>
-<approved hash="115,1,160.02,25.4,SCORE_A,,,,,"/>
-<approved hash="115,1,129.54,27.94,SCORE_A,,,,,"/>
 <approved hash="115,1,40.64,25.4,NUM_E,,,,,"/>
 <approved hash="115,1,12.7,25.4,NUM_E,,,,,"/>
 <approved hash="115,1,-15.24,27.94,NUM_E,,,,,"/>
-<approved hash="115,1,101.6,101.6,TENS_ENABLE,,,,,"/>
-<approved hash="115,1,12.7,-27.94,TENS_ENABLE,,,,,"/>
-<approved hash="115,1,157.48,25.4,SCORE_B,,,,,"/>
-<approved hash="115,1,127,27.94,SCORE_B,,,,,"/>
 <approved hash="115,1,38.1,25.4,NUM_F,,,,,"/>
 <approved hash="115,1,10.16,25.4,NUM_F,,,,,"/>
 <approved hash="115,1,-17.78,27.94,NUM_F,,,,,"/>
-<approved hash="115,1,154.94,25.4,SCORE_C,,,,,"/>
-<approved hash="115,1,124.46,27.94,SCORE_C,,,,,"/>
-<approved hash="115,1,101.6,139.7,SCORE_TENS_ENABLE,,,,,"/>
-<approved hash="115,1,119.38,-27.94,SCORE_TENS_ENABLE,,,,,"/>
 <approved hash="115,1,35.56,25.4,NUM_G,,,,,"/>
 <approved hash="115,1,7.62,25.4,NUM_G,,,,,"/>
 <approved hash="115,1,-20.32,27.94,NUM_G,,,,,"/>
-<approved hash="115,1,152.4,25.4,SCORE_D,,,,,"/>
-<approved hash="115,1,121.92,27.94,SCORE_D,,,,,"/>
-<approved hash="115,1,149.86,25.4,SCORE_E,,,,,"/>
-<approved hash="115,1,119.38,27.94,SCORE_E,,,,,"/>
-<approved hash="115,1,147.32,25.4,SCORE_F,,,,,"/>
-<approved hash="115,1,116.84,27.94,SCORE_F,,,,,"/>
-<approved hash="115,1,144.78,25.4,SCORE_G,,,,,"/>
-<approved hash="115,1,114.3,27.94,SCORE_G,,,,,"/>
-<approved hash="115,1,-15.24,114.3,MISO,,,,,"/>
+<approved hash="115,1,101.6,104.14,ONES_ENABLE,,,,,"/>
+<approved hash="115,1,101.6,101.6,TENS_ENABLE,,,,,"/>
 <approved hash="115,1,114.3,93.98,MISO,,,,,"/>
-<approved hash="115,1,-15.24,109.22,RST,,,,,"/>
-<approved hash="115,1,54.61,149.86,RST,,,,,"/>
+<approved hash="115,1,101.6,137.16,SCORE_ONES_ENABLE,,,,,"/>
+<approved hash="115,1,101.6,139.7,SCORE_TENS_ENABLE,,,,,"/>
 </errors>
 </schematic>
 </drawing>
